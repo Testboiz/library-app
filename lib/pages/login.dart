@@ -7,10 +7,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
 
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         child: TextFormField(
                           autofocus: true,
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         child: TextFormField(
                           autofillHints: const [AutofillHints.password],

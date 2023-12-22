@@ -6,10 +6,10 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Image.asset(
                     'assests/Icons/logo.png',
                     width: 40,
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text('README.BOOK', style: headlineXSmall),
+                const Text('README.BOOK', style: headlineXSmall),
               ],
             ),
           ],
@@ -61,11 +61,11 @@ class _HomePageState extends State<HomePage> {
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 247, 187, 122)),
+                      const Color.fromARGB(255, 247, 187, 122)),
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.fromLTRB(8, 0, 17, 0)),
-                  fixedSize: MaterialStateProperty.all(Size(100, 32))),
-              child: Row(
+                      const EdgeInsets.fromLTRB(8, 0, 17, 0)),
+                  fixedSize: MaterialStateProperty.all(const Size(100, 32))),
+              child: const Row(
                 children: [
                   Icon(
                     Icons.person,
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                     size: 22,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: EdgeInsets.only(left: 8.0),
                     child: Text(
                       "Sign In",
                       style: TextStyle(
@@ -279,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 52, 39, 67),
+                            color: const Color.fromARGB(255, 52, 39, 67),
                             boxShadow: const [
                               BoxShadow(
                                 color: primaryBackground,
@@ -308,32 +308,32 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: Row(
                                             children: [
                                               Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: categoryColor,
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 20))),
-                                                child: Padding(
+                                                child: const Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
+                                                      EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
                                                   child: Text(
                                                     'Genre',
@@ -351,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),

@@ -8,10 +8,10 @@ class MemberPageWidget extends StatefulWidget {
   const MemberPageWidget({Key? key}) : super(key: key);
 
   @override
-  _MemberPageWidgetState createState() => _MemberPageWidgetState();
+  MemberPageWidgetState createState() => MemberPageWidgetState();
 }
 
-class _MemberPageWidgetState extends State<MemberPageWidget> {
+class MemberPageWidgetState extends State<MemberPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,7 +40,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Image.asset(
                     'assests/Icons/logo.png',
                     width: 40,
@@ -48,7 +48,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text('README.BOOK', style: headlineXSmall),
+                const Text('README.BOOK', style: headlineXSmall),
               ],
             ),
           ],
@@ -207,7 +207,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                                      builder: (context) => const HomePage()));
                             },
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all(
@@ -277,32 +277,32 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: Row(
                                             children: [
                                               Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: categoryColor,
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 20))),
-                                                child: Padding(
+                                                child: const Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
+                                                      EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
                                                   child: Text(
                                                     'Genre',
@@ -320,7 +320,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
