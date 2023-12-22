@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/model/admin.dart';
+import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/home.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/pages/member_home.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AdminHomePage(),
     );
   }
 }

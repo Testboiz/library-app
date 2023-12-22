@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Colors....
@@ -11,6 +10,8 @@ const primary = Color.fromARGB(255, 37, 27, 64);
 const categoryColor = Color.fromARGB(255, 75, 57, 239);
 const error = Color.fromARGB(255, 255, 89, 100);
 const tertiary = Color.fromARGB(255, 238, 138, 96);
+const cardColor = Color(0xFF342743);
+const warning = Color(0xFFF9CF58);
 
 // Text Style....
 
@@ -42,6 +43,12 @@ const labelMedium = TextStyle(
 const bodyMedium = TextStyle(
   color: Color.fromARGB(255, 255, 255, 255),
   fontSize: 14,
+  fontFamily: "Readex",
+  fontWeight: FontWeight.w500,
+);
+const bodyLarge = TextStyle(
+  color: Color.fromARGB(255, 255, 255, 255),
+  fontSize: 16,
   fontFamily: "Readex",
   fontWeight: FontWeight.w500,
 );

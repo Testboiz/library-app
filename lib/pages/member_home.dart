@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/home.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:library_app/widgets/book_card.dart';
+import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/widgets/member_card.dart';
 
 class MemberPageWidget extends StatefulWidget {
@@ -186,53 +188,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                     ],
                   ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 35,
-                  decoration: const BoxDecoration(
-                    color: Color(0x0014181B),
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()));
-                            },
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsetsDirectional.fromSTEB(
-                                    24, 0, 24, 0),
-                              ),
-                              backgroundColor:
-                                  MaterialStateProperty.all(categoryColor),
-                              elevation: MaterialStateProperty.all(3),
-                              shape: MaterialStateProperty.all(
-                                ContinuousRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                              ),
-                            ),
-                            child: const Text(
-                              'All',
-                              style: titleSmall,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                const Category(),
                 Container(
                   width: 370,
                   height: 317,
@@ -242,110 +198,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 8),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: secondaryBackground,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: primaryBackground,
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(18),
-                            border: Border.all(
-                              color: secondaryBackground,
-                              width: 0,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                12, 8, 12, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                    'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-                                    width: 105,
-                                    height: 135,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Nama Buku',
-                                          style: headlineSmall,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: categoryColor,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          8.0, 2, 8, 2),
-                                                  child: Text(
-                                                    'Genre',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 255, 255, 255),
-                                                      fontSize: 12,
-                                                      fontFamily: "Readex",
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: SelectionArea(
-                                              child: Text(
-                                            'Deskripsi... ',
-                                            textAlign: TextAlign.start,
-                                            maxLines: 3,
-                                            style: labelMedium,
-                                          )),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_right_rounded,
-                                  color: secondaryText,
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      BookCard(parent: "member"),
                     ],
                   ),
                 ),

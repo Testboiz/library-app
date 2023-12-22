@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/login.dart';
 
 class SigninPage extends StatefulWidget {
@@ -452,7 +453,10 @@ class _SigninPageState extends State<SigninPage> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 16),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const AdminHomePage()));
+                          },
                           style: ButtonStyle(
                             fixedSize:
                                 MaterialStateProperty.all(const Size(230, 52)),
