@@ -219,8 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const MemberPageWidget()));
+                                builder: (context) => const MemberPage()));
                           },
                           style: ButtonStyle(
                             fixedSize:

@@ -12,6 +12,7 @@ const error = Color.fromARGB(255, 255, 89, 100);
 const tertiary = Color.fromARGB(255, 238, 138, 96);
 const cardColor = Color(0xFF342743);
 const warning = Color(0xFFF9CF58);
+const bg3 = Color(0xB2262D34);
 
 // Text Style....
 

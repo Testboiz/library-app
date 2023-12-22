@@ -16,7 +16,6 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
-    print(widget.parent);
     if (widget.parent == "home") {
       return GestureDetector(
         onTap: () {
@@ -388,18 +387,15 @@ class _BookCardState extends State<BookCard> {
         ),
       );
     } else {
-      return GestureDetector(
-        onLongPress: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const HomePage()));
-        },
-        onTap: () {
-          showModalBottomSheet(
+      if (widget.parent == "member") {
+        return GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
               context: context,
               builder: (context) {
                 return Container(
                   width: double.infinity,
-                  height: 430,
+                  height: 350,
                   decoration: const BoxDecoration(
                     color: secondaryBackground,
                     boxShadow: [
@@ -478,51 +474,16 @@ class _BookCardState extends State<BookCard> {
                                     side: MaterialStateProperty.all(
                                       const BorderSide(
                                         width: 2,
-                                        color: warning,
+                                        color: Colors.white,
                                       ),
                                     ),
                                     backgroundColor: MaterialStateProperty.all(
                                         primaryBackground),
                                   ),
                                   child: const Text(
-                                    'Update Book Information',
+                                    'Pinjam buku ini',
                                     style: TextStyle(
-                                      color: warning,
-                                      fontSize: 16,
-                                      fontFamily: "Readex",
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 16, 0, 0),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    fixedSize: MaterialStateProperty.all(
-                                      const Size(double.infinity, 60),
-                                    ),
-                                    side: MaterialStateProperty.all(
-                                      const BorderSide(
-                                        width: 2,
-                                        color: error,
-                                      ),
-                                    ),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        primaryBackground),
-                                  ),
-                                  child: const Text(
-                                    'Member ini',
-                                    style: TextStyle(
-                                      color: error,
+                                      color: Colors.white,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,
@@ -568,29 +529,32 @@ class _BookCardState extends State<BookCard> {
                     ),
                   ),
                 );
-              });
-        },
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
-          child: Container(
-            width: 209,
-            height: 139,
-            decoration: BoxDecoration(
-              color: const Color(0xFF342743),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://picsum.photos/seed/628/600',
-                width: 280,
-                height: 136,
-                fit: BoxFit.cover,
+              },
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
+            child: Container(
+              width: 209,
+              height: 139,
+              decoration: BoxDecoration(
+                color: const Color(0xFF342743),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://picsum.photos/seed/628/600',
+                  width: 280,
+                  height: 136,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
+      }
+      return Text("no more book");
     }
   }
 }

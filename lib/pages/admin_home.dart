@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/pages/home.dart';
+import 'package:library_app/pages/detail.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/book_card.dart';
 import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/widgets/kategori_text.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -32,6 +31,7 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
       key: scaffoldKey,
       backgroundColor: secondaryText,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF251B40),
         title: Row(
           mainAxisSize: MainAxisSize.max,
@@ -191,7 +191,7 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
+                            builder: (context) => const DetailPage()));
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

@@ -134,7 +134,9 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const BookOfTheWeekCard(),
+                const BookOfTheWeekCard(
+                  parent: "home",
+                ),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
                   child: Row(
