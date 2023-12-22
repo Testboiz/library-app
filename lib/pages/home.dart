@@ -4,7 +4,6 @@ import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/book_card.dart';
 import 'package:library_app/widgets/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/widgets/kategori_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -175,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                         childAspectRatio: 0.83,
                       ),
                       scrollDirection: Axis.vertical,
-                      children: [
+                      children: const [
                         BookCard(parent: "home"),
                       ],
                     ),

@@ -18,7 +18,7 @@ class _DetailPageState extends State<DetailPage> {
       backgroundColor: const Color(0xFF342743),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_left_rounded,
             color: Colors.white,
             size: 30,
