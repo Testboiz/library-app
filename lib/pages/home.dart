@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:library_app/item-generators/book_card.dart';
+import 'package:library_app/item-generators/book_on_the_week_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -165,6 +167,7 @@ class HomePageState extends State<HomePage> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
+                                    // book image (but on the week)
                                     child: Image.network(
                                       'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
                                       width: double.infinity,
@@ -178,6 +181,7 @@ class HomePageState extends State<HomePage> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        // book name
                                         Text(
                                           'NamaBukubg.',
                                           style: TextStyle(
@@ -196,6 +200,8 @@ class HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
+                        //testing bang
+                        const BookOfTheWeek(judul: "buku"),
                       ],
                     ),
                   ),
@@ -238,6 +244,7 @@ class HomePageState extends State<HomePage> {
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                           child: ElevatedButton(
+                            // add event bang nanti
                             onPressed: () {},
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all(
@@ -249,7 +256,7 @@ class HomePageState extends State<HomePage> {
                               elevation: MaterialStateProperty.all(3),
                             ),
                             child: const Text(
-                              // Kategory class
+                              // Kategory class, mungkin genre nanti?
                               'All',
                               style: TextStyle(
                                 color: Colors.white,
@@ -299,6 +306,7 @@ class HomePageState extends State<HomePage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  // book cover image bang
                                   child: Image.network(
                                     'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
                                     width: 105,
@@ -314,6 +322,7 @@ class HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        // nama buku
                                         const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
@@ -335,6 +344,7 @@ class HomePageState extends State<HomePage> {
                                                   padding:
                                                       EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
+                                                  // genre taruh sini
                                                   child: Text(
                                                     'Genre',
                                                     style: TextStyle(
@@ -356,6 +366,7 @@ class HomePageState extends State<HomePage> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: SelectionArea(
+                                            // Deskripsi (harus pake overflow)
                                               child: Text(
                                             'Deskripsi... ',
                                             textAlign: TextAlign.start,
@@ -377,6 +388,8 @@ class HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      // testing bang
+                    const BookCard(judul: "hello", deskripsi: "lorem ipsum"),
                     ],
                   ),
                 ),

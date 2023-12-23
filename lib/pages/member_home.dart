@@ -130,6 +130,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
+                                    // book of the week image (cover)
                                     child: Image.network(
                                       'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
                                       width: double.infinity,
@@ -143,6 +144,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        // book name
                                         Text(
                                           'NamaBukubg.',
                                           style: TextStyle(
@@ -268,6 +270,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  // book cover
                                   child: Image.network(
                                     'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
                                     width: 105,
@@ -283,6 +286,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        // book name
                                         const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
@@ -304,6 +308,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                                                   padding:
                                                       EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
+                                                  // genre
                                                   child: Text(
                                                     'Genre',
                                                     style: TextStyle(
@@ -325,6 +330,7 @@ class MemberPageWidgetState extends State<MemberPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: SelectionArea(
+                                            // description (make overflow)
                                               child: Text(
                                             'Deskripsi... ',
                                             textAlign: TextAlign.start,
