@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:library_app/item-generators/book_card.dart';
+import 'package:library_app/item-generators/book_on_the_week_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Image.asset(
                     'assests/Icons/logo.png',
                     width: 40,
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text('README.BOOK', style: headlineXSmall),
+                const Text('README.BOOK', style: headlineXSmall),
               ],
             ),
           ],
@@ -61,11 +63,11 @@ class _HomePageState extends State<HomePage> {
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 247, 187, 122)),
+                      const Color.fromARGB(255, 247, 187, 122)),
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.fromLTRB(8, 0, 17, 0)),
-                  fixedSize: MaterialStateProperty.all(Size(100, 32))),
-              child: Row(
+                      const EdgeInsets.fromLTRB(8, 0, 17, 0)),
+                  fixedSize: MaterialStateProperty.all(const Size(100, 32))),
+              child: const Row(
                 children: [
                   Icon(
                     Icons.person,
@@ -73,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     size: 22,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: EdgeInsets.only(left: 8.0),
                     child: Text(
                       "Sign In",
                       style: TextStyle(
@@ -165,6 +167,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
+                                    // book image (but on the week)
                                     child: Image.network(
                                       'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
                                       width: double.infinity,
@@ -178,6 +181,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        // book name
                                         Text(
                                           'NamaBukubg.',
                                           style: TextStyle(
@@ -196,6 +200,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
+                        //testing bang
+                        const BookOfTheWeek(judul: "buku"),
                       ],
                     ),
                   ),
@@ -238,6 +244,7 @@ class _HomePageState extends State<HomePage> {
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                           child: ElevatedButton(
+                            // add event bang nanti
                             onPressed: () {},
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all(
@@ -249,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                               elevation: MaterialStateProperty.all(3),
                             ),
                             child: const Text(
-                              // Kategory class
+                              // Kategory class, mungkin genre nanti?
                               'All',
                               style: TextStyle(
                                 color: Colors.white,
@@ -279,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 52, 39, 67),
+                            color: const Color.fromARGB(255, 52, 39, 67),
                             boxShadow: const [
                               BoxShadow(
                                 color: primaryBackground,
@@ -299,6 +306,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  // book cover image bang
                                   child: Image.network(
                                     'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
                                     width: 105,
@@ -308,33 +316,35 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        // nama buku
+                                        const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: Row(
                                             children: [
                                               Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: categoryColor,
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 20))),
-                                                child: Padding(
+                                                child: const Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
+                                                      EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
+                                                  // genre taruh sini
                                                   child: Text(
                                                     'Genre',
                                                     style: TextStyle(
@@ -351,11 +361,12 @@ class _HomePageState extends State<HomePage> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: SelectionArea(
+                                            // Deskripsi (harus pake overflow)
                                               child: Text(
                                             'Deskripsi... ',
                                             textAlign: TextAlign.start,
@@ -377,6 +388,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      // testing bang
+                    const BookCard(judul: "hello", deskripsi: "lorem ipsum"),
                     ],
                   ),
                 ),

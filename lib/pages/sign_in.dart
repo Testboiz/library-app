@@ -6,10 +6,10 @@ class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
 
   @override
-  _SigninPageState createState() => _SigninPageState();
+  SigninPageState createState() => SigninPageState();
 }
 
-class _SigninPageState extends State<SigninPage> {
+class SigninPageState extends State<SigninPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
   bool isHideConfirm = true;
@@ -110,11 +110,11 @@ class _SigninPageState extends State<SigninPage> {
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 0, 6, 16),
-                                      child: Container(
+                                      child: SizedBox(
                                         width: 196.3,
                                         child: TextFormField(
                                           autofocus: true,
-                                          autofillHints: [AutofillHints.email],
+                                          autofillHints: const [AutofillHints.email],
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'First Name',
@@ -174,11 +174,11 @@ class _SigninPageState extends State<SigninPage> {
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(6, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             autofocus: true,
-                                            autofillHints: [
+                                            autofillHints: const [
                                               AutofillHints.email
                                             ],
                                             obscureText: false,
@@ -238,7 +238,7 @@ class _SigninPageState extends State<SigninPage> {
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 0, 14),
-                            child: Container(
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 autofocus: true,
@@ -287,7 +287,7 @@ class _SigninPageState extends State<SigninPage> {
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 0, 14),
-                            child: Container(
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 autofillHints: const [AutofillHints.password],
@@ -347,7 +347,7 @@ class _SigninPageState extends State<SigninPage> {
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 0, 4),
-                            child: Container(
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 autofillHints: const [AutofillHints.password],

@@ -8,10 +8,10 @@ class MemberPageWidget extends StatefulWidget {
   const MemberPageWidget({Key? key}) : super(key: key);
 
   @override
-  _MemberPageWidgetState createState() => _MemberPageWidgetState();
+  MemberPageWidgetState createState() => MemberPageWidgetState();
 }
 
-class _MemberPageWidgetState extends State<MemberPageWidget> {
+class MemberPageWidgetState extends State<MemberPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,7 +40,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Image.asset(
                     'assests/Icons/logo.png',
                     width: 40,
@@ -48,7 +48,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text('README.BOOK', style: headlineXSmall),
+                const Text('README.BOOK', style: headlineXSmall),
               ],
             ),
           ],
@@ -130,6 +130,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
+                                    // book of the week image (cover)
                                     child: Image.network(
                                       'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
                                       width: double.infinity,
@@ -143,6 +144,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        // book name
                                         Text(
                                           'NamaBukubg.',
                                           style: TextStyle(
@@ -207,7 +209,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                                      builder: (context) => const HomePage()));
                             },
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all(
@@ -268,6 +270,7 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  // book cover
                                   child: Image.network(
                                     'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
                                     width: 105,
@@ -277,33 +280,35 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        // book name
+                                        const Text(
                                           'Nama Buku',
                                           style: headlineSmall,
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: Row(
                                             children: [
                                               Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: categoryColor,
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 20))),
-                                                child: Padding(
+                                                child: const Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
+                                                      EdgeInsets.fromLTRB(
                                                           8.0, 2, 8, 2),
+                                                  // genre
                                                   child: Text(
                                                     'Genre',
                                                     style: TextStyle(
@@ -320,11 +325,12 @@ class _MemberPageWidgetState extends State<MemberPageWidget> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: SelectionArea(
+                                            // description (make overflow)
                                               child: Text(
                                             'Deskripsi... ',
                                             textAlign: TextAlign.start,
