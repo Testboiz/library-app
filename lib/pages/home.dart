@@ -135,7 +135,7 @@ class HomePageState extends State<HomePage> {
                 ),
                 const BookOfTheWeekCard(
                   parent: "home",
-                  judul: 'hai',
+                  
                 ),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
@@ -178,7 +178,7 @@ class HomePageState extends State<HomePage> {
                       children: const [
                         BookCard(
                           parent: "home",
-                          judul: 'hai',
+                          
                         ),
                       ],
                     ),

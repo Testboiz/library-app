@@ -241,7 +241,6 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
                     children: const [
                       BookCard(
                         parent: "admin",
-                        judul: 'hai',
                       ),
                     ],
                   ),
