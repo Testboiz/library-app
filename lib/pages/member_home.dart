@@ -9,12 +9,10 @@ class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
 
   @override
-  MemberPageWidgetState createState() => MemberPageWidgetState();
+  MemberPageState createState() => MemberPageState();
 }
 
-
-class _MemberPageWidgetState extends State<MemberPage> {
-
+class MemberPageState extends State<MemberPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -90,7 +88,6 @@ class _MemberPageWidgetState extends State<MemberPage> {
                         fontFamily: "Readex",
                         fontWeight: FontWeight.w500,
                       ),
-
                     ),
                     Text(
                       'of the week !',
@@ -99,7 +96,10 @@ class _MemberPageWidgetState extends State<MemberPage> {
                   ],
                 ),
               ),
-              BookOfTheWeekCard(parent: "member"),
+              BookOfTheWeekCard(
+                parent: "member",
+                judul: "Heloo",
+              ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -153,9 +153,8 @@ class _MemberPageWidgetState extends State<MemberPage> {
                       childAspectRatio: 0.83,
                     ),
                     scrollDirection: Axis.vertical,
-
                     children: const [
-                      BookCard(parent: "member"),
+                      BookCard(parent: "member", judul: "hello"),
                     ],
                   ),
                 ),

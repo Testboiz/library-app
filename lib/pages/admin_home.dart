@@ -239,7 +239,10 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
                     ),
                     scrollDirection: Axis.vertical,
                     children: const [
-                      BookCard(parent: "admin"),
+                      BookCard(
+                        parent: "admin",
+                        judul: 'hai',
+                      ),
                     ],
                   ),
                 ),

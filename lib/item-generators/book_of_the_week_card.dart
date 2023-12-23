@@ -4,8 +4,11 @@ import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
 class BookOfTheWeekCard extends StatefulWidget {
-  const BookOfTheWeekCard({super.key, required this.parent});
+  const BookOfTheWeekCard(
+      {super.key, required this.parent, required this.judul, this.imagePath});
   final String parent;
+  final String judul;
+  final String? imagePath;
 
   @override
   State<BookOfTheWeekCard> createState() => _BookOfTheWeekCardState();
@@ -57,7 +60,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
@@ -66,7 +69,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Judul Buku bang....',
+                                    widget.judul,
                                     maxLines: 2,
                                     style: bodyMedium,
                                   ),
@@ -200,13 +203,13 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'NamaBukubg.',
+                                  widget.judul,
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,
@@ -270,7 +273,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            const Expanded(
+                            Expanded(
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
@@ -279,7 +282,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Judul Buku bang....',
+                                      widget.judul,
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
@@ -417,13 +420,13 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'NamaBukubg.',
+                                  widget.judul,
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,

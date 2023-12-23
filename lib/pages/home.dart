@@ -5,7 +5,6 @@ import 'package:library_app/widgets/book_card.dart';
 import 'package:library_app/widgets/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -134,9 +133,9 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-
                 const BookOfTheWeekCard(
                   parent: "home",
+                  judul: 'hai',
                 ),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
@@ -177,7 +176,10 @@ class HomePageState extends State<HomePage> {
                       ),
                       scrollDirection: Axis.vertical,
                       children: const [
-                        BookCard(parent: "home"),
+                        BookCard(
+                          parent: "home",
+                          judul: 'hai',
+                        ),
                       ],
                     ),
                   ),
