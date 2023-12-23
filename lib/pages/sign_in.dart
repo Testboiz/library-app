@@ -7,10 +7,10 @@ class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
 
   @override
-  _SigninPageState createState() => _SigninPageState();
+  SigninPageState createState() => SigninPageState();
 }
 
-class _SigninPageState extends State<SigninPage> {
+class SigninPageState extends State<SigninPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
   bool isHideConfirm = true;
@@ -115,7 +115,7 @@ class _SigninPageState extends State<SigninPage> {
                                           width: 196.3,
                                           child: TextFormField(
                                             autofocus: true,
-                                            autofillHints: [
+                                            autofillHints: const [
                                               AutofillHints.email
                                             ],
                                             obscureText: false,

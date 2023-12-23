@@ -9,10 +9,12 @@ class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
 
   @override
-  _MemberPageWidgetState createState() => _MemberPageWidgetState();
+  MemberPageWidgetState createState() => MemberPageWidgetState();
 }
 
+
 class _MemberPageWidgetState extends State<MemberPage> {
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -41,7 +43,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Image.asset(
                     'assests/Icons/logo.png',
                     width: 40,
@@ -49,7 +51,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text('README.BOOK', style: headlineXSmall),
+                const Text('README.BOOK', style: headlineXSmall),
               ],
             ),
           ],
@@ -88,6 +90,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
                         fontFamily: "Readex",
                         fontWeight: FontWeight.w500,
                       ),
+
                     ),
                     Text(
                       'of the week !',
@@ -150,6 +153,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
                       childAspectRatio: 0.83,
                     ),
                     scrollDirection: Axis.vertical,
+
                     children: const [
                       BookCard(parent: "member"),
                     ],

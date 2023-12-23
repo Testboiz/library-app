@@ -5,14 +5,15 @@ import 'package:library_app/widgets/book_card.dart';
 import 'package:library_app/widgets/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -133,6 +134,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+
                 const BookOfTheWeekCard(
                   parent: "home",
                 ),
