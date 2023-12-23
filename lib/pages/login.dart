@@ -35,7 +35,7 @@ class LoginPageState extends State<LoginPage> {
           children: [
             Container(
               width: double.infinity,
-              height: 370,
+              height: 303,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -219,8 +219,7 @@ class LoginPageState extends State<LoginPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const MemberPageWidget()));
+                                builder: (context) => const MemberPage()));
                           },
                           style: ButtonStyle(
                             fixedSize:
@@ -247,8 +246,24 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 40,
+                      )),
+                )
+              ],
+            ),
             const SizedBox(
-              height: 70,
+              height: 20,
             ),
             const Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),

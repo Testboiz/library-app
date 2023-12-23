@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/item-generators/book_on_the_week_card.dart';
+import 'package:library_app/widgets/book_card.dart';
+import 'package:library_app/widgets/book_of_the_week_card.dart';
+import 'package:library_app/widgets/kategori.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -132,79 +134,9 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Container(
-                  height: 240,
-                  constraints: const BoxConstraints(
-                    maxHeight: 205,
-                  ),
-                  decoration: const BoxDecoration(),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 10, 0, 0),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0, 12, 8, 12),
-                          child: Container(
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF342743),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 7,
-                                  color: Color(0x2F1D2429),
-                                  offset: Offset(0, 3),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    // book image (but on the week)
-                                    child: Image.network(
-                                      'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                                      width: double.infinity,
-                                      height: 114,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 0, 8),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        // book name
-                                        Text(
-                                          'NamaBukubg.',
-                                          style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 111, 111, 111),
-                                            fontSize: 12,
-                                            fontFamily: "Readex",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        //testing bang
-                        const BookOfTheWeek(judul: "buku"),
-                      ],
-                    ),
-                  ),
+
+                const BookOfTheWeekCard(
+                  parent: "home",
                 ),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
@@ -227,170 +159,27 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 35,
-                  decoration: const BoxDecoration(
-                    color: Color(0x0014181B),
-                  ),
+                const Category(),
+                const SizedBox(
+                  height: 15,
+                ),
+                Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: ListView(
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                    child: GridView(
                       padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
-                          child: ElevatedButton(
-                            // add event bang nanti
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsetsDirectional.fromSTEB(
-                                    24, 0, 24, 0),
-                              ),
-                              backgroundColor:
-                                  MaterialStateProperty.all(categoryColor),
-                              elevation: MaterialStateProperty.all(3),
-                            ),
-                            child: const Text(
-                              // Kategory class, mungkin genre nanti?
-                              'All',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: "Readex",
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.83,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      children: const [
+                        BookCard(parent: "home"),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  width: 370,
-                  height: 317,
-                  decoration: const BoxDecoration(),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 8),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 52, 39, 67),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: primaryBackground,
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(18),
-                            border: Border.all(
-                              color: secondaryBackground,
-                              width: 0,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                12, 8, 12, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  // book cover image bang
-                                  child: Image.network(
-                                    'https://images.unsplash.com/photo-1624026676760-53603406ac94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8d2FyZWhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-                                    width: 105,
-                                    height: 135,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // nama buku
-                                        const Text(
-                                          'Nama Buku',
-                                          style: headlineSmall,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                decoration: const BoxDecoration(
-                                                    color: categoryColor,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                child: const Padding(
-                                                  padding:
-                                                      EdgeInsets.fromLTRB(
-                                                          8.0, 2, 8, 2),
-                                                  // genre taruh sini
-                                                  child: Text(
-                                                    'Genre',
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 255, 255, 255),
-                                                      fontSize: 12,
-                                                      fontFamily: "Readex",
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: SelectionArea(
-                                            // Deskripsi (harus pake overflow)
-                                              child: Text(
-                                            'Deskripsi... ',
-                                            textAlign: TextAlign.start,
-                                            maxLines: 3,
-                                            style: labelMedium,
-                                          )),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_right_rounded,
-                                  color: secondaryText,
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      // testing bang
-                    const BookCard(judul: "hello", deskripsi: "lorem ipsum"),
-                    ],
                   ),
                 ),
               ],
