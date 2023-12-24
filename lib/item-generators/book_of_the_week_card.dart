@@ -5,9 +5,10 @@ import 'package:library_app/widgets/kategori_text.dart';
 
 class BookOfTheWeekCard extends StatefulWidget {
   const BookOfTheWeekCard(
-      {super.key, required this.parent, required this.judul, this.imagePath});
+      {super.key, required this.parent, required this.judul,required this.sinopsis ,this.imagePath});
   final String parent;
   final String judul;
+  final String sinopsis;
   final String? imagePath;
 
   @override
@@ -53,8 +54,9 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://picsum.photos/seed/512/600',
+                            // thumbnail pic
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
                               width: 107,
                               height: 152,
                               fit: BoxFit.cover,
@@ -71,6 +73,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   Text(
                                     widget.judul,
                                     maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: bodyMedium,
                                   ),
                                   const Padding(
@@ -78,8 +81,9 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                         0, 6, 0, 10),
                                     child: KategoriText(),
                                   ),
-                                  const Text(
-                                    'Sinopsis',
+                                  // sinopsis
+                                  Text(
+                                    widget.sinopsis,
                                     maxLines: 4,
                                     style: bodyMedium,
                                   ),
@@ -196,10 +200,11 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                              width: double.infinity,
-                              height: 114,
+                            // thumbnail pic
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -266,12 +271,13 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/512/600',
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
-                              ),
+                              // image
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
+                              fit: BoxFit.cover,
+                            ),
                             ),
                             Expanded(
                               child: Padding(
@@ -291,8 +297,9 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
-                                    const Text(
-                                      'Sinopsis',
+                                    // sinopsis
+                                    Text(
+                                      widget.sinopsis,
                                       maxLines: 4,
                                       style: bodyMedium,
                                     ),
@@ -413,10 +420,10 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                              width: double.infinity,
-                              height: 114,
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
                               fit: BoxFit.cover,
                             ),
                           ),

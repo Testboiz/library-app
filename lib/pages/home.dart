@@ -4,6 +4,8 @@ import 'package:library_app/pages/login.dart';
 import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
+import 'package:library_app/db-handler/sqlite_handler.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,6 +25,38 @@ class HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<List<BookOfTheWeekCard>> generateBookOfTheWeekCardFromDB() async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.rawQuery(
+        'SELECT * FROM buku');
+
+    return List.generate(
+      dataList.length,
+      (index) => BookOfTheWeekCard(
+        parent: "home",
+        judul: dataList[index]["judul"] as String,
+        sinopsis:dataList[index]["sinopsis"] as String,
+        imagePath: dataList[index]["foto_sampul"] as String,
+      ),
+    );
+  }
+
+  Future<List<BookCard>> generateBookCardFromDB() async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.rawQuery(
+        'SELECT * FROM buku');
+
+    return List.generate(
+      dataList.length,
+      (index) => BookCard(
+        parent: "home",
+        judul: dataList[index]["judul"] as String,
+        sinopsis:dataList[index]["sinopsis"] as String,
+        imagePath: dataList[index]["foto_sampul"] as String,
+      ),
+    );
   }
 
   @override
@@ -136,7 +170,16 @@ class HomePageState extends State<HomePage> {
                 const BookOfTheWeekCard(
                   parent: "home",
                   judul: "hi",
+                  sinopsis: "hello",
                 ),
+                const BookOfTheWeekCard(
+                  parent: "home",
+                  judul: "hi2",
+                  sinopsis: "hello2",
+                  imagePath: "assests/Icons/logo with bg.png",
+                ),
+                // kaming sun
+                // ListView(),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
                   child: Row(
@@ -176,7 +219,8 @@ class HomePageState extends State<HomePage> {
                       ),
                       scrollDirection: Axis.vertical,
                       children: const [
-                        BookCard(parent: "home", judul: "hi",),
+                        BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                        BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
                       ],
                     ),
                   ),

@@ -8,11 +8,13 @@ import '../constants/costum_color.dart';
 class BookCard extends StatefulWidget {
   final String parent;
   final String judul;
+  final String sinopsis;
   final String? imagePath;
   const BookCard({
     super.key,
     required this.parent,
     required this.judul,
+    required this.sinopsis,
     this.imagePath,
   });
 
@@ -59,8 +61,8 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/512/600',
+                              child: Image.asset(
+                                widget.imagePath ?? "assests/Icons/logo.png",
                                 width: 107,
                                 height: 152,
                                 fit: BoxFit.cover,
@@ -82,12 +84,13 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(),
+                                      child: KategoriText(namaGenre: "Kategori1"),
                                     ),
-                                    const Text(
-                                      'Sinopsis',
+                                    Text(
+                                      widget.sinopsis,
                                       maxLines: 4,
                                       style: bodyMedium,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
                                 ),
@@ -183,10 +186,10 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://picsum.photos/seed/628/600',
-                width: 280,
-                height: 136,
+              child: Image.asset(
+                widget.imagePath ?? "assests/Icons/logo.png",
+                width: 107,
+                height: 152,
                 fit: BoxFit.cover,
               ),
             ),
@@ -229,8 +232,8 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/512/600',
+                              child: Image.asset(
+                                widget.imagePath ?? "assests/Icons/logo.png",
                                 width: 107,
                                 height: 152,
                                 fit: BoxFit.cover,
@@ -252,12 +255,13 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(),
+                                      child: KategoriText(namaGenre: "kategori2",),
                                     ),
-                                    const Text(
-                                      'Sinopsis',
+                                    Text(
+                                      widget.sinopsis,
                                       maxLines: 4,
                                       style: bodyMedium,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
                                 ),
@@ -383,10 +387,10 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://picsum.photos/seed/628/600',
-                width: 280,
-                height: 136,
+              child: Image.asset(
+                widget.imagePath ?? "assests/Icons/logo.png",
+                width: 107,
+                height: 152,
                 fit: BoxFit.cover,
               ),
             ),
@@ -430,8 +434,8 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/512/600',
+                              child: Image.asset(
+                                widget.imagePath ?? "assests/Icons/logo.png",
                                 width: 107,
                                 height: 152,
                                 fit: BoxFit.cover,
@@ -453,12 +457,13 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(),
+                                      child: KategoriText(namaGenre: "kategori3",),
                                     ),
-                                    const Text(
-                                      'Sinopsis',
+                                    Text(
+                                      widget.sinopsis,
                                       maxLines: 4,
                                       style: bodyMedium,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
                                 ),
@@ -550,10 +555,10 @@ class _BookCardState extends State<BookCard> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://picsum.photos/seed/628/600',
-                  width: 280,
-                  height: 136,
+                child: Image.asset(
+                  widget.imagePath ?? "assests/Icons/logo.png",
+                  width: 107,
+                  height: 152,
                   fit: BoxFit.cover,
                 ),
               ),
