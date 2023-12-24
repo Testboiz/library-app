@@ -33,7 +33,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
           'Profile',
           style: headlineXSmall,
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0,
       ),

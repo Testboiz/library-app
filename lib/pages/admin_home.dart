@@ -11,10 +11,10 @@ class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
 
   @override
-  _AdminHomePageWidgetState createState() => _AdminHomePageWidgetState();
+  AdminHomePageWidgetState createState() => AdminHomePageWidgetState();
 }
 
-class _AdminHomePageWidgetState extends State<AdminHomePage> {
+class AdminHomePageWidgetState extends State<AdminHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -279,11 +279,11 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: ListView(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
                       AdminMemberCard(nama: "nama", pass: "pass"),
                       AdminMemberCard(nama: "nama", pass: "pass"),
                       AdminMemberCard(nama: "nama", pass: "pass"),

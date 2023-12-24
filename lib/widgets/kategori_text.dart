@@ -15,8 +15,8 @@ class _KategoriTextState extends State<KategoriText> {
       decoration: const BoxDecoration(
           color: categoryColor,
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 2, 8, 2),
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(8.0, 2, 8, 2),
         child: Text(
           'Genre',
           style: TextStyle(

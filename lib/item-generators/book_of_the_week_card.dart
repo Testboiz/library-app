@@ -63,7 +63,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           Expanded(
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,12 +73,12 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     maxLines: 2,
                                     style: bodyMedium,
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 6, 0, 10),
                                     child: KategoriText(),
                                   ),
-                                  Text(
+                                  const Text(
                                     'Sinopsis',
                                     maxLines: 4,
                                     style: bodyMedium,
@@ -204,13 +204,13 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
                                   widget.judul,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,
                                     fontFamily: "Readex",
@@ -276,7 +276,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             Expanded(
                               child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,12 +286,12 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
-                                    Text(
+                                    const Text(
                                       'Sinopsis',
                                       maxLines: 4,
                                       style: bodyMedium,
@@ -421,13 +421,13 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
                                   widget.judul,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,
                                     fontFamily: "Readex",
