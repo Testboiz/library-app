@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:library_app/widgets/book_card.dart';
-import 'package:library_app/widgets/book_of_the_week_card.dart';
+import 'package:library_app/item-generators/book_card.dart';
+import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 
 class HomePage extends StatefulWidget {

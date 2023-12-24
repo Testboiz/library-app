@@ -68,8 +68,8 @@ class _BookCardState extends State<BookCard> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,12 +79,12 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
-                                    Text(
+                                    const Text(
                                       'Sinopsis',
                                       maxLines: 4,
                                       style: bodyMedium,
@@ -238,8 +238,8 @@ class _BookCardState extends State<BookCard> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,12 +249,12 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
-                                    Text(
+                                    const Text(
                                       'Sinopsis',
                                       maxLines: 4,
                                       style: bodyMedium,
@@ -439,8 +439,8 @@ class _BookCardState extends State<BookCard> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,12 +450,12 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
-                                    Text(
+                                    const Text(
                                       'Sinopsis',
                                       maxLines: 4,
                                       style: bodyMedium,
@@ -561,7 +561,7 @@ class _BookCardState extends State<BookCard> {
           ),
         );
       }
-      return Text("no more book");
+      return const Text("no more book");
     }
   }
 }
