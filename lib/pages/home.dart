@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
-<<<<<<< HEAD
-import 'package:library_app/widgets/book_card.dart';
-// import 'package:library_app/widgets/book_of_the_week_card.dart';
-=======
 import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/item-generators/book_of_the_week_card.dart';
->>>>>>> b02296b1f5c587a536a63f0d2b777051c1f758c3
 import 'package:library_app/widgets/kategori.dart';
 
 class HomePage extends StatefulWidget {
@@ -140,6 +135,7 @@ class HomePageState extends State<HomePage> {
                 ),
                 const BookOfTheWeekCard(
                   parent: "home",
+                  judul: "hi",
                 ),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
@@ -180,7 +176,7 @@ class HomePageState extends State<HomePage> {
                       ),
                       scrollDirection: Axis.vertical,
                       children: const [
-                        BookCard(parent: "home"),
+                        BookCard(parent: "home", judul: "hi",),
                       ],
                     ),
                   ),

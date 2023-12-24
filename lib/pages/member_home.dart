@@ -97,7 +97,8 @@ class MemberPageState extends State<MemberPage> {
                 ),
               ),
               const BookOfTheWeekCard(
-                parent: "member"
+                parent: "member",
+                judul: "hi",
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
@@ -153,7 +154,7 @@ class MemberPageState extends State<MemberPage> {
                     ),
                     scrollDirection: Axis.vertical,
                     children: const [
-                      BookCard(parent: "member",),
+                      BookCard(parent: "member", judul: "hi",),
                     ],
                   ),
                 ),
