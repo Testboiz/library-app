@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/pages/detail.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:library_app/widgets/book_card.dart';
+import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/widgets/kategori.dart';
+import 'package:library_app/item-generators/member_card.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
 
   @override
-  _AdminHomePageWidgetState createState() => _AdminHomePageWidgetState();
+  AdminHomePageWidgetState createState() => AdminHomePageWidgetState();
 }
 
-class _AdminHomePageWidgetState extends State<AdminHomePage> {
+class AdminHomePageWidgetState extends State<AdminHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -80,155 +82,160 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
         ),
         elevation: 2,
       ),
-      body: SafeArea(
-        top: true,
-        child: Container(
-          width: MediaQuery.sizeOf(context).width,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF241243),
-                primaryBackground,
-              ],
-              stops: [0, 0.6],
-              begin: AlignmentDirectional(-0.87, -1),
-              end: AlignmentDirectional(0.87, 1),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          top: true,
+          child: Container(
+            width: MediaQuery.sizeOf(context).width,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF241243),
+                  primaryBackground,
+                ],
+                stops: [0, 0.6],
+                begin: AlignmentDirectional(-0.87, -1),
+                end: AlignmentDirectional(0.87, 1),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Cate',
-                          style: TextStyle(
-                            fontFamily: 'Readex',
-                            color: Color(0xFFF3B06A),
-                          ),
-                        ),
-                        Text(
-                          'gories',
-                          style: bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 17.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 247, 187, 122)),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.fromLTRB(8, 0, 17, 0)),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(115, 31))),
-                      child: const Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 22,
+                          Text(
+                            'Cate',
+                            style: TextStyle(
+                                fontFamily: 'Readex',
+                                color: Color(0xFFF3B06A),
+                                fontSize: 18),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              "Category",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: "Readex",
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                          Text(
+                            'gories',
+                            style: TextStyle(
+                                fontFamily: 'Readex',
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                fontSize: 18),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                child: Container(
-                  width: double.infinity,
-                  height: 42,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(0, 16, 49, 74),
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: const [
-                        Category(),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 17.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 247, 187, 122)),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.fromLTRB(8, 0, 17, 0)),
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(115, 31))),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "Category",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Readex",
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  child: Container(
+                    width: double.infinity,
+                    height: 42,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(0, 16, 49, 74),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: const [
+                          Category(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 17.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const DetailPage()));
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 247, 187, 122)),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.fromLTRB(8, 0, 17, 0)),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(90, 26))),
-                      child: const Row(
-                        children: [
-                          Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 22,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              "Book",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: "Readex",
-                                fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 17.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const DetailPage()));
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 247, 187, 122)),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.fromLTRB(8, 0, 17, 0)),
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(90, 26))),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "Book",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Readex",
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                   child: GridView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -237,14 +244,57 @@ class _AdminHomePageWidgetState extends State<AdminHomePage> {
                       mainAxisSpacing: 10,
                       childAspectRatio: 0.83,
                     ),
-                    scrollDirection: Axis.vertical,
+                    // scrollDirection: Axis.vertical,
                     children: const [
-                      BookCard(parent: "admin"),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi",),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
                     ],
                   ),
                 ),
-              ),
-            ],
+                const Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Member',
+                        style: TextStyle(
+                            fontFamily: 'Readex',
+                            color: Color(0xFFF3B06A),
+                            fontSize: 18),
+                      ),
+                      Text(
+                        ' Information',
+                        style: TextStyle(
+                            fontFamily: 'Readex',
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                      AdminMemberCard(nama: "nama", pass: "pass"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

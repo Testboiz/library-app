@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/widgets/book_card.dart';
-import 'package:library_app/widgets/book_of_the_week_card.dart';
+import 'package:library_app/item-generators/book_card.dart';
+import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/widgets/member_card.dart';
+import 'package:library_app/item-generators/member_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
 
   @override
-  MemberPageWidgetState createState() => MemberPageWidgetState();
+  MemberPageState createState() => MemberPageState();
 }
 
-
-class _MemberPageWidgetState extends State<MemberPage> {
-
+class MemberPageState extends State<MemberPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -90,7 +89,6 @@ class _MemberPageWidgetState extends State<MemberPage> {
                         fontFamily: "Readex",
                         fontWeight: FontWeight.w500,
                       ),
-
                     ),
                     Text(
                       'of the week !',
@@ -99,7 +97,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
                   ],
                 ),
               ),
-              BookOfTheWeekCard(parent: "member"),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -141,24 +139,7 @@ class _MemberPageWidgetState extends State<MemberPage> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                  child: GridView(
-                    padding: EdgeInsets.zero,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.83,
-                    ),
-                    scrollDirection: Axis.vertical,
-
-                    children: const [
-                      BookCard(parent: "member"),
-                    ],
-                  ),
-                ),
+                child: DatabaseWidgetGenerator.makeBookCards()
               ),
             ],
           ),
