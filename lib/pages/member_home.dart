@@ -4,6 +4,7 @@ import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
@@ -96,11 +97,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              const BookOfTheWeekCard(
-                parent: "member",
-                judul: "hi",
-                sinopsis: "hello",
-              ),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -142,23 +139,7 @@ class MemberPageState extends State<MemberPage> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                  child: GridView(
-                    padding: EdgeInsets.zero,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.83,
-                    ),
-                    scrollDirection: Axis.vertical,
-                    children: const [
-                      BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                    ],
-                  ),
-                ),
+                child: DatabaseWidgetGenerator.makeBookCards()
               ),
             ],
           ),

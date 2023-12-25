@@ -65,6 +65,8 @@ flutter:
     - db/lib-app.db
     - assests/Icons/logo.png
     - assests/Icons/logo with bg.png
+    - assests/photos/book/
+    - assests/photos/member/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -72,7 +72,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 children: [
                                   Text(
                                     widget.judul,
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: bodyMedium,
                                   ),
@@ -289,7 +289,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   children: [
                                     Text(
                                       widget.judul,
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       style: bodyMedium,
                                     ),
                                     const Padding(
