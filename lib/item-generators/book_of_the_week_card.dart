@@ -5,9 +5,10 @@ import 'package:library_app/widgets/kategori_text.dart';
 
 class BookOfTheWeekCard extends StatefulWidget {
   const BookOfTheWeekCard(
-      {super.key, required this.parent, required this.judul, this.imagePath});
+      {super.key, required this.parent, required this.judul,required this.sinopsis ,this.imagePath});
   final String parent;
   final String judul;
+  final String sinopsis;
   final String? imagePath;
 
   @override
@@ -53,8 +54,9 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://picsum.photos/seed/512/600',
+                            // thumbnail pic
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
                               width: 107,
                               height: 152,
                               fit: BoxFit.cover,
@@ -63,23 +65,25 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           Expanded(
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     widget.judul,
-                                    maxLines: 2,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: bodyMedium,
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 6, 0, 10),
                                     child: KategoriText(),
                                   ),
+                                  // sinopsis
                                   Text(
-                                    'Sinopsis',
+                                    widget.sinopsis,
                                     maxLines: 4,
                                     style: bodyMedium,
                                   ),
@@ -196,21 +200,22 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                              width: double.infinity,
-                              height: 114,
+                            // thumbnail pic
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
                                   widget.judul,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,
                                     fontFamily: "Readex",
@@ -266,33 +271,35 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/512/600',
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
-                              ),
+                              // image
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
+                              fit: BoxFit.cover,
+                            ),
                             ),
                             Expanded(
                               child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       widget.judul,
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       style: bodyMedium,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
                                     ),
+                                    // sinopsis
                                     Text(
-                                      'Sinopsis',
+                                      widget.sinopsis,
                                       maxLines: 4,
                                       style: bodyMedium,
                                     ),
@@ -413,21 +420,21 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHNwb3J0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                              width: double.infinity,
-                              height: 114,
+                            child: Image.asset(
+                              widget.imagePath ?? "assests/Icons/logo.png",
+                              width: 107,
+                              height: 152,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
                                   widget.judul,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 12,
                                     fontFamily: "Readex",

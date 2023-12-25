@@ -111,7 +111,7 @@ class SigninPageState extends State<SigninPage> {
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 6, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 196.3,
                                           child: TextFormField(
                                             autofocus: true,
@@ -177,11 +177,11 @@ class SigninPageState extends State<SigninPage> {
                                         child: Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(6, 0, 0, 16),
-                                          child: Container(
+                                          child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
                                               autofocus: true,
-                                              autofillHints: [
+                                              autofillHints: const [
                                                 AutofillHints.email
                                               ],
                                               obscureText: false,
@@ -243,7 +243,7 @@ class SigninPageState extends State<SigninPage> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 0, 14),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   autofocus: true,
@@ -292,7 +292,7 @@ class SigninPageState extends State<SigninPage> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 0, 14),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   autofillHints: const [AutofillHints.password],
@@ -352,7 +352,7 @@ class SigninPageState extends State<SigninPage> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 0, 4),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   autofillHints: const [AutofillHints.password],

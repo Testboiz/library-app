@@ -62,7 +62,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         Expanded(
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Column(
+                                    const Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -95,8 +95,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                     Container(
                                       width: 79,
                                       height: 79,
-                                      decoration: BoxDecoration(),
-                                      child: Align(
+                                      decoration: const BoxDecoration(),
+                                      child: const Align(
                                         alignment: AlignmentDirectional(0, 0),
                                         child: Text(
                                           'Tingkatnya',
@@ -222,13 +222,13 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
         );
       },
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 14),
+        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 14),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFF342743),
-            boxShadow: [
-              BoxShadow(
+            color: const Color(0xFF342743),
+            boxShadow: const [
+               BoxShadow(
                 blurRadius: 3,
                 color: Color(0x33000000),
                 offset: Offset(0, 1),
@@ -237,12 +237,12 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -252,28 +252,28 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                             child: Container(
                               width: 40,
                               height: 40,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0x00342743),
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.person,
-                                color: const Color.fromARGB(220, 255, 255, 255),
+                                color: Color.fromARGB(220, 255, 255, 255),
                                 size: 24,
                               ),
                             ),
                           ),
-                          Text(
+                          const Text(
                             'UserName',
                             style: bodyLarge,
                           ),
                         ],
                       ),
-                      Column(
+                      const Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
