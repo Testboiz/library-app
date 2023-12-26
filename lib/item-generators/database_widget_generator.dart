@@ -59,7 +59,6 @@ class DatabaseWidgetGenerator {
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 itemCount: bookOfTheWeekCard.length,
-                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return bookOfTheWeekCard[index];
                 },
