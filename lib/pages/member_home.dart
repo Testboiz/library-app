@@ -75,7 +75,7 @@ class MemberPageState extends State<MemberPage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const MemberCard(),
+              const MemberCard(father: "Bukan Profile"),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
                 child: Row(
@@ -97,7 +97,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member"),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -138,9 +138,7 @@ class MemberPageState extends State<MemberPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: DatabaseWidgetGenerator.makeBookCards()
-              ),
+              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member")),
             ],
           ),
         ),

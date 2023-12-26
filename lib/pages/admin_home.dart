@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
+import 'package:library_app/pages/addBookpage.dart';
 import 'package:library_app/pages/detail.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/item-generators/book_card.dart';
@@ -133,8 +134,171 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                       padding: const EdgeInsets.only(right: 17.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  width: double.infinity,
+                                  height: 493,
+                                  decoration: BoxDecoration(
+                                    color: secondaryBackground,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        color: Color(0x3B1D2429),
+                                        offset: Offset(0, -3),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(0),
+                                      topLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 10, 16),
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  child: TextFormField(
+                                                    autofocus: true,
+                                                    autofillHints: [
+                                                      AutofillHints.name
+                                                    ],
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      labelText:
+                                                          'Category Name',
+                                                      labelStyle: labelMedium,
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: alternate,
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: primary,
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                      ),
+                                                      errorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: error,
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                      ),
+                                                      focusedErrorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: error,
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          secondaryBackground,
+                                                      contentPadding:
+                                                          EdgeInsets.all(24),
+                                                    ),
+                                                    style: bodyMedium,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                // Bang rio isi bang/....
+                                              },
+                                              icon: Icon(Icons.check_rounded),
+                                              color: tertiary,
+                                              style: ButtonStyle(
+                                                  padding:
+                                                      MaterialStateProperty.all(
+                                                          EdgeInsets.fromLTRB(
+                                                              17, 0, 24, 0)),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                          CircleBorder()),
+                                                  fixedSize:
+                                                      MaterialStateProperty.all(
+                                                          Size(57, 57))),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 16, 0, 0),
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  style: ButtonStyle(
+                                                    fixedSize:
+                                                        MaterialStateProperty
+                                                            .all(
+                                                      const Size(
+                                                          double.infinity, 60),
+                                                    ),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors
+                                                                .transparent),
+                                                  ),
+                                                  child: const Text(
+                                                    'Cancel',
+                                                    style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 175, 175, 175),
+                                                      fontSize: 16,
+                                                      fontFamily: "Readex",
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -197,7 +361,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const DetailPage()));
+                              builder: (context) => const AddBookPage()));
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -246,12 +410,16 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     ),
                     // scrollDirection: Axis.vertical,
                     children: const [
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi",),
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                      BookCard(
+                        parent: "admin",
+                        judul: 'hai',
+                        sinopsis: "hihi",
+                      ),
+                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
+                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
                     ],
                   ),
                 ),

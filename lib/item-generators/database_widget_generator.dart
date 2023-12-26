@@ -5,15 +5,15 @@ import 'book_card.dart';
 import 'book_of_the_week_card.dart';
 
 class DatabaseWidgetGenerator {
-  static Future<List<BookOfTheWeekCard>>
-      _generateBookOfTheWeekCardFromDB() async {
+  static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
+      String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
     return List.generate(
       dataList.length,
       (index) => BookOfTheWeekCard(
-        parent: "home",
+        parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
@@ -21,14 +21,14 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static Future<List<BookCard>> _generateBookCardFromDB() async {
+  static Future<List<BookCard>> _generateBookCardFromDB(String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
     return List.generate(
       dataList.length,
       (index) => BookCard(
-        parent: "home",
+        parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
@@ -36,9 +36,10 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards() {
+  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(
+      String parent) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(),
+      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -47,8 +48,8 @@ class DatabaseWidgetGenerator {
         } else {
           List<BookOfTheWeekCard> bookOfTheWeekCard = snapshot.data ?? [];
           if (bookOfTheWeekCard.isEmpty) {
-            return const BookOfTheWeekCard(
-              parent: "home",
+            return BookOfTheWeekCard(
+              parent: parent,
               judul: "Judul Buku",
               sinopsis: "sinopsis",
             );
@@ -57,9 +58,10 @@ class DatabaseWidgetGenerator {
               height: 260,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
+                shrinkWrap: false,
                 itemCount: bookOfTheWeekCard.length,
                 itemBuilder: (context, index) {
+                  print("Parent :  $parent");
                   return bookOfTheWeekCard[index];
                 },
               ),
@@ -70,9 +72,9 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookCard>> makeBookCards() {
+  static FutureBuilder<List<BookCard>> makeBookCards(String parent) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookCardFromDB(),
+      future: DatabaseWidgetGenerator._generateBookCardFromDB(parent),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -90,11 +92,12 @@ class DatabaseWidgetGenerator {
             return GridView.builder(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.vertical,
+              physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 0.83,
+                childAspectRatio: 0.63,
               ),
               itemCount: bookCard.length,
               itemBuilder: (context, index) {

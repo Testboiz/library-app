@@ -4,7 +4,8 @@ import 'package:library_app/pages/update_information_page.dart';
 import '../constants/costum_color.dart';
 
 class MemberCard extends StatefulWidget {
-  const MemberCard({super.key});
+  const MemberCard({super.key, required this.father});
+  final String father;
 
   @override
   State<MemberCard> createState() => _MemberCardState();
@@ -15,8 +16,10 @@ class _MemberCardState extends State<MemberCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const MemberInformationPage()));
+        if (widget.father != "profile") {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const MemberInformationPage()));
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(4),

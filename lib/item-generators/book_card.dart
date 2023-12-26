@@ -84,7 +84,8 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "Kategori1"),
+                                      child:
+                                          KategoriText(namaGenre: "Kategori1"),
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -99,6 +100,7 @@ class _BookCardState extends State<BookCard> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Padding(
@@ -118,28 +120,25 @@ class _BookCardState extends State<BookCard> {
                                     side: MaterialStateProperty.all(
                                       const BorderSide(
                                         width: 2,
-                                        color: error,
+                                        color: warning,
                                       ),
                                     ),
                                     backgroundColor: MaterialStateProperty.all(
                                         primaryBackground),
                                   ),
                                   child: const Text(
-                                    'Login to Borrow book',
+                                    'Login untuk meminjam',
                                     style: TextStyle(
-                                      color: error,
+                                      color: warning,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -158,7 +157,7 @@ class _BookCardState extends State<BookCard> {
                                   child: const Text(
                                     'Cancel',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 175, 175, 175),
+                                      color: error,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,
@@ -255,7 +254,9 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori2",),
+                                      child: KategoriText(
+                                        namaGenre: "kategori2",
+                                      ),
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -457,7 +458,9 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori3",),
+                                      child: KategoriText(
+                                        namaGenre: "kategori3",
+                                      ),
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -472,6 +475,7 @@ class _BookCardState extends State<BookCard> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Padding(
@@ -493,7 +497,7 @@ class _BookCardState extends State<BookCard> {
                                         primaryBackground),
                                   ),
                                   child: const Text(
-                                    'Pinjam',
+                                    'Pinjam buku ini',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -504,10 +508,6 @@ class _BookCardState extends State<BookCard> {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -526,7 +526,7 @@ class _BookCardState extends State<BookCard> {
                                   child: const Text(
                                     'Cancel',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 175, 175, 175),
+                                      color: error,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,
