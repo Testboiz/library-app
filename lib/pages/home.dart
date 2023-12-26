@@ -30,8 +30,7 @@ class HomePageState extends State<HomePage> {
 
   Future<List<BookOfTheWeekCard>> generateBookOfTheWeekCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.rawQuery(
-        'SELECT * FROM buku LIMIT 2');
+    final dataList = await db.rawQuery('SELECT * FROM buku LIMIT 2');
     print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
@@ -39,7 +38,7 @@ class HomePageState extends State<HomePage> {
       (index) => BookOfTheWeekCard(
         parent: "home",
         judul: dataList[index]["judul"] as String,
-        sinopsis:dataList[index]["sinopsis"] as String,
+        sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
       ),
     );
@@ -47,8 +46,7 @@ class HomePageState extends State<HomePage> {
 
   Future<List<BookCard>> generateBookCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.rawQuery(
-        'SELECT * FROM buku');
+    final dataList = await db.rawQuery('SELECT * FROM buku');
     print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
@@ -56,7 +54,7 @@ class HomePageState extends State<HomePage> {
       (index) => BookCard(
         parent: "home",
         judul: dataList[index]["judul"] as String,
-        sinopsis:dataList[index]["sinopsis"] as String,
+        sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
       ),
     );
@@ -132,93 +130,91 @@ class HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         top: true,
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.sizeOf(context).height,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF241243),
-                  primaryBackground,
-                ],
-                stops: [0, 0.6],
-                begin: AlignmentDirectional(-0.87, -1),
-                end: AlignmentDirectional(0.87, 1),
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        'Books ',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 243, 177, 106),
-                          fontSize: 14,
-                          fontFamily: "Readex",
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'of the week !',
-                        style: bodyMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                // const BookOfTheWeekCard(
-                //   parent: "home",
-                //   judul: "hi",
-                //   sinopsis: "hello",
-                // ),
-                // const BookOfTheWeekCard(
-                //   parent: "home",
-                //   judul: "hi2",
-                //   sinopsis: "hello2",
-                //   imagePath: "assests/Icons/logo with bg.png",
-                // ),
-                // kaming sun
-                DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        'Cate',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 243, 177, 106),
-                          fontSize: 14,
-                          fontFamily: "Readex",
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'gories',
-                        style: bodyMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                const Category(),
-                const SizedBox(
-                  height: 15,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                    child: 
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
-                  ),
-                ),
+        child: Container(
+          height: MediaQuery.sizeOf(context).height,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF241243),
+                primaryBackground,
               ],
+              stops: [0, 0.6],
+              begin: AlignmentDirectional(-0.87, -1),
+              end: AlignmentDirectional(0.87, 1),
             ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Books ',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 243, 177, 106),
+                        fontSize: 14,
+                        fontFamily: "Readex",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      'of the week !',
+                      style: bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+              // const BookOfTheWeekCard(
+              //   parent: "home",
+              //   judul: "hi",
+              //   sinopsis: "hello",
+              // ),
+              // const BookOfTheWeekCard(
+              //   parent: "home",
+              //   judul: "hi2",
+              //   sinopsis: "hello2",
+              //   imagePath: "assests/Icons/logo with bg.png",
+              // ),
+              // kaming sun
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Cate',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 243, 177, 106),
+                        fontSize: 14,
+                        fontFamily: "Readex",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      'gories',
+                      style: bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+              const Category(),
+              const SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  child:
+                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                      DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+                ),
+              ),
+            ],
           ),
         ),
       ),

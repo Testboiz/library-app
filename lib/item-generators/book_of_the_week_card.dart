@@ -5,7 +5,11 @@ import 'package:library_app/widgets/kategori_text.dart';
 
 class BookOfTheWeekCard extends StatefulWidget {
   const BookOfTheWeekCard(
-      {super.key, required this.parent, required this.judul,required this.sinopsis ,this.imagePath});
+      {super.key,
+      required this.parent,
+      required this.judul,
+      required this.sinopsis,
+      this.imagePath});
   final String parent;
   final String judul;
   final String sinopsis;
@@ -64,8 +68,8 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,63 +178,58 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
           decoration: const BoxDecoration(),
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8, 10, 0, 0),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.horizontal,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 8, 12),
-                  child: Container(
-                    width: 130,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF342743),
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 7,
-                          color: Color(0x2F1D2429),
-                          offset: Offset(0, 3),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            // thumbnail pic
-                            child: Image.asset(
-                              widget.imagePath ?? "assests/Icons/logo.png",
-                              width: 107,
-                              height: 152,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  widget.judul,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontSize: 12,
-                                    fontFamily: "Readex",
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 8, 12),
+              child: Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF342743),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 7,
+                      color: Color(0x2F1D2429),
+                      offset: Offset(0, 3),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        // thumbnail pic
+                        child: Image.asset(
+                          widget.imagePath ?? "assests/Icons/logo.png",
+                          width: 107,
+                          height: 152,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              widget.judul,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                fontSize: 12,
+                                fontFamily: "Readex",
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -243,7 +242,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
               builder: (context) {
                 return Container(
                   width: double.infinity,
-                  height: 360,
+                  height: 400,
                   decoration: const BoxDecoration(
                     color: secondaryBackground,
                     boxShadow: [
@@ -272,17 +271,17 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               // image
-                            child: Image.asset(
-                              widget.imagePath ?? "assests/Icons/logo.png",
-                              width: 107,
-                              height: 152,
-                              fit: BoxFit.cover,
-                            ),
+                              // child: Image.asset(
+                              //   widget.imagePath ?? "assests/Icons/logo.png",
+                              //   width: 107,
+                              //   height: 152,
+                              //   fit: BoxFit.cover,
+                              // ),
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,65 +390,63 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
           constraints: const BoxConstraints(
             maxHeight: 205,
           ),
-          decoration: const BoxDecoration(),
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8, 10, 0, 0),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.horizontal,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 8, 12),
-                  child: Container(
-                    width: 130,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF342743),
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 7,
-                          color: Color(0x2F1D2429),
-                          offset: Offset(0, 3),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              widget.imagePath ?? "assests/Icons/logo.png",
-                              width: 107,
-                              height: 152,
-                              fit: BoxFit.cover,
-                            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 8, 12),
+              child: Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF342743),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 7,
+                      color: Color(0x2F1D2429),
+                      offset: Offset(0, 3),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            widget.imagePath ?? "assests/Icons/logo.png",
+                            width: 107,
+                            height: 152,
+                            fit: BoxFit.cover,
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  widget.judul,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontSize: 12,
-                                    fontFamily: "Readex",
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.judul,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 12,
+                                  fontFamily: "Readex",
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
