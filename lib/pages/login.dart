@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/constants/membertype.dart';
+import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/member_home.dart';
 import 'package:library_app/pages/sign_in.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -232,6 +233,11 @@ class LoginPageState extends State<LoginPage> {
                                 sisaPinjam: data["sisa_pinjam"],
                                 tglBalik: data["tgl_balik"],
                               )));   
+                            }
+                            else if (data["memberType"] == MemberType.admin){
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const AdminHomePage()));
                             }
                             else{
                               // ignore: use_build_context_synchronously

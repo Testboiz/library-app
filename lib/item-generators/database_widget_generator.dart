@@ -29,11 +29,8 @@ class DatabaseWidgetGenerator {
       };
     }
     else{ 
-      final adminData = await db.query("admin");
-      // wip
       return {
         "memberType" : MemberType.admin,
-        "id" : adminData[0]["id_admin"]
       };
     }
   }
