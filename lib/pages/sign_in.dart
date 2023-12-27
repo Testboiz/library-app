@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/login.dart';
 
@@ -481,12 +482,21 @@ class SigninPageState extends State<SigninPage> {
                               // habis signin harusnya signup (login)  dong
                               if(firstNameController.text.isEmpty && lastNameController.text.isEmpty ){
                                 createSnackBar(context, "Nama tidak boleh kosong");
+                                return;
                               }
                               if (passwordController.text != confirmPasswordController.text){
                                 createSnackBar(context, "Password Anda tidak cocok");
+                                return;
                               }
                               // make some variables call db services here
-
+                              final String username = firstNameController.text + lastNameController.text;
+                              final String email = emailController.text;
+                              final String password = passwordController.text;
+                              DatabaseWidgetGenerator.register(
+                                name: username,
+                                email: email,
+                                password: password
+                              );
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                             },

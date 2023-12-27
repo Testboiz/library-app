@@ -34,6 +34,31 @@ class DatabaseWidgetGenerator {
       };
     }
   }
+
+  static void register({
+    String name = "",
+    String? email,
+    String password = ""}) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.insert("member", {
+
+      "nama_member":name,
+      "id_tingkat":0,
+      "sisa_kuota":3,
+      "buku_yang_sudah_dipinjam":0,
+    });
+    print(await db.query("member"));
+    final memberKeyTable = await db.rawQuery("SELECT MAX(id_member) AS id FROM member");
+    print(memberKeyTable);
+    final int memberKey = memberKeyTable[0]["id"] as int;
+    await db.insert("user_account",{
+      "username":name,
+      "password":password,
+      "id_member":memberKey
+    });
+    print(await db.query("user_account"));
+
+  }
   
   static Future<List<BookOfTheWeekCard>>
       _generateBookOfTheWeekCardFromDB() async {
