@@ -31,7 +31,6 @@ class HomePageState extends State<HomePage> {
   Future<List<BookOfTheWeekCard>> generateBookOfTheWeekCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku LIMIT 2');
-    print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
       dataList.length,
@@ -47,7 +46,6 @@ class HomePageState extends State<HomePage> {
   Future<List<BookCard>> generateBookCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
-    print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
       dataList.length,

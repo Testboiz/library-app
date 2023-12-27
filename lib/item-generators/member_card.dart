@@ -4,8 +4,18 @@ import 'package:library_app/pages/update_information_page.dart';
 import '../constants/costum_color.dart';
 
 class MemberCard extends StatefulWidget {
-  const MemberCard({super.key});
-
+  const MemberCard({super.key,
+    required this.id,
+    required this.name,
+    required this.tingkat,
+    required this.sisaPinjam,
+    required this.tglBalik
+  });
+  final String id;
+  final String name;
+  final String tingkat;
+  final int sisaPinjam;
+  final String? tglBalik;
   @override
   State<MemberCard> createState() => _MemberCardState();
 }
@@ -63,7 +73,7 @@ class _MemberCardState extends State<MemberCard> {
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -72,8 +82,8 @@ class _MemberCardState extends State<MemberCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Nama....',
-                          style: TextStyle(
+                          widget.name,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontFamily: "Readex",
@@ -81,8 +91,8 @@ class _MemberCardState extends State<MemberCard> {
                           ),
                         ),
                         Text(
-                          'Tingkatan...',
-                          style: TextStyle(
+                          widget.tingkat,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontFamily: "Readex",
@@ -97,45 +107,45 @@ class _MemberCardState extends State<MemberCard> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding:  EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 5),
                                     child: Text(
-                                      'Sisa Pinjam   :',
+                                      'Sisa Pinjam   : ',
                                       style: bodyMedium,
                                     ),
                                   ),
-                                  Text(
-                                    'Tgl Balik        :',
+                                   Text(
+                                    'Tgl Balik       : ',
                                     style: bodyMedium,
                                   ),
                                 ],
                               ),
                             ),
-                            Padding(
+                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 5),
                                     child: Text(
-                                      '5',
+                                      widget.sisaPinjam.toString(),
                                       style: bodyMedium,
                                     ),
                                   ),
                                   Text(
-                                    '3-12-2023',
+                                    widget.tglBalik ?? "1970-1-1",
                                     style: bodyMedium,
                                   ),
                                 ],

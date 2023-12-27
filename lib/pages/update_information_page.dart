@@ -65,7 +65,8 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         decoration: const BoxDecoration(
                           color: Color(0x00381D6C),
                         ),
-                        child: const MemberCard(),
+                        // do this later
+                        // child: const MemberCard(),
                       ),
                     ),
                   ],

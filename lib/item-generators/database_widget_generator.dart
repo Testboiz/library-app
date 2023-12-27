@@ -3,8 +3,41 @@ import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
+import 'package:library_app/constants/membertype.dart';
+import 'package:library_app/pages/member_home.dart';
 
 class DatabaseWidgetGenerator {
+  static Future<Map> login(String username, String password) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.rawQuery("SELECT username,password,id_member,id_admin FROM user_account WHERE username=? AND password=?",[username,password]);
+    if (dataList.isEmpty){
+      return {
+        "memberType" : MemberType.unregistered,
+      };
+    }
+    else if (dataList[0]["id_admin"] == null){
+      final int memberKey = dataList[0]["id_member"] as int;
+      final memberData = await db.rawQuery("SELECT * FROM member LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat WHERE member.id_member = ?",[memberKey]);
+      return{
+        // the first only
+        "memberType":MemberType.user,
+        "id":memberData[0]["id_member"] as String,
+        "name":memberData[0]["nama_member"] as String,
+        "tingkat":memberData[0]["nama_tingkat"] as String,
+        "sisa_pinjam":memberData[0]["sisa_kuota"] as int,
+        "tgl_balik":memberData[0]["tgl_balik"] as String?,
+      };
+    }
+    else{ 
+      final adminData = await db.query("admin");
+      // wip
+      return {
+        "memberType" : MemberType.admin,
+        "id" : adminData[0]["id_admin"]
+      };
+    }
+  }
+  
   static Future<List<BookOfTheWeekCard>>
       _generateBookOfTheWeekCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
@@ -53,7 +86,7 @@ class DatabaseWidgetGenerator {
               sinopsis: "sinopsis",
             );
           } else {
-            return Container(
+            return SizedBox(
               height: 260,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -99,8 +132,7 @@ class DatabaseWidgetGenerator {
               ),
               itemCount: bookCard.length,
               itemBuilder: (context, index) {
-                return bookCard[
-                    index]; // Or any other widget you want to display
+                return bookCard[index]; // Or any other widget you want to display
               },
             );
           }
