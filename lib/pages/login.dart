@@ -233,6 +233,14 @@ class LoginPageState extends State<LoginPage> {
                                 tglBalik: data["tgl_balik"],
                               )));   
                             }
+                            else{
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Ups.. Username atau Password salah '),
+                                ),
+                              );
+                            }
                           },
                           style: ButtonStyle(
                             fixedSize:
