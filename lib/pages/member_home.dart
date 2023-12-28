@@ -5,19 +5,19 @@ import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class MemberPage extends StatefulWidget {
-  const MemberPage({Key? key,
-    required this.id,
-    required this.name,
-    required this.tingkat,
-    required this.sisaPinjam,
-    required this.tglBalik
-  }) : super(key: key);
+  const MemberPage(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.tingkat,
+      required this.sisaPinjam,
+      required this.tglBalik})
+      : super(key: key);
   final int id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
   final String? tglBalik;
-
 
   @override
   MemberPageState createState() => MemberPageState();
@@ -92,6 +92,7 @@ class MemberPageState extends State<MemberPage> {
                 tingkat: widget.tingkat,
                 sisaPinjam: widget.sisaPinjam,
                 tglBalik: widget.tglBalik,
+                father: 'member',
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
@@ -155,9 +156,7 @@ class MemberPageState extends State<MemberPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: DatabaseWidgetGenerator.makeBookCards("member")
-              ),
+              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member")),
             ],
           ),
         ),
