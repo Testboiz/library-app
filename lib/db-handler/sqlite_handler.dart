@@ -8,15 +8,14 @@ class SqliteHandler {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, "lib-app.db");
   // g bakal simpan update untuk sementara
-    // if (!await databaseExists(path)) {
+    if (!await databaseExists(path)) {
       ByteData data =
           await rootBundle.load(join("db", "lib-app.db"));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes, flush: true);
-    // }
-
-
-    return await openDatabase(path);
+    }
+    
+    return await openDatabase(path, readOnly: false);
   }
 }

@@ -31,7 +31,6 @@ class HomePageState extends State<HomePage> {
   Future<List<BookOfTheWeekCard>> generateBookOfTheWeekCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku LIMIT 2');
-    print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
       dataList.length,
@@ -47,7 +46,6 @@ class HomePageState extends State<HomePage> {
   Future<List<BookCard>> generateBookCardFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
-    print(await db.rawQuery("SELECT foto_sampul FROM buku"));
 
     return List.generate(
       dataList.length,
@@ -168,6 +166,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+
                 // const BookOfTheWeekCard(
                 //   parent: "home",
                 //   judul: "hi",
@@ -202,9 +201,19 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const Category(),
-                const SizedBox(
-                  height: 15,
+              ),
+              const Category(),
+              const SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  child:
+                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                      DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
+
                 ),
                 Expanded(
                   child: Padding(

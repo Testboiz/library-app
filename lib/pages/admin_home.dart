@@ -4,6 +4,8 @@ import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/pages/addBookpage.dart';
 import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/widgets/kategori.dart';
+import 'package:library_app/item-generators/member_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -402,31 +404,39 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                  child: GridView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.83,
-                    ),
-                    // scrollDirection: Axis.vertical,
-                    children: const [
-                      BookCard(
-                        parent: "admin",
-                        judul: 'hai',
-                        sinopsis: "hihi",
+                // Padding(
+                //   padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                //   child: GridView(
+                //     shrinkWrap: true,
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     padding: EdgeInsets.zero,
+                //     gridDelegate:
+                //         const SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 3,
+                //       crossAxisSpacing: 10,
+                //       mainAxisSpacing: 10,
+                //       childAspectRatio: 0.83,
+                //     ),
+                //     // scrollDirection: Axis.vertical,
+                //     children: const [
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi",),
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
+                //     ],
+                //   )
+                // ),
+                SizedBox(
+                  height: 200,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                        child: DatabaseWidgetGenerator.makeBookCards("admin"),
                       ),
-                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
-                      BookCard(parent: "admin", judul: 'hai', sinopsis: "hihi"),
                     ],
                   ),
                 ),
