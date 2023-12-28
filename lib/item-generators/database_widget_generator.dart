@@ -10,6 +10,8 @@ class DatabaseWidgetGenerator {
   static Future<Map> login(String username, String password) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery("SELECT username,password,id_member,id_admin FROM user_account WHERE username=? AND password=?",[username,password]);
+    print("DEBUG");
+    print(await db.query("user_account"));
     if (dataList.isEmpty){
       return {
         "memberType" : MemberType.unregistered,
@@ -21,7 +23,7 @@ class DatabaseWidgetGenerator {
       return{
         // the first only
         "memberType":MemberType.user,
-        "id":memberData[0]["id_member"] as String,
+        "id":memberData[0]["id_member"] as int,
         "name":memberData[0]["nama_member"] as String,
         "tingkat":memberData[0]["nama_tingkat"] as String,
         "sisa_pinjam":memberData[0]["sisa_kuota"] as int,

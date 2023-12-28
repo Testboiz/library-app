@@ -15,9 +15,7 @@ class SqliteHandler {
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes, flush: true);
     }
-
-
-    return await openDatabase(path, readOnly: false
-    );
+    
+    return await openDatabase(path, readOnly: false);
   }
 }

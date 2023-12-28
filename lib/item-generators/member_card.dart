@@ -11,7 +11,7 @@ class MemberCard extends StatefulWidget {
     required this.sisaPinjam,
     required this.tglBalik
   });
-  final String id;
+  final int id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
