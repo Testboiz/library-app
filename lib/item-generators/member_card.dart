@@ -71,8 +71,8 @@ class _MemberCardState extends State<MemberCard> {
                       height: 44,
                       fit: BoxFit.cover,
                     ),
-                    const Text(
-                      'ReadMe-241033',
+                    Text(
+                      widget.id,
                       style: bodyMedium,
                     ),
                   ],
