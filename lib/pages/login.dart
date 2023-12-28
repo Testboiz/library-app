@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/constants/membertype.dart';
+import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/member_home.dart';
 import 'package:library_app/pages/sign_in.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
+
+  TextEditingController emailController = TextEditingController(); 
+  TextEditingController passwordController = TextEditingController(); 
 
   @override
   void initState() {
@@ -78,11 +84,6 @@ class LoginPageState extends State<LoginPage> {
                         child: Image.asset(
                           "assests/Icons/logo.png",
                         ),
-                        // Icon(
-                        //   Icons.library_books_sharp,
-                        //   color: Color(0xFFF3B06A),
-                        //   size: 44,
-                        // ),
                       ),
                     ),
                     const Text(
@@ -107,6 +108,7 @@ class LoginPageState extends State<LoginPage> {
                       child: SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          controller: emailController,
                           autofocus: true,
                           autofillHints: const [AutofillHints.email],
                           obscureText: false,
@@ -121,6 +123,7 @@ class LoginPageState extends State<LoginPage> {
                       child: SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          controller: passwordController,
                           autofillHints: const [AutofillHints.password],
                           obscureText: isHide,
                           decoration: InputDecoration(
@@ -196,7 +199,7 @@ class LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async{
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => const SigninPage()));
                               },
@@ -217,9 +220,33 @@ class LoginPageState extends State<LoginPage> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
+                            Map data = await DatabaseWidgetGenerator.login(emailController.text, passwordController.text);
+                            if (data["memberType"] == MemberType.user){
+                            // gatau kenapa
+                            // ignore: use_build_context_synchronously
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const MemberPage()));
+                              builder: (context) =>  MemberPage(
+                                id: data["id"],
+                                name: data["name"],
+                                tingkat: data["tingkat"],
+                                sisaPinjam: data["sisa_pinjam"],
+                                tglBalik: data["tgl_balik"],
+                              )));   
+                            }
+                            else if (data["memberType"] == MemberType.admin){
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const AdminHomePage()));
+                            }
+                            else{
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Ups.. Username atau Password salah '),
+                                ),
+                              );
+                            }
                           },
                           style: ButtonStyle(
                             fixedSize:
