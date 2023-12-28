@@ -3,10 +3,67 @@ import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
+import 'package:library_app/constants/membertype.dart';
+import 'package:library_app/pages/member_home.dart';
 
 class DatabaseWidgetGenerator {
-  static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
-      String parent) async {
+  static Future<Map> login(String username, String password) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.rawQuery("SELECT username,password,id_member,id_admin FROM user_account WHERE username=? AND password=?",[username,password]);
+    print("DEBUG");
+    print(await db.query("user_account"));
+    if (dataList.isEmpty){
+      return {
+        "memberType" : MemberType.unregistered,
+      };
+    }
+    else if (dataList[0]["id_admin"] == null){
+      final int memberKey = dataList[0]["id_member"] as int;
+      final memberData = await db.rawQuery("SELECT * FROM member LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat WHERE member.id_member = ?",[memberKey]);
+      return{
+        // the first only
+        "memberType":MemberType.user,
+        "id":memberData[0]["id_member"] as int,
+        "name":memberData[0]["nama_member"] as String,
+        "tingkat":memberData[0]["nama_tingkat"] as String,
+        "sisa_pinjam":memberData[0]["sisa_kuota"] as int,
+        "tgl_balik":memberData[0]["tgl_balik"] as String?,
+      };
+    }
+    else{ 
+      return {
+        "memberType" : MemberType.admin,
+      };
+    }
+  }
+
+  static void register({
+    String name = "",
+    String? email,
+    String password = ""}) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.insert("member", {
+
+      "nama_member":name,
+      "id_tingkat":0,
+      "sisa_kuota":3,
+      "buku_yang_sudah_dipinjam":0,
+    });
+    print(await db.query("member"));
+    final memberKeyTable = await db.rawQuery("SELECT MAX(id_member) AS id FROM member");
+    print(memberKeyTable);
+    final int memberKey = memberKeyTable[0]["id"] as int;
+    await db.insert("user_account",{
+      "username":name,
+      "password":password,
+      "id_member":memberKey
+    });
+    print(await db.query("user_account"));
+
+  }
+  
+  static Future<List<BookOfTheWeekCard>>
+      _generateBookOfTheWeekCardFromDB(String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
@@ -36,8 +93,7 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(
-      String parent) {
+  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(String parent) {
     return FutureBuilder(
       future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent),
       builder: (context, snapshot) {
@@ -54,7 +110,7 @@ class DatabaseWidgetGenerator {
               sinopsis: "sinopsis",
             );
           } else {
-            return Container(
+            return SizedBox(
               height: 260,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -101,8 +157,7 @@ class DatabaseWidgetGenerator {
               ),
               itemCount: bookCard.length,
               itemBuilder: (context, index) {
-                return bookCard[
-                    index]; // Or any other widget you want to display
+                return bookCard[index]; // Or any other widget you want to display
               },
             );
           }

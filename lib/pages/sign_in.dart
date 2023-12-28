@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/login.dart';
 
@@ -14,6 +15,21 @@ class SigninPageState extends State<SigninPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
   bool isHideConfirm = true;
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController= TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  void createSnackBar(BuildContext context, String text){
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+        content: Text(text),
+      )
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +130,7 @@ class SigninPageState extends State<SigninPage> {
                                         child: SizedBox(
                                           width: 196.3,
                                           child: TextFormField(
+                                            controller: firstNameController,
                                             autofocus: true,
                                             autofillHints: const [
                                               AutofillHints.email
@@ -180,6 +197,7 @@ class SigninPageState extends State<SigninPage> {
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
+                                              controller: lastNameController,
                                               autofocus: true,
                                               autofillHints: const [
                                                 AutofillHints.email
@@ -246,6 +264,7 @@ class SigninPageState extends State<SigninPage> {
                               child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
+                                  controller: emailController,
                                   autofocus: true,
                                   autofillHints: const [AutofillHints.email],
                                   obscureText: false,
@@ -295,6 +314,7 @@ class SigninPageState extends State<SigninPage> {
                               child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
+                                  controller: passwordController,
                                   autofillHints: const [AutofillHints.password],
                                   obscureText: isHide,
                                   decoration: InputDecoration(
@@ -355,6 +375,7 @@ class SigninPageState extends State<SigninPage> {
                               child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
+                                  controller: confirmPasswordController,
                                   autofillHints: const [AutofillHints.password],
                                   obscureText: isHide,
                                   decoration: InputDecoration(
@@ -458,8 +479,26 @@ class SigninPageState extends State<SigninPage> {
                               0, 10, 0, 16),
                           child: ElevatedButton(
                             onPressed: () {
+                              // habis signin harusnya signup (login)  dong
+                              if(firstNameController.text.isEmpty && lastNameController.text.isEmpty ){
+                                createSnackBar(context, "Nama tidak boleh kosong");
+                                return;
+                              }
+                              if (passwordController.text != confirmPasswordController.text){
+                                createSnackBar(context, "Password Anda tidak cocok");
+                                return;
+                              }
+                              // make some variables call db services here
+                              final String username = firstNameController.text + lastNameController.text;
+                              final String email = emailController.text;
+                              final String password = passwordController.text;
+                              DatabaseWidgetGenerator.register(
+                                name: username,
+                                email: email,
+                                password: password
+                              );
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const AdminHomePage()));
+                                  builder: (context) => const LoginPage()));
                             },
                             style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all(
