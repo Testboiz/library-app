@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/pages/addBookpage.dart';
-import 'package:library_app/pages/detail.dart';
-import 'package:library_app/pages/login.dart';
 import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/item-generators/member_card.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -140,7 +137,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                 return Container(
                                   width: double.infinity,
                                   height: 493,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: secondaryBackground,
                                     boxShadow: [
                                       BoxShadow(
@@ -157,7 +154,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(20),
+                                    padding: const EdgeInsets.all(20),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -168,13 +165,16 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                           children: [
                                             Expanded(
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 10, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 10, 16),
                                                 child: Container(
+                                                  decoration:
+                                                      const BoxDecoration(),
                                                   width: double.infinity,
                                                   child: TextFormField(
                                                     autofocus: true,
-                                                    autofillHints: [
+                                                    autofillHints: const [
                                                       AutofillHints.name
                                                     ],
                                                     obscureText: false,
@@ -184,7 +184,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       labelStyle: labelMedium,
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: alternate,
                                                           width: 2,
                                                         ),
@@ -194,7 +195,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: primary,
                                                           width: 2,
                                                         ),
@@ -204,7 +206,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       ),
                                                       errorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: error,
                                                           width: 2,
                                                         ),
@@ -214,7 +217,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       ),
                                                       focusedErrorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: error,
                                                           width: 2,
                                                         ),
@@ -226,7 +230,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       fillColor:
                                                           secondaryBackground,
                                                       contentPadding:
-                                                          EdgeInsets.all(24),
+                                                          const EdgeInsets.all(
+                                                              24),
                                                     ),
                                                     style: bodyMedium,
                                                     keyboardType:
@@ -239,19 +244,21 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                               onPressed: () {
                                                 // Bang rio isi bang/....
                                               },
-                                              icon: Icon(Icons.check_rounded),
+                                              icon: const Icon(
+                                                  Icons.check_rounded),
                                               color: tertiary,
                                               style: ButtonStyle(
                                                   padding:
                                                       MaterialStateProperty.all(
-                                                          EdgeInsets.fromLTRB(
+                                                          const EdgeInsets
+                                                              .fromLTRB(
                                                               17, 0, 24, 0)),
                                                   shape:
                                                       MaterialStateProperty.all(
-                                                          CircleBorder()),
+                                                          const CircleBorder()),
                                                   fixedSize:
                                                       MaterialStateProperty.all(
-                                                          Size(57, 57))),
+                                                          const Size(57, 57))),
                                             ),
                                           ],
                                         ),

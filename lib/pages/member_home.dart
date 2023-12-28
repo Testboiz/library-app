@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';

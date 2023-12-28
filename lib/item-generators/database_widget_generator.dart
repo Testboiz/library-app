@@ -61,7 +61,6 @@ class DatabaseWidgetGenerator {
                 shrinkWrap: false,
                 itemCount: bookOfTheWeekCard.length,
                 itemBuilder: (context, index) {
-                  print("Parent :  $parent");
                   return bookOfTheWeekCard[index];
                 },
               ),

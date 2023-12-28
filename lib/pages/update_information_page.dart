@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/borrowed_book_card.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 import '../constants/costum_color.dart';
@@ -12,6 +13,8 @@ class MemberInformationPage extends StatefulWidget {
 
 class _MemberInformationPageState extends State<MemberInformationPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isHide = true;
+  bool isHideConfirm = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +76,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,65 +111,76 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
-                        child: Container(
-                          width: double.infinity,
-                          height: 118,
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 8, 16, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/240/600',
-                                    width: 75,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 15),
-                                            child: Text(
-                                              'judul Bang..',
-                                              style: bodyLarge,
-                                            ),
-                                          ),
+                        child: Column(
+                          children: [
+                            BorrowedBookCard(),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        backgroundColor: primary,
+                                        title: const Text(
+                                          "Kamu sudah selesai baca?",
+                                          style: bodyLarge,
                                         ),
-                                        Text(
-                                          'Deadline 30 Desember 2023',
-                                          style: bodyMedium,
-                                        ),
-                                        Text(
-                                          '3 hari lagi',
-                                          style: bodyMedium,
-                                        ),
-                                      ],
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Belum",
+                                                style: labelMedium,
+                                              )),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                // delete query here mas semua nya mas
+                                              },
+                                              child: const Text(
+                                                "Sudah",
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontSize: 14,
+                                                  fontFamily: "Readex",
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ButtonStyle(
+                                  side: MaterialStateProperty.all(
+                                    const BorderSide(
+                                      width: 2,
+                                      color: Colors.deepPurple,
                                     ),
                                   ),
+                                  shape: MaterialStateProperty.all(
+                                      ContinuousRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(19))),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(primary),
                                 ),
-                              ],
+                                child: const Text(
+                                  'Kembalikan Semua buku',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: "Readex",
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ],
@@ -178,7 +192,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'MemberName ',
+                        'Member Name ',
                         style: TextStyle(
                             fontFamily: 'Readex',
                             color: Color(0xFFF3B06A),
@@ -259,7 +273,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
-                                obscureText: false,
+                                obscureText: isHide,
                                 decoration: InputDecoration(
                                   labelText: 'New Password',
                                   labelStyle: labelMedium,
@@ -294,6 +308,82 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                   ),
                                   filled: true,
                                   fillColor: secondaryBackground,
+                                  suffixIcon: InkWell(
+                                    onTap: () =>
+                                        {setState(() => isHide = !isHide)},
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      isHide
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: secondaryText,
+                                      size: 24,
+                                    ),
+                                  ),
+                                ),
+                                style: bodyMedium,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 16, 0, 0),
+                              child: TextFormField(
+                                obscureText: isHideConfirm,
+                                decoration: InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  labelStyle: labelMedium,
+                                  hintStyle: labelMedium,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: alternate,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: primary,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: error,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: error,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  filled: true,
+                                  fillColor: secondaryBackground,
+                                  suffixIcon: InkWell(
+                                    onTap: () => {
+                                      setState(
+                                          () => isHideConfirm = !isHideConfirm)
+                                    },
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      isHideConfirm
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: secondaryText,
+                                      size: 24,
+                                    ),
+                                  ),
                                 ),
                                 style: bodyMedium,
                               ),
