@@ -126,77 +126,80 @@ class HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: SafeArea(
-        top: true,
-        child: Container(
-          height: MediaQuery.sizeOf(context).height,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF241243),
-                primaryBackground,
-              ],
-              stops: [0, 0.6],
-              begin: AlignmentDirectional(-0.87, -1),
-              end: AlignmentDirectional(0.87, 1),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Books ',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 243, 177, 106),
-                        fontSize: 14,
-                        fontFamily: "Readex",
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      'of the week !',
-                      style: bodyMedium,
-                    ),
-                  ],
-                ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          top: true,
+          child: Container(
+            height: MediaQuery.sizeOf(context).height,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF241243),
+                  primaryBackground,
+                ],
+                stops: [0, 0.6],
+                begin: AlignmentDirectional(-0.87, -1),
+                end: AlignmentDirectional(0.87, 1),
               ),
-              // const BookOfTheWeekCard(
-              //   parent: "home",
-              //   judul: "hi",
-              //   sinopsis: "hello",
-              // ),
-              // const BookOfTheWeekCard(
-              //   parent: "home",
-              //   judul: "hi2",
-              //   sinopsis: "hello2",
-              //   imagePath: "assests/Icons/logo with bg.png",
-              // ),
-              // kaming sun
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Cate',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 243, 177, 106),
-                        fontSize: 14,
-                        fontFamily: "Readex",
-                        fontWeight: FontWeight.w500,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Books ',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 243, 177, 106),
+                          fontSize: 14,
+                          fontFamily: "Readex",
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'gories',
-                      style: bodyMedium,
-                    ),
-                  ],
+                      Text(
+                        'of the week !',
+                        style: bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+
+                // const BookOfTheWeekCard(
+                //   parent: "home",
+                //   judul: "hi",
+                //   sinopsis: "hello",
+                // ),
+                // const BookOfTheWeekCard(
+                //   parent: "home",
+                //   judul: "hi2",
+                //   sinopsis: "hello2",
+                //   imagePath: "assests/Icons/logo with bg.png",
+                // ),
+                // kaming sun
+                DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
+                const Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Cate',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 243, 177, 106),
+                          fontSize: 14,
+                          fontFamily: "Readex",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'gories',
+                        style: bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const Category(),
@@ -210,9 +213,19 @@ class HomePageState extends State<HomePage> {
                       // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
                       // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
                       DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
+
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                    child:
+                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
+                        DatabaseWidgetGenerator.makeBookCards("home"),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

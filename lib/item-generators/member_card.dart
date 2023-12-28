@@ -25,8 +25,10 @@ class _MemberCardState extends State<MemberCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const MemberInformationPage()));
+        if (widget.father != "profile") {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const MemberInformationPage()));
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(4),

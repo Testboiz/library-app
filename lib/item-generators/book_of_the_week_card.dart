@@ -98,6 +98,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
@@ -130,10 +131,6 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -152,7 +149,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 child: const Text(
                                   'Cancel',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 175, 175, 175),
+                                    color: error,
                                     fontSize: 16,
                                     fontFamily: "Readex",
                                     fontWeight: FontWeight.w500,
@@ -198,14 +195,16 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        // thumbnail pic
-                        child: Image.asset(
-                          widget.imagePath ?? "assests/Icons/logo.png",
-                          width: 107,
-                          height: 152,
-                          fit: BoxFit.cover,
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          // thumbnail pic
+                          child: Image.asset(
+                            widget.imagePath ?? "assests/Icons/logo.png",
+                            width: 107,
+                            height: 152,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Padding(
@@ -214,13 +213,15 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text(
-                              widget.judul,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 12,
-                                fontFamily: "Readex",
-                                fontWeight: FontWeight.w500,
+                            Expanded(
+                              child: Text(
+                                widget.judul,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 12,
+                                  fontFamily: "Readex",
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ],
@@ -271,12 +272,12 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               // image
-                              // child: Image.asset(
-                              //   widget.imagePath ?? "assests/Icons/logo.png",
-                              //   width: 107,
-                              //   height: 152,
-                              //   fit: BoxFit.cover,
-                              // ),
+                              child: Image.asset(
+                                widget.imagePath ?? "assests/Icons/logo.png",
+                                width: 107,
+                                height: 152,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Expanded(
                               child: Padding(
@@ -309,6 +310,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Padding(
@@ -328,28 +330,25 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     side: MaterialStateProperty.all(
                                       const BorderSide(
                                         width: 2,
-                                        color: error,
+                                        color: warning,
                                       ),
                                     ),
                                     backgroundColor: MaterialStateProperty.all(
                                         primaryBackground),
                                   ),
                                   child: const Text(
-                                    'Login to Borrow book',
+                                    'Login untuk meminjam',
                                     style: TextStyle(
-                                      color: error,
+                                      color: warning,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -368,7 +367,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   child: const Text(
                                     'Cancel',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 175, 175, 175),
+                                      color: error,
                                       fontSize: 16,
                                       fontFamily: "Readex",
                                       fontWeight: FontWeight.w500,

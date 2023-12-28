@@ -65,8 +65,9 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         decoration: const BoxDecoration(
                           color: Color(0x00381D6C),
                         ),
-                        // do this later
-                        // child: const MemberCard(),
+                        child: const MemberCard(
+                          father: "profile",
+                        ),
                       ),
                     ),
                   ],
@@ -218,28 +219,28 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                       color: alternate,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: primary,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: error,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: error,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   filled: true,
                                   fillColor: secondaryBackground,
@@ -268,28 +269,28 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                       color: alternate,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: primary,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: error,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: error,
                                       width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   filled: true,
                                   fillColor: secondaryBackground,
@@ -308,7 +309,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            20, 16, 20, 20),
+                            40, 16, 40, 20),
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -321,6 +322,9 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                 color: tertiary,
                               ),
                             ),
+                            shape: MaterialStateProperty.all(
+                                ContinuousRectangleBorder(
+                                    borderRadius: BorderRadius.circular(27))),
                             backgroundColor:
                                 MaterialStateProperty.all(tertiary),
                           ),

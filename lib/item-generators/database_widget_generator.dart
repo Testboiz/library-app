@@ -104,8 +104,8 @@ class DatabaseWidgetGenerator {
         } else {
           List<BookOfTheWeekCard> bookOfTheWeekCard = snapshot.data ?? [];
           if (bookOfTheWeekCard.isEmpty) {
-            return const BookOfTheWeekCard(
-              parent: "home",
+            return BookOfTheWeekCard(
+              parent: parent,
               judul: "Judul Buku",
               sinopsis: "sinopsis",
             );
@@ -114,10 +114,10 @@ class DatabaseWidgetGenerator {
               height: 260,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
+                shrinkWrap: false,
                 itemCount: bookOfTheWeekCard.length,
-                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+                  print("Parent :  $parent");
                   return bookOfTheWeekCard[index];
                 },
               ),
@@ -148,11 +148,12 @@ class DatabaseWidgetGenerator {
             return GridView.builder(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.vertical,
+              physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 0.83,
+                childAspectRatio: 0.63,
               ),
               itemCount: bookCard.length,
               itemBuilder: (context, index) {
