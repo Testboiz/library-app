@@ -13,7 +13,7 @@ class MemberPage extends StatefulWidget {
       required this.sisaPinjam,
       required this.tglBalik})
       : super(key: key);
-  final int id;
+  final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;

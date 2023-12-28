@@ -16,14 +16,14 @@ class DatabaseWidgetGenerator {
         "memberType": MemberType.unregistered,
       };
     } else if (dataList[0]["id_admin"] == null) {
-      final int memberKey = dataList[0]["id_member"] as int;
+      final String memberKey = dataList[0]["id_member"] as String;
       final memberData = await db.rawQuery(
           "SELECT * FROM member LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat WHERE member.id_member = ?",
           [memberKey]);
       return {
         // the first only
         "memberType": MemberType.user,
-        "id": memberData[0]["id_member"] as int,
+        "id": memberData[0]["id_member"] as String,
         "name": memberData[0]["nama_member"] as String,
         "tingkat": memberData[0]["nama_tingkat"] as String,
         "sisa_pinjam": memberData[0]["sisa_kuota"] as int,
