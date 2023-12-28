@@ -15,6 +15,10 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
   bool isHideConfirm = true;
+  TextEditingController namaController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,6 +228,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: namaController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'New name',
@@ -273,6 +278,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: passwordController,
                                 obscureText: isHide,
                                 decoration: InputDecoration(
                                   labelText: 'New Password',
@@ -335,6 +341,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: confirmPasswordController,
                                 obscureText: isHideConfirm,
                                 decoration: InputDecoration(
                                   labelText: 'Confirm Password',
@@ -401,7 +408,17 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             40, 16, 40, 20),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (namaController.text.isEmpty && passwordController.text.isEmpty && confirmPasswordController.text.isEmpty){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data Tidak Bolek Kosong")));
+                              return;
+                            }
+                            if (passwordController.text != confirmPasswordController.text){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
+                              return;
+                            }
+                            
+                          },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
                               const Size(double.infinity, 60),

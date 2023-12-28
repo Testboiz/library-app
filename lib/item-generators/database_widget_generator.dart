@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/db-handler/sqlite_handler.dart';
+import 'package:library_app/item-generators/admin_member_card.dart';
+import 'package:library_app/model/admin.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
 import 'package:library_app/constants/membertype.dart';
+import 'package:library_app/item-generators/member_card.dart';
+
+// TODO genre based generation
 
 class DatabaseWidgetGenerator {
   static Future<Map> login(String username, String password) async {
@@ -45,13 +50,69 @@ class DatabaseWidgetGenerator {
       "sisa_kuota": 3,
       "buku_yang_sudah_dipinjam": 0,
     });
+    // TODO test this
     final memberKeyTable =
-        await db.rawQuery("SELECT MAX(id_member) AS id FROM member");
-    final int memberKey = memberKeyTable[0]["id"] as int;
+        await db.rawQuery("SELECT MAX(ROWID) AS id FROM member");
+    String rowid = memberKeyTable[0]["id"] as String;
+    String memberKey = "Readme-${rowid.padLeft(4,'0')}";
     await db.insert("user_account",
         {"username": name, "password": password, "id_member": memberKey});
   }
-
+// TODO test the code
+  static void changeMemberInfo(
+    String idMember,
+    String? username,
+    String? password
+  )
+  async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    if(username == null){
+      await db.update("user_account", {
+        "password":password
+      },
+      where: 'id_member = ?',
+      whereArgs: [idMember]);
+      return;
+    }
+    if (password == null){
+      await db.update("user_account", {
+        "username":username
+      },
+      where: 'id_member = ?',
+      whereArgs: [idMember]);
+      await db.update("member", {
+        "nama_member":username,
+      },
+      where: "id_member = ?",
+      whereArgs: [idMember]
+      );
+      return;
+    }
+    await db.update("user_account", {
+      "username":username,
+      "password":password
+    },
+    where: 'id_member = ?',
+    whereArgs: [idMember]);
+    await db.update("member", {
+      "nama_member":username,
+    },
+    where: "id_member = ?",
+    whereArgs: [idMember]
+    );
+    return;
+  }
+  // TODO make functions to generate memberCards
+  static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.query("member");
+    return List.generate(
+      dataList.length,
+      (index) => AdminMemberCard(nama: 
+      dataList[index]["username"] as String,
+      pass: dataList[index]["password"] as String)
+    );
+  }
   static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
       String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
@@ -81,6 +142,38 @@ class DatabaseWidgetGenerator {
         imagePath: dataList[index]["foto_sampul"] as String?,
       ),
     );
+  }
+
+  static FutureBuilder<List<AdminMemberCard>> makeAdminMemberCards(){
+    return FutureBuilder(future: DatabaseWidgetGenerator._generateAdminMemberCardsFromDB(), 
+    builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } 
+        else{
+          List<AdminMemberCard> adminMemberCard = snapshot.data ?? [];
+          if (adminMemberCard.isEmpty){
+            return const AdminMemberCard(nama: "placeholder", pass: "place_holder");
+          }
+          else{
+            // sepuh kepin tolong dong kalo salah wkkwkw
+            return SizedBox(
+              height: 260,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: false,
+                itemCount: adminMemberCard.length,
+                itemBuilder: (context, index) {
+                  return adminMemberCard[index];
+                },
+              ),
+            );
+          }
+
+        }
+    }) );
   }
 
   static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(

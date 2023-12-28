@@ -16,9 +16,9 @@ class _AddBookPageState extends State<AddBookPage> {
 
   List<Map> genre = [
     {'genre': 'All', 'status': false},
-    {'genre': 'Never', 'status': false},
-    {'genre': 'Lods', 'status': false},
-    {'genre': 'cuk', 'status': false},
+    {'genre': 'Educational', 'status': false},
+    {'genre': 'Humor', 'status': false},
+    {'genre': 'Adventure', 'status': false},
     {'genre': 'allll', 'status': false},
   ];
   @override
