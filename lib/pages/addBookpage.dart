@@ -12,6 +12,7 @@ class AddBookPage extends StatefulWidget {
 class _AddBookPageState extends State<AddBookPage> {
   // Masukkin sini rio pake db buat category checkbox buat add book
   // status jadiin false semua karena itu buat check box nya
+  // ty wkwk
 
   List<Map> genre = [
     {'genre': 'All', 'status': false},
@@ -64,7 +65,7 @@ class _AddBookPageState extends State<AddBookPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 125,
                       child: Stack(
                         children: [
@@ -102,7 +103,7 @@ class _AddBookPageState extends State<AddBookPage> {
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 16),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           child: TextFormField(
                             obscureText: false,
@@ -196,7 +197,7 @@ class _AddBookPageState extends State<AddBookPage> {
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 16),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: TextFormField(
                       obscureText: false,

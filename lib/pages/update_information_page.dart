@@ -113,7 +113,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: Column(
                           children: [
-                            BorrowedBookCard(),
+                            const BorrowedBookCard(),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: ElevatedButton(
