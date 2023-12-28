@@ -4,7 +4,7 @@ import 'package:library_app/item-generators/book_card.dart';
 import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
-import 'package:library_app/item-generators/database_tools.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key,
@@ -116,7 +116,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member"),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -158,7 +158,7 @@ class MemberPageState extends State<MemberPage> {
                 ),
               ),
               Expanded(
-                child: DatabaseWidgetGenerator.makeBookCards()
+                child: DatabaseWidgetGenerator.makeBookCards("member")
               ),
             ],
           ),

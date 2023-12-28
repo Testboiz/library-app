@@ -177,7 +177,7 @@ class HomePageState extends State<HomePage> {
               //   imagePath: "assests/Icons/logo with bg.png",
               // ),
               // kaming sun
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
                 child: Row(
@@ -209,7 +209,7 @@ class HomePageState extends State<HomePage> {
                   child:
                       // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
                       // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                      DatabaseWidgetGenerator.makeBookOfTheWeekCards(),
+                      DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
                 ),
               ),
             ],

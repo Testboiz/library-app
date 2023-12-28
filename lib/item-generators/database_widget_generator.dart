@@ -63,14 +63,14 @@ class DatabaseWidgetGenerator {
   }
   
   static Future<List<BookOfTheWeekCard>>
-      _generateBookOfTheWeekCardFromDB() async {
+      _generateBookOfTheWeekCardFromDB(String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
     return List.generate(
       dataList.length,
       (index) => BookOfTheWeekCard(
-        parent: "home",
+        parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
@@ -78,14 +78,14 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static Future<List<BookCard>> _generateBookCardFromDB() async {
+  static Future<List<BookCard>> _generateBookCardFromDB(String parent) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
     return List.generate(
       dataList.length,
       (index) => BookCard(
-        parent: "home",
+        parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
@@ -93,9 +93,9 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards() {
+  static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(String parent) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(),
+      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -128,9 +128,9 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookCard>> makeBookCards() {
+  static FutureBuilder<List<BookCard>> makeBookCards(String parent) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookCardFromDB(),
+      future: DatabaseWidgetGenerator._generateBookCardFromDB(parent),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
