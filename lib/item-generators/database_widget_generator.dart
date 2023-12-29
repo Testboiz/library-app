@@ -72,12 +72,16 @@ class DatabaseWidgetGenerator {
 // TODO test the code
   static void changeMemberInfo(
     String idMember,
-    String? username,
-    String? password
+    String username,
+    String password
   )
   async {
     Database db = await SqliteHandler().myOpenDatabase();
-    if(username == null){
+    if(username.isEmpty && password.isEmpty){
+      // dont do anything
+      return;
+    }
+    if(username.isEmpty){
       await db.update("user_account",
       {
         "password":password
@@ -86,7 +90,7 @@ class DatabaseWidgetGenerator {
       whereArgs: [idMember]);
       return;
     }
-    if (password == null){
+    if (password.isEmpty){
       await db.update("user_account", 
       {
         "username":username

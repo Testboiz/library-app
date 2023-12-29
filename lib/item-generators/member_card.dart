@@ -29,7 +29,7 @@ class _MemberCardState extends State<MemberCard> {
       onTap: () {
         if (widget.father != "profile") {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const MemberInformationPage()));
+              builder: (context) => MemberInformationPage(id: widget.id,)));
         }
       },
       child: Padding(

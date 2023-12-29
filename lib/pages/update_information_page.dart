@@ -6,7 +6,8 @@ import 'package:library_app/item-generators/member_card.dart';
 import '../constants/costum_color.dart';
 
 class MemberInformationPage extends StatefulWidget {
-  const MemberInformationPage({super.key});
+  const MemberInformationPage({super.key, required this.id});
+  final String id;
 
   @override
   State<MemberInformationPage> createState() => _MemberInformationPageState();
@@ -439,7 +440,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                     TextButton(
                                         onPressed: () async {
                                           // TODO handle it here
-                                          // DatabaseWidgetGenerator.changeMemberInfo(idMember, namaController.text, passwordController.text);
+                                          DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
                                           // keluar sampai home page yang belum login
                                           Navigator.of(context).popUntil((route) => route.isFirst);
                                         },
