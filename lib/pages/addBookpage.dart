@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 import '../constants/costum_color.dart';
@@ -19,7 +20,7 @@ class _AddBookPageState extends State<AddBookPage> {
     {'genre': 'Educational', 'status': false},
     {'genre': 'Humor', 'status': false},
     {'genre': 'Adventure', 'status': false},
-    {'genre': 'allll', 'status': false},
+    {'genre': 'Misc', 'status': false},
   ];
   @override
   Widget build(BuildContext context) {
@@ -169,7 +170,6 @@ class _AddBookPageState extends State<AddBookPage> {
                         setState(() {
                           e['status'] = !e['status'];
                         });
-                        print(genre);
                       },
                       child: Container(
                         decoration: BoxDecoration(

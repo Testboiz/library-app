@@ -11,6 +11,11 @@ import 'package:library_app/item-generators/member_card.dart';
 // TODO genre based generation
 
 class DatabaseWidgetGenerator {
+  static Future<bool> isMemberUnique(String name) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    final nameList = await db.query("user_account", where: "username=?", whereArgs: [name]);
+    return nameList[0]["username"] == null;
+  }
   static Future<String> _generateReadMeId() async{
     Database db = await SqliteHandler().myOpenDatabase();
     final memberKeyTable =
