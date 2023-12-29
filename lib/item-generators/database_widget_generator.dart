@@ -148,9 +148,20 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static Future<List<BookCard>> _generateBookCardFromDB(String parent) async {
+  static Future<List<BookCard>> _generateBookCardFromDB(String parent, {String? genre}) async {
     Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.rawQuery('SELECT * FROM buku');
+    List<Map> dataList = [{}] ;
+    if (genre != null){
+      String sql = 
+"""SELECT * FROM buku 
+LEFT JOIN genre_buku ON buku.id_buku = genre_buku.id_buku
+LEFT JOIN genre ON genre_buku.id_genre = genre.id_genre
+WHERE genre.nama_genre = ?;""";
+      dataList = await db.rawQuery(sql,[genre]);
+    }
+    else{
+       dataList = await db.rawQuery('SELECT * FROM buku');
+    }
 
     return List.generate(
       dataList.length,
@@ -230,7 +241,7 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static FutureBuilder<List<BookCard>> makeBookCards(String parent) {
+  static FutureBuilder<List<BookCard>> makeBookCards(String parent,{String? genre}) {
     return FutureBuilder(
       future: DatabaseWidgetGenerator._generateBookCardFromDB(parent),
       builder: (context, snapshot) {
