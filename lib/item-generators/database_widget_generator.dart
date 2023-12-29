@@ -69,7 +69,6 @@ class DatabaseWidgetGenerator {
     await db.insert("user_account",
         {"username": name, "password": password, "id_member": readmeId});
   }
-// TODO test the code
   static void changeMemberInfo(
     String idMember,
     String username,

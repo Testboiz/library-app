@@ -439,7 +439,6 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          // TODO handle it here
                                           DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
                                           // keluar sampai home page yang belum login
                                           Navigator.of(context).popUntil((route) => route.isFirst);
