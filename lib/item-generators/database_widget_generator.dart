@@ -11,6 +11,15 @@ import 'package:library_app/item-generators/member_card.dart';
 // TODO genre based generation
 
 class DatabaseWidgetGenerator {
+  static Future<String> _generateReadMeId() async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    final memberKeyTable =
+      await db.rawQuery("SELECT MAX(ROWID) AS id FROM member");
+    int rowid = memberKeyTable[0]["id"] as int;
+    int rowidOffset = rowid+3100;
+    String memberKey = "Readme-${rowidOffset.toString().padLeft(4,'0')}";
+    return memberKey;
+  }
   static Future<Map> login(String username, String password) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery(
@@ -44,19 +53,16 @@ class DatabaseWidgetGenerator {
   static void register(
       {String name = "", String? email, String password = ""}) async {
     Database db = await SqliteHandler().myOpenDatabase();
+    String readmeId = await DatabaseWidgetGenerator._generateReadMeId();
     await db.insert("member", {
+      "id_member":readmeId,
       "nama_member": name,
       "id_tingkat": 0,
       "sisa_kuota": 3,
       "buku_yang_sudah_dipinjam": 0,
     });
-    // TODO test this
-    final memberKeyTable =
-        await db.rawQuery("SELECT MAX(ROWID) AS id FROM member");
-    String rowid = memberKeyTable[0]["id"] as String;
-    String memberKey = "Readme-${rowid.padLeft(4,'0')}";
     await db.insert("user_account",
-        {"username": name, "password": password, "id_member": memberKey});
+        {"username": name, "password": password, "id_member": readmeId});
   }
 // TODO test the code
   static void changeMemberInfo(
