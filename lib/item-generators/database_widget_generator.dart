@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/model/admin.dart';
@@ -278,5 +279,55 @@ WHERE genre.nama_genre = ?;""";
         }
       },
     );
+  }
+  static void pinjamBuku(String idMember, String idBuku) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
+    DateTime today = DateTime.now();
+    String todayDateString = sqlDateFormat.format(today);
+    // sisa pinjam harus dikurangi
+    await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota - 1 WHERE id_member = ?", [idMember]);
+    // insert ke tabel peminjaman dengan subquery
+    final tabelLamaPinjam = await db.rawQuery("""SELECT lama_pinjam FROM tingkat WHERE id_tingkat = 
+(SELECT id_tingkat FROM member WHERE id_member = ?);""",
+    [idMember]);
+    final int lamaPinjam = tabelLamaPinjam[0]["lama_pinjam"] as int;
+    DateTime deadlineDateTime = today.add(Duration(days: lamaPinjam));
+    String deadline = sqlDateFormat.format(deadlineDateTime);
+
+    await db.insert("peminjaman", 
+    {
+      "id_member":idMember,
+      "tgl_peminjaman":todayDateString,
+      "tgl_kadarluasa":deadline
+    });
+    // insert detail peminjaman
+    final idPeminjamanTerakhirTable = await db.rawQuery("SELECT MAX(id_peminjaman) AS id FROM peminjaman");
+    int idPinjam = idPeminjamanTerakhirTable[0]["id"] as int;
+    await db.insert("detail_pinjaman",
+    {
+      "id_peminjaman":idPinjam,
+      "id_buku":idBuku
+    });
+  }
+  static void kembalikanBuku(String idPeminjaman, String idBuku, String idMember) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    // delete peminjaman
+    await db.delete("peminjaman", 
+    where: "id_peminjam = ?",
+    whereArgs: [idPeminjaman]
+    );
+    // delete detail peminjaman tidak perlu karena CASCADE
+    // increment ulang buku
+    await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + 1 WHERE id_member = ?", [idMember]);
+  }
+  // opsional?
+  static void kembalikanSemuaBuku(String idMember, int jumlahTotal) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.delete("peminjaman", 
+    where: "id_member = ?",
+    whereArgs: [idMember]
+    );
+    await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + ? WHERE id_member = ?", [jumlahTotal,idMember]);
   }
 }
