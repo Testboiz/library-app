@@ -73,7 +73,8 @@ class DatabaseWidgetGenerator {
   async {
     Database db = await SqliteHandler().myOpenDatabase();
     if(username == null){
-      await db.update("user_account", {
+      await db.update("user_account",
+      {
         "password":password
       },
       where: 'id_member = ?',
@@ -81,12 +82,14 @@ class DatabaseWidgetGenerator {
       return;
     }
     if (password == null){
-      await db.update("user_account", {
+      await db.update("user_account", 
+      {
         "username":username
       },
       where: 'id_member = ?',
       whereArgs: [idMember]);
-      await db.update("member", {
+      await db.update("member", 
+      {
         "nama_member":username,
       },
       where: "id_member = ?",
@@ -94,13 +97,15 @@ class DatabaseWidgetGenerator {
       );
       return;
     }
-    await db.update("user_account", {
+    await db.update("user_account", 
+    {
       "username":username,
       "password":password
     },
     where: 'id_member = ?',
     whereArgs: [idMember]);
-    await db.update("member", {
+    await db.update("member", 
+    {
       "nama_member":username,
     },
     where: "id_member = ?",
@@ -108,7 +113,7 @@ class DatabaseWidgetGenerator {
     );
     return;
   }
-  // TODO make functions to generate memberCards
+  // tinggal di implement 
   static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.query("member");

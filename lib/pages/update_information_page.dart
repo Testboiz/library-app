@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 import '../constants/costum_color.dart';
@@ -417,7 +418,44 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
                               return;
                             }
-                            
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: primary,
+                                  title: const Text(
+                                    "Apakah Kamu Yakin??",
+                                    style: bodyLarge,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Belum",
+                                          style: labelMedium,
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          // TODO handle it here
+                                          // DatabaseWidgetGenerator.changeMemberInfo(idMember, namaController.text, passwordController.text);
+                                          // keluar sampai home page yang belum login
+                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                        },
+                                        child: const Text(
+                                          "Yakin",
+                                          style: TextStyle(
+                                            color: error,
+                                            fontSize: 14,
+                                            fontFamily: "Readex",
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ],
+                                );
+                              },
+                            );  
                           },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
