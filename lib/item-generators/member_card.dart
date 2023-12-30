@@ -4,14 +4,16 @@ import 'package:library_app/pages/update_information_page.dart';
 import '../constants/costum_color.dart';
 
 class MemberCard extends StatefulWidget {
-  const MemberCard({super.key,
-    required this.id,
-    required this.name,
-    required this.tingkat,
-    required this.sisaPinjam,
-    required this.tglBalik
-  });
-  final int id;
+  const MemberCard(
+      {super.key,
+      required this.father,
+      required this.id,
+      required this.name,
+      required this.tingkat,
+      required this.sisaPinjam,
+      required this.tglBalik});
+  final String father;
+  final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
@@ -27,7 +29,7 @@ class _MemberCardState extends State<MemberCard> {
       onTap: () {
         if (widget.father != "profile") {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const MemberInformationPage()));
+              builder: (context) => MemberInformationPage(id: widget.id,)));
         }
       },
       child: Padding(
@@ -69,8 +71,8 @@ class _MemberCardState extends State<MemberCard> {
                       height: 44,
                       fit: BoxFit.cover,
                     ),
-                    const Text(
-                      'ReadMe-241033',
+                    Text(
+                      widget.id,
                       style: bodyMedium,
                     ),
                   ],
@@ -111,36 +113,37 @@ class _MemberCardState extends State<MemberCard> {
                           children: [
                             const Padding(
                               padding:
-                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:  EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 5),
                                     child: Text(
                                       'Sisa Pinjam   : ',
                                       style: bodyMedium,
                                     ),
                                   ),
-                                   Text(
+                                  Text(
                                     'Tgl Balik       : ',
                                     style: bodyMedium,
                                   ),
                                 ],
                               ),
                             ),
-                             Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 5),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 5),
                                     child: Text(
                                       widget.sisaPinjam.toString(),
                                       style: bodyMedium,

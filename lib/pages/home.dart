@@ -28,35 +28,6 @@ class HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Future<List<BookOfTheWeekCard>> generateBookOfTheWeekCardFromDB() async {
-    Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.rawQuery('SELECT * FROM buku LIMIT 2');
-
-    return List.generate(
-      dataList.length,
-      (index) => BookOfTheWeekCard(
-        parent: "home",
-        judul: dataList[index]["judul"] as String,
-        sinopsis: dataList[index]["sinopsis"] as String,
-        imagePath: dataList[index]["foto_sampul"] as String?,
-      ),
-    );
-  }
-
-  Future<List<BookCard>> generateBookCardFromDB() async {
-    Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.rawQuery('SELECT * FROM buku');
-
-    return List.generate(
-      dataList.length,
-      (index) => BookCard(
-        parent: "home",
-        judul: dataList[index]["judul"] as String,
-        sinopsis: dataList[index]["sinopsis"] as String,
-        imagePath: dataList[index]["foto_sampul"] as String?,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,19 +137,6 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-
-                // const BookOfTheWeekCard(
-                //   parent: "home",
-                //   judul: "hi",
-                //   sinopsis: "hello",
-                // ),
-                // const BookOfTheWeekCard(
-                //   parent: "home",
-                //   judul: "hi2",
-                //   sinopsis: "hello2",
-                //   imagePath: "assests/Icons/logo with bg.png",
-                // ),
-                // kaming sun
                 DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
@@ -201,19 +159,9 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-              ),
-              const Category(),
-              const SizedBox(
-                height: 15,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                  child:
-                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                      // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                      DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
-
+                const Category(),
+                const SizedBox(
+                  height: 15,
                 ),
                 Expanded(
                   child: Padding(

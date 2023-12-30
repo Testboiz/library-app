@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/borrowed_book_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 import '../constants/costum_color.dart';
 
 class MemberInformationPage extends StatefulWidget {
-  const MemberInformationPage({super.key});
+  const MemberInformationPage({super.key, required this.id});
+  final String id;
 
   @override
   State<MemberInformationPage> createState() => _MemberInformationPageState();
@@ -12,6 +15,12 @@ class MemberInformationPage extends StatefulWidget {
 
 class _MemberInformationPageState extends State<MemberInformationPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isHide = true;
+  bool isHideConfirm = true;
+  TextEditingController namaController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,15 +74,15 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         decoration: const BoxDecoration(
                           color: Color(0x00381D6C),
                         ),
-                        child: const MemberCard(
-                          father: "profile",
-                        ),
+                        // child: const MemberCard(
+                        //   father: "profile",
+                        // ),
                       ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,65 +117,77 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
-                        child: Container(
-                          width: double.infinity,
-                          height: 118,
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 8, 16, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/240/600',
-                                    width: 75,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 15),
-                                            child: Text(
-                                              'judul Bang..',
-                                              style: bodyLarge,
-                                            ),
-                                          ),
+                        child: Column(
+                          children: [
+                            const BorrowedBookCard(),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        backgroundColor: primary,
+                                        title: const Text(
+                                          "Kamu sudah selesai baca?",
+                                          style: bodyLarge,
                                         ),
-                                        Text(
-                                          'Deadline 30 Desember 2023',
-                                          style: bodyMedium,
-                                        ),
-                                        Text(
-                                          '3 hari lagi',
-                                          style: bodyMedium,
-                                        ),
-                                      ],
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Belum",
+                                                style: labelMedium,
+                                              )),
+                                          TextButton(
+                                              onPressed: () {
+                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id);
+                                                Navigator.of(context).pop();
+                                                // delete query here mas semua nya mas
+                                              },
+                                              child: const Text(
+                                                "Sudah",
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontSize: 14,
+                                                  fontFamily: "Readex",
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ButtonStyle(
+                                  side: MaterialStateProperty.all(
+                                    const BorderSide(
+                                      width: 2,
+                                      color: Colors.deepPurple,
                                     ),
                                   ),
+                                  shape: MaterialStateProperty.all(
+                                      ContinuousRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(19))),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(primary),
                                 ),
-                              ],
+                                child: const Text(
+                                  'Kembalikan Semua buku',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: "Readex",
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ],
@@ -178,7 +199,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'MemberName ',
+                        'Member Name ',
                         style: TextStyle(
                             fontFamily: 'Readex',
                             color: Color(0xFFF3B06A),
@@ -210,6 +231,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: namaController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'New name',
@@ -259,7 +281,8 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
-                                obscureText: false,
+                                controller: passwordController,
+                                obscureText: isHide,
                                 decoration: InputDecoration(
                                   labelText: 'New Password',
                                   labelStyle: labelMedium,
@@ -294,6 +317,83 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                   ),
                                   filled: true,
                                   fillColor: secondaryBackground,
+                                  suffixIcon: InkWell(
+                                    onTap: () =>
+                                        {setState(() => isHide = !isHide)},
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      isHide
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: secondaryText,
+                                      size: 24,
+                                    ),
+                                  ),
+                                ),
+                                style: bodyMedium,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 16, 0, 0),
+                              child: TextFormField(
+                                controller: confirmPasswordController,
+                                obscureText: isHideConfirm,
+                                decoration: InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  labelStyle: labelMedium,
+                                  hintStyle: labelMedium,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: alternate,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: primary,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: error,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: error,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  filled: true,
+                                  fillColor: secondaryBackground,
+                                  suffixIcon: InkWell(
+                                    onTap: () => {
+                                      setState(
+                                          () => isHideConfirm = !isHideConfirm)
+                                    },
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      isHideConfirm
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: secondaryText,
+                                      size: 24,
+                                    ),
+                                  ),
                                 ),
                                 style: bodyMedium,
                               ),
@@ -311,7 +411,53 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             40, 16, 40, 20),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (namaController.text.isEmpty && passwordController.text.isEmpty && confirmPasswordController.text.isEmpty){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data Tidak Bolek Kosong")));
+                              return;
+                            }
+                            if (passwordController.text != confirmPasswordController.text){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
+                              return;
+                            }
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: primary,
+                                  title: const Text(
+                                    "Apakah Kamu Yakin??",
+                                    style: bodyLarge,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Belum",
+                                          style: labelMedium,
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
+                                          // keluar sampai home page yang belum login
+                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                        },
+                                        child: const Text(
+                                          "Yakin",
+                                          style: TextStyle(
+                                            color: error,
+                                            fontSize: 14,
+                                            fontFamily: "Readex",
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ],
+                                );
+                              },
+                            );  
+                          },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
                               const Size(double.infinity, 60),

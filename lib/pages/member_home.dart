@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/item-generators/book_of_the_week_card.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class MemberPage extends StatefulWidget {
-  const MemberPage({Key? key,
-    required this.id,
-    required this.name,
-    required this.tingkat,
-    required this.sisaPinjam,
-    required this.tglBalik
-  }) : super(key: key);
-  final int id;
+  const MemberPage(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.tingkat,
+      required this.sisaPinjam,
+      required this.tglBalik})
+      : super(key: key);
+  final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
@@ -94,6 +93,7 @@ class MemberPageState extends State<MemberPage> {
                 tingkat: widget.tingkat,
                 sisaPinjam: widget.sisaPinjam,
                 tglBalik: widget.tglBalik,
+                father: 'member',
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
@@ -116,7 +116,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member"),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",idMember: widget.id),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -157,9 +157,7 @@ class MemberPageState extends State<MemberPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: DatabaseWidgetGenerator.makeBookCards("member")
-              ),
+              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member",idMember: widget.id)),
             ],
           ),
         ),

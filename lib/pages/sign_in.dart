@@ -3,6 +3,7 @@ import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/admin_home.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -478,7 +479,7 @@ class SigninPageState extends State<SigninPage> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0, 10, 0, 16),
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // habis signin harusnya signup (login)  dong
                               if(firstNameController.text.isEmpty && lastNameController.text.isEmpty ){
                                 createSnackBar(context, "Nama tidak boleh kosong");
@@ -488,15 +489,25 @@ class SigninPageState extends State<SigninPage> {
                                 createSnackBar(context, "Password Anda tidak cocok");
                                 return;
                               }
+                              
                               // make some variables call db services here
                               final String username = firstNameController.text + lastNameController.text;
                               final String email = emailController.text;
                               final String password = passwordController.text;
+                              if(await DatabaseWidgetGenerator.isMemberUnique(username)){
                               DatabaseWidgetGenerator.register(
                                 name: username,
                                 email: email,
                                 password: password
                               );
+                              }
+                              else{
+                                // ignore: use_build_context_synchronously
+                                createSnackBar(context, "Coba username lain");
+                                return;
+                              }
+
+                              // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                             },
