@@ -10,12 +10,16 @@ class BookCard extends StatefulWidget {
   final String judul;
   final String sinopsis;
   final String? imagePath;
+  final int idBuku;
+  final String? idMember;
   const BookCard({
     super.key,
     required this.parent,
     required this.judul,
     required this.sinopsis,
+    required this.idBuku,
     this.imagePath,
+    this.idMember
   });
 
   @override
@@ -484,7 +488,9 @@ class _BookCardState extends State<BookCard> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     // TODO pass id_member dan id_buku agar dapat meminjam
-                                    // DatabaseWidgetGenerator.pinjamBuku(idMember, idBuku)
+                                    print("hi");
+                                    print(widget.idMember);
+                                    DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(

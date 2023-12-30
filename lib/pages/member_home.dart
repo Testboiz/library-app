@@ -157,7 +157,7 @@ class MemberPageState extends State<MemberPage> {
                   ),
                 ),
               ),
-              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member")),
+              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member",idMember: widget.id)),
             ],
           ),
         ),

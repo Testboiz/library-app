@@ -10,6 +10,8 @@ import 'package:library_app/constants/membertype.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 // TODO genre based generation
+// TODO tell kepin to rebuild the widget tree if book is borrowed, and probably disable the book
+// TODO tell kepin if the quota runs out, disable the button
 
 class DatabaseWidgetGenerator {
   static Future<bool> isMemberUnique(String name) async{
@@ -149,7 +151,7 @@ class DatabaseWidgetGenerator {
     );
   }
 
-  static Future<List<BookCard>> _generateBookCardFromDB(String parent, {String? genre}) async {
+  static Future<List<BookCard>> _generateBookCardFromDB(String parent, {String? genre, String? idMember}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     List<Map> dataList = [{}] ;
     if (genre != null){
@@ -171,6 +173,8 @@ WHERE genre.nama_genre = ?;""";
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
+        idBuku: dataList[index]["id_buku"] as int,
+        idMember:  idMember,
       ),
     );
   }
@@ -242,9 +246,9 @@ WHERE genre.nama_genre = ?;""";
     );
   }
 
-  static FutureBuilder<List<BookCard>> makeBookCards(String parent,{String? genre}) {
+  static FutureBuilder<List<BookCard>> makeBookCards(String parent,{String? genre, String? idMember}) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookCardFromDB(parent),
+      future: DatabaseWidgetGenerator._generateBookCardFromDB(parent, genre: genre, idMember: idMember),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -253,10 +257,12 @@ WHERE genre.nama_genre = ?;""";
         } else {
           List<BookCard> bookCard = snapshot.data ?? [];
           if (bookCard.isEmpty) {
-            return const BookCard(
+            return BookCard(
               parent: "home",
               judul: "Judul Buku",
               sinopsis: "sinopsis",
+              idBuku: -1,
+              idMember: idMember,
             );
           } else {
             return GridView.builder(
@@ -280,11 +286,19 @@ WHERE genre.nama_genre = ?;""";
       },
     );
   }
-  static void pinjamBuku(String idMember, String idBuku) async{
+  static void pinjamBuku(String? idMember, int? idBuku) async{
     Database db = await SqliteHandler().myOpenDatabase();
     DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
     DateTime today = DateTime.now();
     String todayDateString = sqlDateFormat.format(today);
+    print("masuk");
+    print(idBuku);
+    print(idMember);
+
+    if (idMember == null || idBuku == null){
+      // early exit to  prevent some accidental queries
+      return;
+    }
     // sisa pinjam harus dikurangi
     await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota - 1 WHERE id_member = ?", [idMember]);
     // insert ke tabel peminjaman dengan subquery
@@ -302,7 +316,7 @@ WHERE genre.nama_genre = ?;""";
       "tgl_kadarluasa":deadline
     });
     // insert detail peminjaman
-    final idPeminjamanTerakhirTable = await db.rawQuery("SELECT MAX(id_peminjaman) AS id FROM peminjaman");
+    final idPeminjamanTerakhirTable = await db.rawQuery("SELECT MAX(id_peminjam) AS id FROM peminjaman");
     int idPinjam = idPeminjamanTerakhirTable[0]["id"] as int;
     await db.insert("detail_pinjaman",
     {
@@ -322,12 +336,12 @@ WHERE genre.nama_genre = ?;""";
     await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + 1 WHERE id_member = ?", [idMember]);
   }
   // opsional?
-  static void kembalikanSemuaBuku(String idMember, int jumlahTotal) async {
+  static void kembalikanSemuaBuku(String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
-    await db.delete("peminjaman", 
+    int deletedAmnount = await db.delete("peminjaman", 
     where: "id_member = ?",
     whereArgs: [idMember]
     );
-    await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + ? WHERE id_member = ?", [jumlahTotal,idMember]);
+    await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + ? WHERE id_member = ?", [deletedAmnount,idMember]);
   }
 }

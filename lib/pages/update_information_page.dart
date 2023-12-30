@@ -144,9 +144,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                               )),
                                           TextButton(
                                               onPressed: () {
-                                                // harus tau dlu jumlah dari buku yg sudah dipinjam bang
-                                                // ini contoh untuk 1 buku
-                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id, 1);
+                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id);
                                                 Navigator.of(context).pop();
                                                 // delete query here mas semua nya mas
                                               },
