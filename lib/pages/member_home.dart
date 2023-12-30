@@ -19,6 +19,7 @@ class MemberPage extends StatefulWidget {
   final int sisaPinjam;
   final String? tglBalik;
 
+
   @override
   MemberPageState createState() => MemberPageState();
 }
@@ -115,7 +116,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member"),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",idMember: widget.id),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -156,7 +157,7 @@ class MemberPageState extends State<MemberPage> {
                   ),
                 ),
               ),
-              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member")),
+              Expanded(child: DatabaseWidgetGenerator.makeBookCards("member",idMember: widget.id)),
             ],
           ),
         ),

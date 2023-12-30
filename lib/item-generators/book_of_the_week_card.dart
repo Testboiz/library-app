@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
@@ -9,10 +10,14 @@ class BookOfTheWeekCard extends StatefulWidget {
       required this.parent,
       required this.judul,
       required this.sinopsis,
+      this.idBuku,
+      this.idMember,
       this.imagePath});
   final String parent;
   final String judul;
   final String sinopsis;
+  final int? idBuku;
+  final String? idMember;
   final String? imagePath;
 
   @override
@@ -105,7 +110,9 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
+                                },
                                 style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
                                     const Size(double.infinity, 60),

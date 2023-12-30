@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 import '../constants/costum_color.dart';
 
 class MemberInformationPage extends StatefulWidget {
-  const MemberInformationPage({super.key});
+  const MemberInformationPage({super.key, required this.id});
+  final String id;
 
   @override
   State<MemberInformationPage> createState() => _MemberInformationPageState();
@@ -15,6 +17,10 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isHide = true;
   bool isHideConfirm = true;
+  TextEditingController namaController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +119,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: Column(
                           children: [
-                            BorrowedBookCard(),
+                            const BorrowedBookCard(),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: ElevatedButton(
@@ -138,6 +144,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                               )),
                                           TextButton(
                                               onPressed: () {
+                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id);
                                                 Navigator.of(context).pop();
                                                 // delete query here mas semua nya mas
                                               },
@@ -224,6 +231,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: namaController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'New name',
@@ -273,6 +281,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: passwordController,
                                 obscureText: isHide,
                                 decoration: InputDecoration(
                                   labelText: 'New Password',
@@ -335,6 +344,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 16, 0, 0),
                               child: TextFormField(
+                                controller: confirmPasswordController,
                                 obscureText: isHideConfirm,
                                 decoration: InputDecoration(
                                   labelText: 'Confirm Password',
@@ -401,7 +411,53 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             40, 16, 40, 20),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (namaController.text.isEmpty && passwordController.text.isEmpty && confirmPasswordController.text.isEmpty){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data Tidak Bolek Kosong")));
+                              return;
+                            }
+                            if (passwordController.text != confirmPasswordController.text){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
+                              return;
+                            }
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: primary,
+                                  title: const Text(
+                                    "Apakah Kamu Yakin??",
+                                    style: bodyLarge,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Belum",
+                                          style: labelMedium,
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
+                                          // keluar sampai home page yang belum login
+                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                        },
+                                        child: const Text(
+                                          "Yakin",
+                                          style: TextStyle(
+                                            color: error,
+                                            fontSize: 14,
+                                            fontFamily: "Readex",
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ],
+                                );
+                              },
+                            );  
+                          },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
                               const Size(double.infinity, 60),

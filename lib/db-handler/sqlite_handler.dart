@@ -15,7 +15,10 @@ class SqliteHandler {
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes, flush: true);
     }
+    Database db = await openDatabase(path, readOnly: false);
+    // to trigger the CASCADE constraint
+    await db.execute("PRAGMA foreign_keys = 'ON'");
     
-    return await openDatabase(path, readOnly: false);
+    return db;
   }
 }
