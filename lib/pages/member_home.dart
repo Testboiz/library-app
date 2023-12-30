@@ -116,7 +116,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member"),
+              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",idMember: widget.id),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(

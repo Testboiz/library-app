@@ -486,10 +486,7 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    // TODO pass id_member dan id_buku agar dapat meminjam
-                                    print("hi");
-                                    print(widget.idMember);
+                                  onPressed: () { 
                                     DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
                                   },
                                   style: ButtonStyle(

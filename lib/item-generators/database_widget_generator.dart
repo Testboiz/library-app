@@ -10,8 +10,6 @@ import 'package:library_app/constants/membertype.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 // TODO genre based generation
-// TODO tell kepin to rebuild the widget tree if book is borrowed, and probably disable the book
-// TODO tell kepin if the quota runs out, disable the button
 
 class DatabaseWidgetGenerator {
   static Future<bool> isMemberUnique(String name) async{
@@ -136,7 +134,8 @@ class DatabaseWidgetGenerator {
     );
   }
   static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
-      String parent) async {
+      String parent,
+      {String? idMember}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
 
@@ -147,6 +146,8 @@ class DatabaseWidgetGenerator {
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
+        idBuku: dataList[index]["id_buku"] as int,
+        idMember: idMember,
       ),
     );
   }
@@ -212,9 +213,10 @@ WHERE genre.nama_genre = ?;""";
   }
 
   static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(
-      String parent) {
+      String parent,
+      {String? idMember}) {
     return FutureBuilder(
-      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent),
+      future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent, idMember: idMember),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -291,9 +293,6 @@ WHERE genre.nama_genre = ?;""";
     DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
     DateTime today = DateTime.now();
     String todayDateString = sqlDateFormat.format(today);
-    print("masuk");
-    print(idBuku);
-    print(idMember);
 
     if (idMember == null || idBuku == null){
       // early exit to  prevent some accidental queries
