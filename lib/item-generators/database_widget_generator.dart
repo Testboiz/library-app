@@ -369,4 +369,43 @@ WHERE genre.nama_genre = ?;""";
     );
     await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + ? WHERE id_member = ?", [deletedAmnount,idMember]);
   }
+
+  static void addMember(String nama, int tingkat, String? imagePath) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.insert("member", {
+      "id_member":DatabaseWidgetGenerator._generateReadMeId(),
+      "nama_member":nama,
+      "id_tingkat":tingkat,
+      "sisa_kuota":-1, // need helper function
+      "buku_yang_sudah_dipinjam":0,
+      "foto":imagePath
+    });
+  }
+
+  static void editMember(
+  String idMember,
+  String? namaBaru, 
+  int? idTingkatBaru, 
+  int? sisaKuotaBaru, 
+  String? linkGambarBaru, 
+  String? jumlahBukuYangSudahDipinjamBaru
+  ) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    Map<String,dynamic> sqlMapArgs = {
+      "nama_member":namaBaru,
+      "id_tingkat":idTingkatBaru,
+      "sisa_kuota":sisaKuotaBaru,
+      "foto":linkGambarBaru,
+      "buku_yang_sudah_dipinjam":jumlahBukuYangSudahDipinjamBaru
+    };
+    // memfilter jika null
+    sqlMapArgs.removeWhere((key, value) => value == null);
+
+    await db.update("member", sqlMapArgs);
+  }
+
+  static void deleteMember(int idMember) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.delete("member",where: "id_member = ?", whereArgs: [idMember]);
+  }
 }
