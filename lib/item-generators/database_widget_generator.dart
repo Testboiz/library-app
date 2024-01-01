@@ -9,7 +9,7 @@ import 'book_of_the_week_card.dart';
 import 'package:library_app/constants/membertype.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
-// TODO genre based generation
+// TODO test genre based generation
 
 class DatabaseWidgetGenerator {
   static Future<bool> isMemberUnique(String name) async{
@@ -123,6 +123,20 @@ class DatabaseWidgetGenerator {
     );
     return;
   }
+
+  static Future<List<String>> findGenresById(int idBuku) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    String sql = 
+  """
+SELECT genre.nama_genre FROM genre
+LEFT JOIN genre_buku ON genre.id_genre = genre_buku.id_genre
+LEFT JOIN buku ON genre_buku.id_buku = buku.id_buku  
+WHERE buku.id_buku= ?
+  """;
+  final dataList = await db.rawQuery(sql,[idBuku]);
+  return List.generate(dataList.length, 
+  (index) => dataList[index]["nama_genre"] as String);
+  }
   // tinggal di implement 
   static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
@@ -139,6 +153,10 @@ class DatabaseWidgetGenerator {
       {String? idMember}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
+    List<List<String>> genreLists = [];
+    for (int i = 0; i < dataList.length ; i++){
+      genreLists.add(await findGenresById(dataList[i]["id_buku"] as int));
+    }
 
     return List.generate(
       dataList.length,
@@ -149,6 +167,7 @@ class DatabaseWidgetGenerator {
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
+        genre: genreLists[index],
       ),
     );
   }
@@ -167,16 +186,20 @@ WHERE genre.nama_genre = ?;""";
     else{
        dataList = await db.rawQuery('SELECT * FROM buku');
     }
-
+    List<List<String>> genreLists = [];
+    for (int i = 0; i < dataList.length ; i++){
+      genreLists.add(await findGenresById(dataList[i]["id_buku"]));
+    }
     return List.generate(
       dataList.length,
-      (index) => BookCard(
+      (index)  => BookCard(
         parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember:  idMember,
+        genre: genreLists[index],
       ),
     );
   }
@@ -230,6 +253,7 @@ WHERE genre.nama_genre = ?;""";
               parent: parent,
               judul: "Judul Buku",
               sinopsis: "sinopsis",
+              genre: const ["Genre"],
             );
           } else {
             return SizedBox(
@@ -266,6 +290,7 @@ WHERE genre.nama_genre = ?;""";
               sinopsis: "sinopsis",
               idBuku: -1,
               idMember: idMember,
+              genre: const ["Genre"],
             );
           } else {
             return GridView.builder(
