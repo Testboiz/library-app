@@ -408,4 +408,15 @@ WHERE genre.nama_genre = ?;""";
     Database db = await SqliteHandler().myOpenDatabase();
     await db.delete("member",where: "id_member = ?", whereArgs: [idMember]);
   }
+  static void addBuku()async{
+    Database db = await SqliteHandler().myOpenDatabase();
+  }
+  static void editBuku() async{
+    Database db = await SqliteHandler().myOpenDatabase();
+  }
+
+  static void deleteBuku(int idBuku) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.delete("buku", where: "id_buku = ?", whereArgs: [idBuku]);
+  }
 }
