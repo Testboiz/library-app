@@ -9,13 +9,14 @@ import 'book_of_the_week_card.dart';
 import 'package:library_app/constants/membertype.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
-// TODO genre based generation
+// TODO test genre based generation
 
 class DatabaseWidgetGenerator {
   static Future<bool> isMemberUnique(String name) async{
     Database db = await SqliteHandler().myOpenDatabase();
-    final nameList = await db.query("user_account", where: "username=?", whereArgs: [name]);
-    return nameList[0]["username"] == null;
+    List<Map<String,dynamic>> nameList = [];
+    nameList = await db.query("user_account", where: "username=?", whereArgs: [name]);
+    return nameList.isEmpty;
   }
   static Future<String> _generateReadMeId() async{
     Database db = await SqliteHandler().myOpenDatabase();
@@ -122,6 +123,20 @@ class DatabaseWidgetGenerator {
     );
     return;
   }
+
+  static Future<List<String>> findGenresById(int idBuku) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    String sql = 
+  """
+SELECT genre.nama_genre FROM genre
+LEFT JOIN genre_buku ON genre.id_genre = genre_buku.id_genre
+LEFT JOIN buku ON genre_buku.id_buku = buku.id_buku  
+WHERE buku.id_buku= ?
+  """;
+  final dataList = await db.rawQuery(sql,[idBuku]);
+  return List.generate(dataList.length, 
+  (index) => dataList[index]["nama_genre"] as String);
+  }
   // tinggal di implement 
   static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
@@ -138,6 +153,10 @@ class DatabaseWidgetGenerator {
       {String? idMember}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
+    List<List<String>> genreLists = [];
+    for (int i = 0; i < dataList.length ; i++){
+      genreLists.add(await findGenresById(dataList[i]["id_buku"] as int));
+    }
 
     return List.generate(
       dataList.length,
@@ -148,6 +167,7 @@ class DatabaseWidgetGenerator {
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
+        genre: genreLists[index],
       ),
     );
   }
@@ -166,16 +186,20 @@ WHERE genre.nama_genre = ?;""";
     else{
        dataList = await db.rawQuery('SELECT * FROM buku');
     }
-
+    List<List<String>> genreLists = [];
+    for (int i = 0; i < dataList.length ; i++){
+      genreLists.add(await findGenresById(dataList[i]["id_buku"]));
+    }
     return List.generate(
       dataList.length,
-      (index) => BookCard(
+      (index)  => BookCard(
         parent: parent,
         judul: dataList[index]["judul"] as String,
         sinopsis: dataList[index]["sinopsis"] as String,
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember:  idMember,
+        genre: genreLists[index],
       ),
     );
   }
@@ -229,6 +253,7 @@ WHERE genre.nama_genre = ?;""";
               parent: parent,
               judul: "Judul Buku",
               sinopsis: "sinopsis",
+              genre: const ["Genre"],
             );
           } else {
             return SizedBox(
@@ -265,6 +290,7 @@ WHERE genre.nama_genre = ?;""";
               sinopsis: "sinopsis",
               idBuku: -1,
               idMember: idMember,
+              genre: const ["Genre"],
             );
           } else {
             return GridView.builder(
@@ -342,5 +368,55 @@ WHERE genre.nama_genre = ?;""";
     whereArgs: [idMember]
     );
     await db.rawQuery("UPDATE member SET sisa_kuota = sisa_kuota + ? WHERE id_member = ?", [deletedAmnount,idMember]);
+  }
+
+  static void addMember(String nama, int tingkat, String? imagePath) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.insert("member", {
+      "id_member":DatabaseWidgetGenerator._generateReadMeId(),
+      "nama_member":nama,
+      "id_tingkat":tingkat,
+      "sisa_kuota":-1, // need helper function
+      "buku_yang_sudah_dipinjam":0,
+      "foto":imagePath
+    });
+  }
+
+  static void editMember(
+  String idMember,
+  String? namaBaru, 
+  int? idTingkatBaru, 
+  int? sisaKuotaBaru, 
+  String? linkGambarBaru, 
+  String? jumlahBukuYangSudahDipinjamBaru
+  ) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    Map<String,dynamic> sqlMapArgs = {
+      "nama_member":namaBaru,
+      "id_tingkat":idTingkatBaru,
+      "sisa_kuota":sisaKuotaBaru,
+      "foto":linkGambarBaru,
+      "buku_yang_sudah_dipinjam":jumlahBukuYangSudahDipinjamBaru
+    };
+    // memfilter jika null
+    sqlMapArgs.removeWhere((key, value) => value == null);
+
+    await db.update("member", sqlMapArgs);
+  }
+
+  static void deleteMember(int idMember) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.delete("member",where: "id_member = ?", whereArgs: [idMember]);
+  }
+  static void addBuku()async{
+    Database db = await SqliteHandler().myOpenDatabase();
+  }
+  static void editBuku() async{
+    Database db = await SqliteHandler().myOpenDatabase();
+  }
+
+  static void deleteBuku(int idBuku) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.delete("buku", where: "id_buku = ?", whereArgs: [idBuku]);
   }
 }
