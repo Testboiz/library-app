@@ -12,6 +12,7 @@ class BookCard extends StatefulWidget {
   final String? imagePath;
   final int idBuku;
   final String? idMember;
+  final List<String> genre;
   const BookCard({
     super.key,
     required this.parent,
@@ -19,7 +20,8 @@ class BookCard extends StatefulWidget {
     required this.sinopsis,
     required this.idBuku,
     this.imagePath,
-    this.idMember
+    this.idMember,
+    required this.genre
   });
 
   @override
@@ -90,6 +92,14 @@ class _BookCardState extends State<BookCard> {
                                           0, 6, 0, 10),
                                       child:
                                           KategoriText(namaGenre: "Kategori1"),
+                                          // unbounded height error dong WKWKKWKW
+                                      //     ListView.builder(scrollDirection: Axis.horizontal,
+                                      //       shrinkWrap: false,
+                                      //       itemCount: widget.genre.length,
+                                      //       itemBuilder: (context, index) {
+                                      //         return KategoriText(namaGenre: widget.genre[index],);
+                                      //       },
+                                      // )
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -256,12 +266,17 @@ class _BookCardState extends State<BookCard> {
                                       style: bodyMedium,
                                     ),
                                     const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding:  EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(
-                                        namaGenre: "kategori2",
+                                      child: KategoriText(namaGenre: "kategori2",
+                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
+                                      //       shrinkWrap: false,
+                                      //       itemCount: widget.genre.length,
+                                      //       itemBuilder: (context, index) {
+                                      //         return KategoriText(namaGenre: widget.genre[index],);
+                                      //       },
+                                          ),
                                       ),
-                                    ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,
@@ -462,10 +477,16 @@ class _BookCardState extends State<BookCard> {
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
-                                      child: KategoriText(
-                                        namaGenre: "kategori3",
-                                      ),
-                                    ),
+                                      child: KategoriText(namaGenre: "kategori3",
+                                      // unbounded height error dong WKWKKWKW
+                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
+                                      //       shrinkWrap: false,
+                                      //       itemCount: widget.genre.length,
+                                      //       itemBuilder: (context, index) {
+                                      //         return KategoriText(namaGenre: widget.genre[index],);
+                                            // },
+                                        ),
+                                       ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,

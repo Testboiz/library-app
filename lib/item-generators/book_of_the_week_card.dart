@@ -12,13 +12,15 @@ class BookOfTheWeekCard extends StatefulWidget {
       required this.sinopsis,
       this.idBuku,
       this.idMember,
-      this.imagePath});
+      this.imagePath,
+      required this.genre });
   final String parent;
   final String judul;
   final String sinopsis;
   final int? idBuku;
   final String? idMember;
   final String? imagePath;
+  final List<String> genre;
 
   @override
   State<BookOfTheWeekCard> createState() => _BookOfTheWeekCardState();
@@ -86,9 +88,16 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     style: bodyMedium,
                                   ),
                                   const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding:  EdgeInsetsDirectional.fromSTEB(
                                         0, 6, 0, 10),
                                     child: KategoriText(),
+                                    // unbounded height error dong WKWKKWKW
+                                    // child : ListView.builder(scrollDirection: Axis.horizontal,
+                                    //         shrinkWrap: false,
+                                    //         itemCount: widget.genre.length,
+                                    //         itemBuilder: (context, index) {
+                                    //           return KategoriText(namaGenre: widget.genre[index],);
+                                    //         },)
                                   ),
                                   // sinopsis
                                   Text(
@@ -300,9 +309,16 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       style: bodyMedium,
                                     ),
                                     const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding:   EdgeInsetsDirectional.fromSTEB(
                                           0, 6, 0, 10),
                                       child: KategoriText(),
+                                      // unbounded height error dong WKWKKWKW
+                                      // child : ListView.builder(scrollDirection: Axis.horizontal,
+                                      //       shrinkWrap: false,
+                                      //       itemCount: widget.genre.length,
+                                      //       itemBuilder: (context, index) {
+                                      //         return KategoriText(namaGenre: widget.genre[index],);
+                                      //       },)
                                     ),
                                     // sinopsis
                                     Text(
