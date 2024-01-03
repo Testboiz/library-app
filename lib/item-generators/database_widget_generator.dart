@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
+import 'package:library_app/item-generators/borrowed_book_card.dart';
 import 'package:library_app/model/admin.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
@@ -188,6 +189,21 @@ WHERE genre.nama_genre = ?;""";
       ),
     );
   }
+  static Future<List<BorrowedBookCard>> _generateBorrowedBookCard(String idMember) async{
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.rawQuery("""SELECT * FROM peminjaman
+LEFT JOIN detail_pinjaman ON peminjaman.id_peminjam = detail_pinjaman.id_peminjaman
+LEFT JOIN buku ON detail_pinjaman.id_buku = buku.id_buku
+WHERE peminjaman.id_member = ?;""", [idMember]);
+    return List.generate(dataList.length,
+    (index) => BorrowedBookCard(imagePath: dataList[index]["foto_sampul"] as String,
+    judul: dataList[index]["judul"] as String, 
+    tglDeadline: dataList[index]["tgl_kadarluasa"] as String, 
+    idPeminjaman: dataList[index]["id_peminjaman"] as int, 
+    idMember: idMember, 
+    idBuku: dataList[index]["id_buku"] as int
+    ));
+  }
 
   static FutureBuilder<List<AdminMemberCard>> makeAdminMemberCards() {
     return FutureBuilder(
@@ -290,6 +306,37 @@ WHERE genre.nama_genre = ?;""";
     );
   }
 
+  static FutureBuilder<List<Widget>> makeBorrowedBookCards(String idMember) {
+    return FutureBuilder(
+        future: DatabaseWidgetGenerator._generateBorrowedBookCard(idMember),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            List<Widget> borrowedBookCard = snapshot.data ?? [];
+            if (borrowedBookCard.isEmpty) {
+              // perbagus sepuh kepin WKWKWK
+              return const Text("Anda Belum Meminjam");
+            } else {
+              return 
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: false,
+                    itemCount: borrowedBookCard.length,
+                    itemBuilder: (context, index) {
+                      return borrowedBookCard[index];
+                    },
+                  ),
+                );
+            }
+          }
+        }));
+  }
+
   static void pinjamBuku(String? idMember, int? idBuku) async {
     Database db = await SqliteHandler().myOpenDatabase();
     DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
@@ -326,7 +373,7 @@ WHERE genre.nama_genre = ?;""";
   }
 
   static void kembalikanBuku(
-      String idPeminjaman, String idBuku, String idMember) async {
+      int idPeminjaman, int idBuku, String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
     // delete peminjaman
     await db.delete("peminjaman",

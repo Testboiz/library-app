@@ -116,7 +116,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: Column(
                           children: [
-                            const BorrowedBookCard(),
+                            Container(child: DatabaseWidgetGenerator.makeBorrowedBookCards(widget.id)),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: ElevatedButton(

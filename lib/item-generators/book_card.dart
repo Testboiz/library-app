@@ -565,8 +565,12 @@ class _BookCardState extends State<BookCard> {
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    DatabaseWidgetGenerator.pinjamBuku(
+                                    setState(() {
+                                      DatabaseWidgetGenerator.pinjamBuku(
                                         widget.idMember, widget.idBuku);
+                                        
+                                    });
+                                    
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(

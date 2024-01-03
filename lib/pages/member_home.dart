@@ -25,7 +25,6 @@ class MemberPage extends StatefulWidget {
 
 class MemberPageState extends State<MemberPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
