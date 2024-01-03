@@ -128,12 +128,16 @@ WHERE buku.id_buku= ?
   // tinggal di implement
   static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
     Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.query("member");
+    final dataList = await db.rawQuery("""
+SELECT * FROM member
+LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat
+LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
     return List.generate(
         dataList.length,
         (index) => AdminMemberCard(
             nama: dataList[index]["username"] as String,
-            pass: dataList[index]["password"] as String));
+            pass: dataList[index]["password"] as String,
+            tingkat: dataList[index]["nama_tingkat"] as String,));
   }
 
   static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
@@ -238,8 +242,8 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
               return SizedBox(
                 height: 260,
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: false,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
                   itemCount: adminMemberCard.length,
                   itemBuilder: (context, index) {
                     return adminMemberCard[index];

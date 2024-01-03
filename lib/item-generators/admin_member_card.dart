@@ -4,10 +4,11 @@ import '../constants/costum_color.dart';
 
 class AdminMemberCard extends StatefulWidget {
   const AdminMemberCard(
-      {super.key, required this.nama, required this.pass, this.imagePath});
+      {super.key, required this.nama, required this.pass, this.imagePath, this.tingkat});
   final String nama;
   final String pass;
   final String? imagePath;
+  final String? tingkat;
 
   @override
   State<AdminMemberCard> createState() => _AdminMemberCardState();
@@ -52,8 +53,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1515871204537-49a5fe66a31f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyM3x8ZmlyZXdvcmtzfGVufDB8fHx8MTcwMzI5NjkwOXww&ixlib=rb-4.0.3&q=80&w=1080',
+                          child: Image.asset(
+                            'assests/icons/logo.png',
                             width: 107,
                             height: 109,
                             fit: BoxFit.cover,
@@ -73,20 +74,20 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Column(
+                                    Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 10),
-                                          child: Text('Username ',
+                                          child: Text(widget.nama,
                                               maxLines: 2, style: bodyMedium),
                                         ),
                                         Text(
-                                          'P******rd',
+                                          widget.pass,
                                           maxLines: 4,
                                           style: bodyMedium,
                                         ),
@@ -96,10 +97,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       width: 79,
                                       height: 79,
                                       decoration: const BoxDecoration(),
-                                      child: const Align(
-                                        alignment: AlignmentDirectional(0, 0),
+                                      child: Align(
+                                        alignment: const AlignmentDirectional(0, 0),
                                         child: Text(
-                                          'Tingkatnya',
+                                          widget.tingkat?? "Tak Tersedia",
                                           style: bodyMedium,
                                         ),
                                       ),
@@ -120,7 +121,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 16, 0, 0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // TODO wait for kepin to make a page to edit this
+                                // Navigator.of(context).push();
+                              },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
                                   const Size(double.infinity, 60),
@@ -155,7 +159,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 16, 0, 0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // TODO do sql queries here
+                                Navigator.of(context).pop();
+                              },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
                                   const Size(double.infinity, 60),

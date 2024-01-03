@@ -421,15 +421,10 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: const [
-                          Category(),
-                        ],
+                      child: DatabaseWidgetGenerator.makeCategoryButtons()
                       ),
                     ),
                   ),
-                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -507,15 +502,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                    ],
-                  ),
+                  child: SizedBox(
+                    child: DatabaseWidgetGenerator.makeAdminMemberCards())
                 ),
               ],
             ),
