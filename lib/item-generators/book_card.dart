@@ -90,7 +90,7 @@ class _BookCardState extends State<BookCard> {
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 6, 0, 10),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 20,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
@@ -272,7 +272,7 @@ class _BookCardState extends State<BookCard> {
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 6, 0, 10),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 20,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
@@ -530,7 +530,7 @@ class _BookCardState extends State<BookCard> {
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 6, 4, 10),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 20,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,

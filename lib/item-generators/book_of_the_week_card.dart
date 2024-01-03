@@ -91,7 +91,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 6, 0, 10),
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 20,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
@@ -319,7 +319,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 6, 0, 10),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 20,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
