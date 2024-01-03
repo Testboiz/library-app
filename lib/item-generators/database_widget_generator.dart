@@ -159,6 +159,11 @@ WHERE buku.id_buku= ?
       ),
     );
   }
+  static Future<int> getSisaPinjamByMember(String memberId) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.query("member");
+    return dataList[0]["sisa_kuota"] as int;
+  }
 
   static Future<List<BookCard>> _generateBookCardFromDB(String parent,
       {String? genre, String? idMember}) async {

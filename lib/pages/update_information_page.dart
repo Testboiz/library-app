@@ -145,6 +145,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                                     .kembalikanSemuaBuku(
                                                         widget.id);
                                                 Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
                                                 // delete query here mas semua nya mas
                                               },
                                               child: const Text(

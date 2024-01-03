@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 
 import '../constants/costum_color.dart';
@@ -23,6 +24,11 @@ class BorrowedBookCard extends StatefulWidget {
 }
 
 class _BorrowedBookCardState extends State<BorrowedBookCard> {
+  int getDateDiff(){
+    DateFormat dateFormatSQL = DateFormat("yyyy-MM-dd");
+    DateTime deadlineDateFormat = dateFormatSQL.parse(widget.tglDeadline);
+    return deadlineDateFormat.difference(DateTime.now()).inDays;
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -78,8 +84,8 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            '3 hari lagi',
+                          Text(
+                            '${getDateDiff()} hari lagi',
                             style: bodyMedium,
                           ),
                           ElevatedButton(
@@ -106,6 +112,7 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                                       TextButton(
                                         onPressed: () {
                                           DatabaseWidgetGenerator.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
+                                          Navigator.of(context).pop();
                                           Navigator.of(context).pop();
                                         },
                                         child: const Text(

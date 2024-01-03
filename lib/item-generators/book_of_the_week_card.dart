@@ -128,6 +128,8 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 onPressed: () {
                                   DatabaseWidgetGenerator.pinjamBuku(
                                       widget.idMember, widget.idBuku);
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                  Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(

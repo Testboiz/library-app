@@ -21,7 +21,8 @@ class BookCard extends StatefulWidget {
       required this.idBuku,
       this.imagePath,
       this.idMember,
-      required this.genre});
+      required this.genre,
+      });
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -568,9 +569,9 @@ class _BookCardState extends State<BookCard> {
                                     setState(() {
                                       DatabaseWidgetGenerator.pinjamBuku(
                                         widget.idMember, widget.idBuku);
-                                        
                                     });
-                                    
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                    Navigator.of(context).pop();
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
