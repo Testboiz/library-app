@@ -208,7 +208,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
   static Future<List<Category>> _generateCategoryButtons() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.query("genre");
-    List<Category> initList= [Category()];
+    List<Category> initList= [const Category()];
     List<Category> toAppend= List<Category>.generate(dataList.length, 
     (index) => Category(genre: dataList[index]["nama_genre"] as String,));
     initList.addAll(toAppend);
@@ -357,7 +357,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
         return Text('Error: ${snapshot.error}');
       } else {
         List<Category> categoryButtons = snapshot.data ?? [];
-        print(categoryButtons.length);
         if (categoryButtons.isEmpty) {
           return const Category();
         } else {
@@ -365,7 +364,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
             height: 30,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              shrinkWrap: false,
+              shrinkWrap: true,
               itemCount: categoryButtons.length,
               itemBuilder: (context, index) {
                 return categoryButtons[index];
