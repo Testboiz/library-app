@@ -147,12 +147,7 @@ class MemberPageState extends State<MemberPage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: const [
-                        Category(),
-                      ],
-                    ),
+                    child: DatabaseWidgetGenerator.makeCategoryButtons(),
                   ),
                 ),
               ),
