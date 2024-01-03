@@ -3,7 +3,8 @@ import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/home.dart';
 
 class Category extends StatefulWidget {
-  const Category({super.key});
+  const Category({super.key, this.genre});
+  final String? genre;
 
   @override
   State<Category> createState() => _CategoryState();
@@ -31,7 +32,7 @@ class _CategoryState extends State<Category> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                          builder: (context) => HomePage(selectedGenre: widget.genre,)));
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
@@ -45,8 +46,8 @@ class _CategoryState extends State<Category> {
                     ),
                   ),
                 ),
-                child: const Text(
-                  'All',
+                child: Text(
+                  widget.genre ?? "All",
                   style: titleSmall,
                 ),
               ),

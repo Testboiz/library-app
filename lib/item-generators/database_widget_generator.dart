@@ -4,6 +4,7 @@ import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
 import 'package:library_app/model/admin.dart';
+import 'package:library_app/widgets/kategori.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
@@ -204,6 +205,15 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     idBuku: dataList[index]["id_buku"] as int
     ));
   }
+  static Future<List<Category>> _generateCategoryButtons() async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    final dataList = await db.query("genre");
+    List<Category> initList= [Category()];
+    List<Category> toAppend= List<Category>.generate(dataList.length, 
+    (index) => Category(genre: dataList[index]["nama_genre"] as String,));
+    initList.addAll(toAppend);
+    return initList;
+  }
 
   static FutureBuilder<List<AdminMemberCard>> makeAdminMemberCards() {
     return FutureBuilder(
@@ -336,6 +346,38 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
           }
         }));
   }
+  
+  static FutureBuilder<List<Category>> makeCategoryButtons() {
+  return FutureBuilder(
+    future: DatabaseWidgetGenerator._generateCategoryButtons(),
+    builder: ((context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        List<Category> categoryButtons = snapshot.data ?? [];
+        print(categoryButtons.length);
+        if (categoryButtons.isEmpty) {
+          return const Category();
+        } else {
+          return SizedBox(
+            height: 30,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: false,
+              itemCount: categoryButtons.length,
+              itemBuilder: (context, index) {
+                return categoryButtons[index];
+              },
+            ),
+          );
+        }
+      }
+    }),
+  );
+}
+
 
   static void pinjamBuku(String? idMember, int? idBuku) async {
     Database db = await SqliteHandler().myOpenDatabase();

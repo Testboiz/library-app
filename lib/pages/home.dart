@@ -9,7 +9,8 @@ import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.selectedGenre}) : super(key: key);
+  final String? selectedGenre;
 
   @override
   HomePageState createState() => HomePageState();
@@ -158,7 +159,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const Category(),
+                DatabaseWidgetGenerator.makeCategoryButtons(),
                 const SizedBox(
                   height: 15,
                 ),
@@ -166,9 +167,7 @@ class HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child:
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        DatabaseWidgetGenerator.makeBookCards("home"),
+                        DatabaseWidgetGenerator.makeBookCards("home",genre: widget.selectedGenre),
                   ),
                 ),
               ],
