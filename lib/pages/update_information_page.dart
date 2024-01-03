@@ -74,9 +74,6 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         decoration: const BoxDecoration(
                           color: Color(0x00381D6C),
                         ),
-                        // child: const MemberCard(
-                        //   father: "profile",
-                        // ),
                       ),
                     ),
                   ],
@@ -144,7 +141,9 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                               )),
                                           TextButton(
                                               onPressed: () {
-                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id);
+                                                DatabaseWidgetGenerator
+                                                    .kembalikanSemuaBuku(
+                                                        widget.id);
                                                 Navigator.of(context).pop();
                                                 // delete query here mas semua nya mas
                                               },
@@ -412,12 +411,20 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             40, 16, 40, 20),
                         child: ElevatedButton(
                           onPressed: () {
-                            if (namaController.text.isEmpty && passwordController.text.isEmpty && confirmPasswordController.text.isEmpty){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data Tidak Bolek Kosong")));
+                            if (namaController.text.isEmpty &&
+                                passwordController.text.isEmpty &&
+                                confirmPasswordController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text("Data Tidak Bolek Kosong")));
                               return;
                             }
-                            if (passwordController.text != confirmPasswordController.text){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
+                            if (passwordController.text !=
+                                confirmPasswordController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Password Tidak Cocok")));
                               return;
                             }
                             showDialog(
@@ -440,9 +447,14 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
+                                          DatabaseWidgetGenerator
+                                              .changeMemberInfo(
+                                                  widget.id,
+                                                  namaController.text,
+                                                  passwordController.text);
                                           // keluar sampai home page yang belum login
-                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
                                         },
                                         child: const Text(
                                           "Yakin",
@@ -456,7 +468,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                   ],
                                 );
                               },
-                            );  
+                            );
                           },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(

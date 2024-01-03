@@ -28,7 +28,6 @@ class HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +143,7 @@ class HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Cate',
+                        'Gen',
                         style: TextStyle(
                           color: Color.fromARGB(255, 243, 177, 106),
                           fontSize: 14,
@@ -153,7 +152,7 @@ class HomePageState extends State<HomePage> {
                         ),
                       ),
                       Text(
-                        'gories',
+                        're',
                         style: bodyMedium,
                       ),
                     ],

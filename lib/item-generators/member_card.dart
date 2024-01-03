@@ -29,7 +29,9 @@ class _MemberCardState extends State<MemberCard> {
       onTap: () {
         if (widget.father != "profile") {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => MemberInformationPage(id: widget.id,)));
+              builder: (context) => MemberInformationPage(
+                    id: widget.id,
+                  )));
         }
       },
       child: Padding(
@@ -72,7 +74,7 @@ class _MemberCardState extends State<MemberCard> {
                       fit: BoxFit.cover,
                     ),
                     Text(
-                      widget.id,
+                      widget.id.toString(),
                       style: bodyMedium,
                     ),
                   ],

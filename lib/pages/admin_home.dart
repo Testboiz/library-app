@@ -40,65 +40,133 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                  child: Image.asset(
-                    'assests/Icons/logo.png',
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const Text(
-                  'README.BOOK',
-                  style: headlineSmall,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+              child: Image.asset(
+                'assests/Icons/logo.png',
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
             ),
-            const Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'ADMIN',
-                  style: TextStyle(
-                    fontFamily: 'Readex',
-                    color: Color(0xFFF2AA64),
-                    fontSize: 16,
+            TextButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            color: Color(0x3B1D2429),
+                            offset: Offset(0, -3),
+                          )
+                        ],
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(0),
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 16, 0, 0),
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(
+                                          const Size(double.infinity, 60),
+                                        ),
+                                        side: MaterialStateProperty.all(
+                                          const BorderSide(
+                                            width: 2,
+                                            color: error,
+                                          ),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                primaryBackground),
+                                      ),
+                                      child: const Text(
+                                        'Logout',
+                                        style: TextStyle(
+                                          color: error,
+                                          fontSize: 16,
+                                          fontFamily: "Readex",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'ADMIN',
+                    style: TextStyle(
+                      fontFamily: 'Readex',
+                      color: Color(0xFFF2AA64),
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Text(
-                  'Panel',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Readex',
-                    fontSize: 16,
+                  Text(
+                    'Panel',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Readex',
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
         elevation: 2,
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          top: true,
-          child: Container(
-            width: MediaQuery.sizeOf(context).width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF241243),
-                  primaryBackground,
-                ],
-                stops: [0, 0.6],
-                begin: AlignmentDirectional(-0.87, -1),
-                end: AlignmentDirectional(0.87, 1),
-              ),
+      body: SafeArea(
+        top: true,
+        child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF241243),
+                primaryBackground,
+              ],
+              stops: [0, 0.6],
+              begin: AlignmentDirectional(-0.87, -1),
+              end: AlignmentDirectional(0.87, 1),
             ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -114,14 +182,14 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Cate',
+                            'Gen',
                             style: TextStyle(
                                 fontFamily: 'Readex',
                                 color: Color(0xFFF3B06A),
                                 fontSize: 18),
                           ),
                           Text(
-                            'gories',
+                            're',
                             style: TextStyle(
                                 fontFamily: 'Readex',
                                 color: Color.fromARGB(255, 255, 255, 255),
@@ -372,6 +440,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AddBookPage()));
+                          print(DatabaseWidgetGenerator.makeBookCards("admin"));
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -405,40 +474,12 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     )
                   ],
                 ),
-                // Padding(
-                //   padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                //   child: GridView(
-                //     shrinkWrap: true,
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     padding: EdgeInsets.zero,
-                //     gridDelegate:
-                //         const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 3,
-                //       crossAxisSpacing: 10,
-                //       mainAxisSpacing: 10,
-                //       childAspectRatio: 0.83,
-                //     ),
-                //     // scrollDirection: Axis.vertical,
-                //     children: const [
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi",),
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                //       BookCard(parent: "admin", judul: 'hai',sinopsis: "hihi"),
-                //     ],
-                //   )
-                // ),
                 SizedBox(
                   height: 200,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                        child: DatabaseWidgetGenerator.makeBookCards("admin"),
-                      ),
-                    ],
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                    child: DatabaseWidgetGenerator.makeBookCards("admin"),
                   ),
                 ),
                 const Padding(
@@ -470,9 +511,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: const [
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
                       AdminMemberCard(nama: "nama", pass: "pass"),
                       AdminMemberCard(nama: "nama", pass: "pass"),
                       AdminMemberCard(nama: "nama", pass: "pass"),

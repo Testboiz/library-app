@@ -13,7 +13,7 @@ class BookOfTheWeekCard extends StatefulWidget {
       this.idBuku,
       this.idMember,
       this.imagePath,
-      required this.genre });
+      required this.genre});
   final String parent;
   final String judul;
   final String sinopsis;
@@ -87,17 +87,23 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     overflow: TextOverflow.ellipsis,
                                     style: bodyMedium,
                                   ),
-                                  const Padding(
-                                    padding:  EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 10),
-                                    child: KategoriText(),
-                                    // unbounded height error dong WKWKKWKW
-                                    // child : ListView.builder(scrollDirection: Axis.horizontal,
-                                    //         shrinkWrap: false,
-                                    //         itemCount: widget.genre.length,
-                                    //         itemBuilder: (context, index) {
-                                    //           return KategoriText(namaGenre: widget.genre[index],);
-                                    //         },)
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 10),
+                                    child: Container(
+                                      height: 20,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: false,
+                                        itemCount: widget.genre.length,
+                                        itemBuilder: (context, index) {
+                                          return KategoriText(
+                                            namaGenre: widget.genre[index],
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ),
                                   // sinopsis
                                   Text(
@@ -120,7 +126,8 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   0, 16, 0, 0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
+                                  DatabaseWidgetGenerator.pinjamBuku(
+                                      widget.idMember, widget.idBuku);
                                 },
                                 style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -308,17 +315,23 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       maxLines: 1,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding:   EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(),
-                                      // unbounded height error dong WKWKKWKW
-                                      // child : ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },)
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: Container(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
                                     // sinopsis
                                     Text(

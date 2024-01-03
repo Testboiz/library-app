@@ -13,16 +13,15 @@ class BookCard extends StatefulWidget {
   final int idBuku;
   final String? idMember;
   final List<String> genre;
-  const BookCard({
-    super.key,
-    required this.parent,
-    required this.judul,
-    required this.sinopsis,
-    required this.idBuku,
-    this.imagePath,
-    this.idMember,
-    required this.genre
-  });
+  const BookCard(
+      {super.key,
+      required this.parent,
+      required this.judul,
+      required this.sinopsis,
+      required this.idBuku,
+      this.imagePath,
+      this.idMember,
+      required this.genre});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -87,19 +86,23 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child:
-                                          KategoriText(namaGenre: "Kategori1"),
-                                          // unbounded height error dong WKWKKWKW
-                                      //     ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },
-                                      // )
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: Container(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -265,18 +268,24 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding:  EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori2",
-                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },
-                                          ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: Container(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
                                       ),
+                                    ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,
@@ -331,7 +340,50 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          backgroundColor: primary,
+                                          title: const Text(
+                                            "Apakah Kamu Yakin??",
+                                            style: bodyLarge,
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Belum",
+                                                style: labelMedium,
+                                              ),
+                                            ),
+                                            TextButton(
+                                                onPressed: () async {
+                                                  print("masuk");
+                                                  setState(() {
+                                                    DatabaseWidgetGenerator
+                                                        .deleteBuku(
+                                                            widget.idBuku);
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text(
+                                                  "Yakin",
+                                                  style: TextStyle(
+                                                    color: error,
+                                                    fontSize: 14,
+                                                    fontFamily: "Readex",
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                )),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
                                       const Size(double.infinity, 60),
@@ -474,19 +526,24 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori3",
-                                      // unbounded height error dong WKWKKWKW
-                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                            // },
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 4, 10),
+                                      child: Container(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
                                         ),
-                                       ),
+                                      ),
+                                    ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,
@@ -507,8 +564,9 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () { 
-                                    DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
+                                  onPressed: () {
+                                    DatabaseWidgetGenerator.pinjamBuku(
+                                        widget.idMember, widget.idBuku);
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
