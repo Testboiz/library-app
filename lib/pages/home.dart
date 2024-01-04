@@ -165,7 +165,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                DatabaseWidgetGenerator.makeCategoryButtons(),
+                DatabaseWidgetGenerator.makeCategoryButtons("home"),
                 const SizedBox(
                   height: 15,
                 ),

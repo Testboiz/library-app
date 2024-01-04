@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
+import 'package:library_app/model/member.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -11,13 +12,15 @@ class MemberPage extends StatefulWidget {
       required this.name,
       required this.tingkat,
       required this.sisaPinjam,
-      required this.tglBalik})
+      required this.tglBalik,
+      this.genre})
       : super(key: key);
   final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
   final String? tglBalik;
+  final String? genre;
 
   @override
   MemberPageState createState() => MemberPageState();
@@ -164,13 +167,18 @@ class MemberPageState extends State<MemberPage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: DatabaseWidgetGenerator.makeCategoryButtons(),
+                    child: DatabaseWidgetGenerator.makeCategoryButtons("member",
+                    memberInfo: Member(id: widget.id, 
+                    name: widget.name, 
+                    tingkatMember: widget.tingkat, 
+                    sisaPinjam: widget.sisaPinjam, 
+                    books: [])),
                   ),
                 ),
               ),
               Expanded(
                   child: DatabaseWidgetGenerator.makeBookCards("member",
-                      idMember: widget.id, callback: reload)),
+                      idMember: widget.id, callback: reload, genre: widget.genre)),
             ],
           ),
         ),

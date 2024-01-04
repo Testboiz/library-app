@@ -8,9 +8,10 @@ import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class AdminHomePage extends StatefulWidget {
-  const AdminHomePage({Key? key, this.callback = _doNothing}) : super(key: key);
+  const AdminHomePage({Key? key, this.callback = _doNothing, this.selectedGenre}) : super(key: key);
 
   final VoidCallback callback;
+  final String? selectedGenre;
   static void _doNothing(){}
   @override
   AdminHomePageWidgetState createState() => AdminHomePageWidgetState();
@@ -22,7 +23,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
   void rebuild(){
     setState(() {
       widget.callback();
-      print("rebuilt");
     });
   }
 
@@ -430,7 +430,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                      child: DatabaseWidgetGenerator.makeCategoryButtons()
+                      child: DatabaseWidgetGenerator.makeCategoryButtons("admin")
                       ),
                     ),
                   ),
@@ -482,7 +482,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                    child: DatabaseWidgetGenerator.makeBookCards("admin", callback: rebuild),
+                    child: DatabaseWidgetGenerator.makeBookCards("admin", callback: rebuild, genre: widget.selectedGenre),
                   ),
                 ),
                 const Padding(

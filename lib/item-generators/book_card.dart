@@ -368,7 +368,6 @@ class _BookCardState extends State<BookCard> {
                                             ),
                                             TextButton(
                                                 onPressed: () async {
-                                                  print("masuk");
                                                    await DatabaseWidgetGenerator
                                                     .deleteBuku(
                                                       widget.idBuku);

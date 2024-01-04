@@ -4,6 +4,7 @@ import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
 import 'package:library_app/model/admin.dart';
+import 'package:library_app/model/member.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
@@ -222,12 +223,12 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     ));
   }
   // TODO don't make the user logout by using parent param
-  static Future<List<Category>> _generateCategoryButtons() async {
+  static Future<List<Category>> _generateCategoryButtons(String parent, {Member? memberInfo}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.query("genre");
-    List<Category> initList= [const Category()];
+    List<Category> initList= [Category(parent: parent,memberInfo: memberInfo,)];
     List<Category> toAppend= List<Category>.generate(dataList.length, 
-    (index) => Category(genre: dataList[index]["nama_genre"] as String,));
+    (index) => Category(genre: dataList[index]["nama_genre"] as String,parent: parent, memberInfo: memberInfo,));
     initList.addAll(toAppend);
     return initList;
   }
@@ -364,9 +365,9 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
         }));
   }
   
-  static FutureBuilder<List<Category>> makeCategoryButtons() {
+  static FutureBuilder<List<Category>> makeCategoryButtons(String parent, {Member? memberInfo}) {
   return FutureBuilder(
-    future: DatabaseWidgetGenerator._generateCategoryButtons(),
+    future: DatabaseWidgetGenerator._generateCategoryButtons(parent, memberInfo: memberInfo),
     builder: ((context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const CircularProgressIndicator();
