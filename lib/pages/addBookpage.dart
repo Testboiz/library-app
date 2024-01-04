@@ -22,6 +22,8 @@ class _AddBookPageState extends State<AddBookPage> {
     {'genre': 'Adventure', 'status': false},
     {'genre': 'Misc', 'status': false},
   ];
+  TextEditingController namaBukuController = TextEditingController();
+  TextEditingController synopsisController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +109,7 @@ class _AddBookPageState extends State<AddBookPage> {
                         child: SizedBox(
                           width: double.infinity,
                           child: TextFormField(
+                            controller: namaBukuController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Book Name',
@@ -146,7 +149,7 @@ class _AddBookPageState extends State<AddBookPage> {
                             style: bodyMedium,
                             maxLines: 2,
                             minLines: 1,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                           ),
                         ),
                       ),
@@ -201,9 +204,10 @@ class _AddBookPageState extends State<AddBookPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: TextFormField(
+                      controller: synopsisController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Book Name',
+                        labelText: 'Book Synopsis',
                         labelStyle: labelMedium,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -256,7 +260,12 @@ class _AddBookPageState extends State<AddBookPage> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(40, 16, 40, 20),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if(namaBukuController.text.isEmpty){
+                            return;
+                          }
+                          //TODO add SQL function call here
+                        },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(
                             const Size(double.infinity, 60),
