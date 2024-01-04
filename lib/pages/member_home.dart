@@ -25,9 +25,26 @@ class MemberPage extends StatefulWidget {
 
 class MemberPageState extends State<MemberPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  int? updateableSisaPinjam;
+
+  Future<void> _initializeData() async {
+    updateableSisaPinjam = await widget.sisaPinjam;
+    setState(() {}); // Update the UI after receiving the value
+  }
+
+
   @override
   void initState() {
+    _initializeData();
     super.initState();
+  }
+  void reload() async {
+    int temp =  await DatabaseWidgetGenerator.getSisaPinjamByMember(widget.id);
+    setState(()  {
+      updateableSisaPinjam = temp;
+      print("called");
+      print(temp);
+    });
   }
 
   @override
@@ -89,9 +106,10 @@ class MemberPageState extends State<MemberPage> {
                 id: widget.id,
                 name: widget.name,
                 tingkat: widget.tingkat,
-                sisaPinjam: widget.sisaPinjam,
+                sisaPinjam: updateableSisaPinjam ?? widget.sisaPinjam,
                 tglBalik: widget.tglBalik,
                 father: 'member',
+                callback: reload,
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
@@ -115,7 +133,7 @@ class MemberPageState extends State<MemberPage> {
                 ),
               ),
               DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",
-                  idMember: widget.id),
+                  idMember: widget.id, callback: reload),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -153,7 +171,7 @@ class MemberPageState extends State<MemberPage> {
               ),
               Expanded(
                   child: DatabaseWidgetGenerator.makeBookCards("member",
-                      idMember: widget.id)),
+                      idMember: widget.id, callback: reload)),
             ],
           ),
         ),

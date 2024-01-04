@@ -13,6 +13,7 @@ class BookCard extends StatefulWidget {
   final int idBuku;
   final String? idMember;
   final List<String> genre;
+  final VoidCallback callback;
   const BookCard(
       {super.key,
       required this.parent,
@@ -22,10 +23,12 @@ class BookCard extends StatefulWidget {
       this.imagePath,
       this.idMember,
       required this.genre,
+      this.callback = doNothing,
       });
 
   @override
   State<BookCard> createState() => _BookCardState();
+  static void doNothing(){}
 }
 
 class _BookCardState extends State<BookCard> {
@@ -569,6 +572,7 @@ class _BookCardState extends State<BookCard> {
                                     setState(() {
                                       DatabaseWidgetGenerator.pinjamBuku(
                                         widget.idMember, widget.idBuku);
+                                        widget.callback();
                                     });
                                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
                                     Navigator.of(context).pop();

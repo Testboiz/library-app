@@ -11,14 +11,18 @@ class BorrowedBookCard extends StatefulWidget {
   final int idPeminjaman;
   final String idMember;
   final int idBuku;
+  final VoidCallback callback;
   const BorrowedBookCard({super.key,
   required this.imagePath,
   required this.judul,
   required this.tglDeadline,
   required this.idPeminjaman,
   required this.idMember,
-  required this.idBuku});
+  required this.idBuku,
+  this.callback = _callback
+  });
 
+  static void _callback(){}
   @override
   State<BorrowedBookCard> createState() => _BorrowedBookCardState();
 }
@@ -110,10 +114,11 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                                         ),
                                       ),
                                       TextButton(
-                                        onPressed: () {
-                                          DatabaseWidgetGenerator.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
+                                        onPressed: () async {
+                                          await DatabaseWidgetGenerator.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
                                           Navigator.of(context).pop();
                                           Navigator.of(context).pop();
+                                          widget.callback();
                                         },
                                         child: const Text(
                                           "Sudah",

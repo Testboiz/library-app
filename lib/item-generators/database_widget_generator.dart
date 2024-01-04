@@ -12,6 +12,7 @@ import 'package:library_app/constants/membertype.dart';
 import 'package:library_app/item-generators/member_card.dart';
 
 class DatabaseWidgetGenerator {
+  static void _doNothing(){}
   static Future<String> _generateReadMeId() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final memberKeyTable =
@@ -142,7 +143,7 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
 
   static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
       String parent,
-      {String? idMember}) async {
+      {String? idMember, VoidCallback? callback}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery('SELECT * FROM buku');
     List<List<String>> genreLists = [];
@@ -160,17 +161,18 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
         genre: genreLists[index],
+        callback: callback ?? _doNothing,
       ),
     );
   }
   static Future<int> getSisaPinjamByMember(String memberId) async {
     Database db = await SqliteHandler().myOpenDatabase();
-    final dataList = await db.query("member");
+    final dataList = await db.query("member", where: "id_member = ?", whereArgs: [memberId]);
     return dataList[0]["sisa_kuota"] as int;
   }
 
   static Future<List<BookCard>> _generateBookCardFromDB(String parent,
-      {String? genre, String? idMember}) async {
+      {String? genre, String? idMember, VoidCallback? callback}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     List<Map> dataList = [{}];
     if (genre != null) {
@@ -196,10 +198,11 @@ WHERE genre.nama_genre = ?;""";
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
         genre: genreLists[index],
+        callback: callback?? _doNothing,
       ),
     );
   }
-  static Future<List<BorrowedBookCard>> _generateBorrowedBookCard(String idMember) async{
+  static Future<List<BorrowedBookCard>> _generateBorrowedBookCard(String idMember, VoidCallback? callback) async{
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery("""SELECT * FROM peminjaman
 LEFT JOIN detail_pinjaman ON peminjaman.id_peminjam = detail_pinjaman.id_peminjaman
@@ -211,9 +214,11 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     tglDeadline: dataList[index]["tgl_kadarluasa"] as String, 
     idPeminjaman: dataList[index]["id_peminjaman"] as int, 
     idMember: idMember, 
-    idBuku: dataList[index]["id_buku"] as int
+    idBuku: dataList[index]["id_buku"] as int,
+    callback: callback ?? _doNothing,
     ));
   }
+  // TODO don't make the user logout by using parent param
   static Future<List<Category>> _generateCategoryButtons() async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.query("genre");
@@ -257,10 +262,10 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
 
   static FutureBuilder<List<BookOfTheWeekCard>> makeBookOfTheWeekCards(
       String parent,
-      {String? idMember}) {
+      {String? idMember, VoidCallback? callback}) {
     return FutureBuilder(
       future: DatabaseWidgetGenerator._generateBookOfTheWeekCardFromDB(parent,
-          idMember: idMember),
+          idMember: idMember, callback: callback),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -294,10 +299,10 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
   }
 
   static FutureBuilder<List<BookCard>> makeBookCards(String parent,
-      {String? genre, String? idMember}) {
+      {String? genre, String? idMember, VoidCallback? callback}) {
     return FutureBuilder(
       future: DatabaseWidgetGenerator._generateBookCardFromDB(parent,
-          genre: genre, idMember: idMember),
+          genre: genre, idMember: idMember, callback: callback),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -325,9 +330,9 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     );
   }
 
-  static FutureBuilder<List<Widget>> makeBorrowedBookCards(String idMember) {
+  static FutureBuilder<List<Widget>> makeBorrowedBookCards(String idMember, VoidCallback? callback) {
     return FutureBuilder(
-        future: DatabaseWidgetGenerator._generateBorrowedBookCard(idMember),
+        future: DatabaseWidgetGenerator._generateBorrowedBookCard(idMember, callback),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
@@ -422,7 +427,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
         "detail_pinjaman", {"id_peminjaman": idPinjam, "id_buku": idBuku});
   }
 
-  static void kembalikanBuku(
+  static Future<void> kembalikanBuku(
       int idPeminjaman, int idBuku, String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
     // delete peminjaman
@@ -436,7 +441,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
   }
 
   // opsional?
-  static void kembalikanSemuaBuku(String idMember) async {
+  static Future<void> kembalikanSemuaBuku(String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
     int deletedAmnount = await db
         .delete("peminjaman", where: "id_member = ?", whereArgs: [idMember]);

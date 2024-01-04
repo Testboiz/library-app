@@ -13,7 +13,8 @@ class BookOfTheWeekCard extends StatefulWidget {
       this.idBuku,
       this.idMember,
       this.imagePath,
-      required this.genre});
+      required this.genre,
+      this.callback = _doNothing});
   final String parent;
   final String judul;
   final String sinopsis;
@@ -21,7 +22,9 @@ class BookOfTheWeekCard extends StatefulWidget {
   final String? idMember;
   final String? imagePath;
   final List<String> genre;
+  final VoidCallback callback;
 
+  static void _doNothing(){}
   @override
   State<BookOfTheWeekCard> createState() => _BookOfTheWeekCardState();
 }
@@ -128,6 +131,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                 onPressed: () {
                                   DatabaseWidgetGenerator.pinjamBuku(
                                       widget.idMember, widget.idBuku);
+                                  widget.callback();
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
                                   Navigator.of(context).pop();
                                 },
