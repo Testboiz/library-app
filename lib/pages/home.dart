@@ -19,6 +19,12 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void rebuild(){
+    setState(() {
+      print("home page refreshed");
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +70,7 @@ class HomePageState extends State<HomePage> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                    MaterialPageRoute(builder: (context) => LoginPage(callback: rebuild,)));
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(

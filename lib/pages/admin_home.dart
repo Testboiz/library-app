@@ -8,8 +8,10 @@ import 'package:library_app/item-generators/member_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 
 class AdminHomePage extends StatefulWidget {
-  const AdminHomePage({Key? key}) : super(key: key);
+  const AdminHomePage({Key? key, this.callback = _doNothing}) : super(key: key);
 
+  final VoidCallback callback;
+  static void _doNothing(){}
   @override
   AdminHomePageWidgetState createState() => AdminHomePageWidgetState();
 }
@@ -19,6 +21,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
 
   void rebuild(){
     setState(() {
+      widget.callback();
       print("rebuilt");
     });
   }

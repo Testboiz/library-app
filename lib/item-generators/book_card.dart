@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/login.dart';
@@ -367,12 +369,11 @@ class _BookCardState extends State<BookCard> {
                                             TextButton(
                                                 onPressed: () async {
                                                   print("masuk");
-                                                  setState(() async {
                                                    await DatabaseWidgetGenerator
-                                                        .deleteBuku(
-                                                            widget.idBuku);
-                                                    widget.callback();
-                                                  });
+                                                    .deleteBuku(
+                                                      widget.idBuku);
+                                                  widget.callback();
+                                                  Navigator.of(context).pop();
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: const Text(
