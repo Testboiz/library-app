@@ -81,7 +81,6 @@ class DatabaseWidgetGenerator {
       String idMember, String username, String password) async {
     Database db = await SqliteHandler().myOpenDatabase();
     if (username.isEmpty && password.isEmpty) {
-      // dont do anything
       return;
     }
     if (username.isEmpty) {
@@ -246,7 +245,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
               return const AdminMemberCard(
                   nama: "placeholder", pass: "place_holder", memberId: "",callback: _doNothing,);
             } else {
-              // sepuh kepin tolong dong kalo salah wkkwkw
               return SizedBox(
                 height: 260,
                 child: ListView.builder(
@@ -344,7 +342,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
           } else {
             List<Widget> borrowedBookCard = snapshot.data ?? [];
             if (borrowedBookCard.isEmpty) {
-              // perbagus sepuh kepin WKWKWK
+              // TODO perbagus sepuh kepin WKWKWK
               return const Text("Anda Belum Meminjam");
             } else {
               return 
@@ -443,7 +441,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
         [idMember]);
   }
 
-  // opsional?
   static Future<void> kembalikanSemuaBuku(String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
     int deletedAmnount = await db

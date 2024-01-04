@@ -49,7 +49,6 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    // Generated code for this Row Widget...
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,

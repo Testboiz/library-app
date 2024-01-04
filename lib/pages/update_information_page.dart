@@ -151,7 +151,6 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                                 Navigator.of(context).pop();
                                                 Navigator.of(context).pop();
                                                 widget.callback();
-                                                // delete query here mas semua nya mas
                                               },
                                               child: const Text(
                                                 "Sudah",

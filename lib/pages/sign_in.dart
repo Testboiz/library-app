@@ -480,7 +480,6 @@ class SigninPageState extends State<SigninPage> {
                               0, 10, 0, 16),
                           child: ElevatedButton(
                             onPressed: () async {
-                              // habis signin harusnya signup (login)  dong
                               if(firstNameController.text.isEmpty && lastNameController.text.isEmpty ){
                                 createSnackBar(context, "Nama tidak boleh kosong");
                                 return;

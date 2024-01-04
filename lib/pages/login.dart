@@ -225,7 +225,6 @@ class LoginPageState extends State<LoginPage> {
                             Map data = await DatabaseWidgetGenerator.login(
                                 emailController.text, passwordController.text);
                             if (data["memberType"] == MemberType.user) {
-                              // gatau kenapa
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => MemberPage(

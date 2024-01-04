@@ -103,7 +103,6 @@ class MemberPageState extends State<MemberPage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              // do this later
               MemberCard(
                 id: widget.id,
                 name: widget.name,

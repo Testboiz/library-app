@@ -7,7 +7,7 @@ class SqliteHandler {
   Future<Database> myOpenDatabase() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, "lib-app.db");
-  // g bakal simpan update untuk sementara
+  // membuat database tidak selalu tercopy ketika app dibuka (membuatnya persisten) 
     if (!await databaseExists(path)) {
       ByteData data =
           await rootBundle.load(join("db", "lib-app.db"));

@@ -11,9 +11,6 @@ class AddBookPage extends StatefulWidget {
 }
 
 class _AddBookPageState extends State<AddBookPage> {
-  // Masukkin sini rio pake db buat category checkbox buat add book
-  // status jadiin false semua karena itu buat check box nya
-  // ty wkwk
 
   List<Map> genre = [
     {'genre': 'All', 'status': false},
@@ -92,7 +89,7 @@ class _AddBookPageState extends State<AddBookPage> {
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                // Upload Foto bang bang
+                                // TODO Upload Foto bang bang
                               },
                               style: ButtonStyle(
                                   backgroundColor:
