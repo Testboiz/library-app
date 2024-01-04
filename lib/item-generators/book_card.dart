@@ -367,10 +367,11 @@ class _BookCardState extends State<BookCard> {
                                             TextButton(
                                                 onPressed: () async {
                                                   print("masuk");
-                                                  setState(() {
-                                                    DatabaseWidgetGenerator
+                                                  setState(() async {
+                                                   await DatabaseWidgetGenerator
                                                         .deleteBuku(
                                                             widget.idBuku);
+                                                    widget.callback();
                                                   });
                                                   Navigator.of(context).pop();
                                                 },

@@ -28,6 +28,7 @@ class MemberPageState extends State<MemberPage> {
   int? updateableSisaPinjam;
 
   Future<void> _initializeData() async {
+    // ignore: await_only_futures
     updateableSisaPinjam = await widget.sisaPinjam;
     setState(() {}); // Update the UI after receiving the value
   }
@@ -42,8 +43,6 @@ class MemberPageState extends State<MemberPage> {
     int temp =  await DatabaseWidgetGenerator.getSisaPinjamByMember(widget.id);
     setState(()  {
       updateableSisaPinjam = temp;
-      print("called");
-      print(temp);
     });
   }
 

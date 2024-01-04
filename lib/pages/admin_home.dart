@@ -17,6 +17,12 @@ class AdminHomePage extends StatefulWidget {
 class AdminHomePageWidgetState extends State<AdminHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void rebuild(){
+    setState(() {
+      print("rebuilt");
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -435,7 +441,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AddBookPage()));
-                          print(DatabaseWidgetGenerator.makeBookCards("admin"));
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -474,7 +479,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                    child: DatabaseWidgetGenerator.makeBookCards("admin"),
+                    child: DatabaseWidgetGenerator.makeBookCards("admin", callback: rebuild),
                   ),
                 ),
                 const Padding(
@@ -503,7 +508,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: SizedBox(
-                    child: DatabaseWidgetGenerator.makeAdminMemberCards())
+                    child: DatabaseWidgetGenerator.makeAdminMemberCards(rebuild))
                 ),
               ],
             ),

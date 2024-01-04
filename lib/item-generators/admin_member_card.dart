@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 import '../constants/costum_color.dart';
 
 class AdminMemberCard extends StatefulWidget {
   const AdminMemberCard(
-      {super.key, required this.nama, required this.pass, this.imagePath, this.tingkat});
+      {super.key, required this.nama, required this.pass, required this.memberId, this.imagePath, this.tingkat, required this.callback});
   final String nama;
   final String pass;
+  final String memberId;
   final String? imagePath;
   final String? tingkat;
+  final VoidCallback callback;
 
   @override
   State<AdminMemberCard> createState() => _AdminMemberCardState();
@@ -122,7 +125,6 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                 0, 16, 0, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                // TODO wait for kepin to make a page to edit this
                                 // Navigator.of(context).push();
                               },
                               style: ButtonStyle(
@@ -160,7 +162,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                 0, 16, 0, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                // TODO do sql queries here
+                                DatabaseWidgetGenerator.deleteMember(widget.memberId);
+                                widget.callback();
                                 Navigator.of(context).pop();
                               },
                               style: ButtonStyle(

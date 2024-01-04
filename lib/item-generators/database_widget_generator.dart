@@ -127,7 +127,7 @@ WHERE buku.id_buku= ?
   }
 
   // tinggal di implement
-  static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB() async {
+  static Future<List<AdminMemberCard>> _generateAdminMemberCardsFromDB(VoidCallback callback) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.rawQuery("""
 SELECT * FROM member
@@ -138,7 +138,10 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
         (index) => AdminMemberCard(
             nama: dataList[index]["username"] as String,
             pass: dataList[index]["password"] as String,
-            tingkat: dataList[index]["nama_tingkat"] as String,));
+            memberId: dataList[index]["id_member"] as String,
+            tingkat: dataList[index]["nama_tingkat"] as String,
+            callback: callback,
+            ));
   }
 
   static Future<List<BookOfTheWeekCard>> _generateBookOfTheWeekCardFromDB(
@@ -229,9 +232,9 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     return initList;
   }
 
-  static FutureBuilder<List<AdminMemberCard>> makeAdminMemberCards() {
+  static FutureBuilder<List<AdminMemberCard>> makeAdminMemberCards(VoidCallback callback) {
     return FutureBuilder(
-        future: DatabaseWidgetGenerator._generateAdminMemberCardsFromDB(),
+        future: DatabaseWidgetGenerator._generateAdminMemberCardsFromDB(callback),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
@@ -241,7 +244,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
             List<AdminMemberCard> adminMemberCard = snapshot.data ?? [];
             if (adminMemberCard.isEmpty) {
               return const AdminMemberCard(
-                  nama: "placeholder", pass: "place_holder");
+                  nama: "placeholder", pass: "place_holder", memberId: "",callback: _doNothing,);
             } else {
               // sepuh kepin tolong dong kalo salah wkkwkw
               return SizedBox(
@@ -483,7 +486,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     await db.update("member", sqlMapArgs);
   }
 
-  static void deleteMember(int idMember) async {
+  static void deleteMember(String idMember) async {
     Database db = await SqliteHandler().myOpenDatabase();
     await db.delete("member", where: "id_member = ?", whereArgs: [idMember]);
   }
@@ -496,7 +499,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     Database db = await SqliteHandler().myOpenDatabase();
   }
 
-  static void deleteBuku(int idBuku) async {
+  static Future<void> deleteBuku(int idBuku) async {
     Database db = await SqliteHandler().myOpenDatabase();
     await db.delete("buku", where: "id_buku = ?", whereArgs: [idBuku]);
   }
