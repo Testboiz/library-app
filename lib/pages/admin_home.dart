@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
@@ -323,11 +325,11 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                               ),
                                             ),
                                             IconButton(
-                                              onPressed: () {
+                                              onPressed: () async {
                                                 if (genreController.text.isEmpty){
                                                   return;
                                                 }
-                                                DatabaseWidgetGenerator.addGenre(genreController.text);
+                                                await DatabaseWidgetGenerator.addGenre(genreController.text);
                                                 widget.callback();
                                                 Navigator.of(context).pop();
                                               },

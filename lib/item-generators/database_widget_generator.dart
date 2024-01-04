@@ -222,7 +222,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     callback: callback ?? _doNothing,
     ));
   }
-  // TODO don't make the user logout by using parent param
   static Future<List<Category>> _generateCategoryButtons(String parent, {Member? memberInfo}) async {
     Database db = await SqliteHandler().myOpenDatabase();
     final dataList = await db.query("genre");
@@ -504,7 +503,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     Database db = await SqliteHandler().myOpenDatabase();
     await db.delete("buku", where: "id_buku = ?", whereArgs: [idBuku]);
   }
-  static void addGenre(String namaGenre) async {
+  static Future<void> addGenre(String namaGenre) async {
     Database db = await SqliteHandler().myOpenDatabase();
     await db.insert("genre", {
       "nama_genre":namaGenre

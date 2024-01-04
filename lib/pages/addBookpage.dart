@@ -74,8 +74,8 @@ class _AddBookPageState extends State<AddBookPage> {
                             alignment: const AlignmentDirectional(-1, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/433/600',
+                              child: Image.asset(
+                                'assests/Icons/logo.png',
                                 width: 100,
                                 height: 132,
                                 fit: BoxFit.cover,
@@ -154,6 +154,7 @@ class _AddBookPageState extends State<AddBookPage> {
                   ],
                 ),
               ),
+              
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 0, 40),
                 child: GridView(

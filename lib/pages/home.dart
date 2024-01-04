@@ -21,7 +21,6 @@ class HomePageState extends State<HomePage> {
 
   void rebuild(){
     setState(() {
-      print("home page refreshed");
     });
   }
 
