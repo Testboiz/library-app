@@ -54,7 +54,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.asset(
-                            'assests/icons/logo.png',
+                            'assests/Icons/logo.png',
                             width: 107,
                             height: 109,
                             fit: BoxFit.cover,
@@ -274,17 +274,17 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                               ),
                             ),
                           ),
-                          const Text(
-                            'UserName',
+                          Text(
+                            widget.nama,
                             style: bodyLarge,
                           ),
                         ],
                       ),
-                      const Column(
+                      Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             'Tingkat',
                             style: labelMedium,
                           ),
@@ -293,9 +293,9 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             children: [
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                                 child: Text(
-                                  'tingkatnya',
+                                  widget.tingkat ?? "Tidak Tersedia",
                                   style: headlineXSmall,
                                 ),
                               ),
