@@ -19,6 +19,7 @@ class AdminHomePage extends StatefulWidget {
 
 class AdminHomePageWidgetState extends State<AdminHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController genreController = TextEditingController();
 
   void rebuild(){
     setState(() {
@@ -253,6 +254,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       const BoxDecoration(),
                                                   width: double.infinity,
                                                   child: TextFormField(
+                                                    controller: genreController,
                                                     autofocus: true,
                                                     autofillHints: const [
                                                       AutofillHints.name
@@ -322,7 +324,12 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                             ),
                                             IconButton(
                                               onPressed: () {
-                                                // Bang rio isi bang/....
+                                                if (genreController.text.isEmpty){
+                                                  return;
+                                                }
+                                                DatabaseWidgetGenerator.addGenre(genreController.text);
+                                                widget.callback();
+                                                Navigator.of(context).pop();
                                               },
                                               icon: const Icon(
                                                   Icons.check_rounded),

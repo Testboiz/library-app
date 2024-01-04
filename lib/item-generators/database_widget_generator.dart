@@ -504,4 +504,10 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     Database db = await SqliteHandler().myOpenDatabase();
     await db.delete("buku", where: "id_buku = ?", whereArgs: [idBuku]);
   }
+  static void addGenre(String namaGenre) async {
+    Database db = await SqliteHandler().myOpenDatabase();
+    await db.insert("genre", {
+      "nama_genre":namaGenre
+    });
+  }
 }
