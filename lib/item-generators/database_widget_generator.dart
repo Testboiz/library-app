@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
@@ -392,6 +393,18 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
   );
 }
 
+static Future<List<Map>> toGenreMap() async
+{
+  Database db = await SqliteHandler().myOpenDatabase();
+  final dataList = await db.query("genre");
+  return List.generate(dataList.length, 
+  (index) => {
+    'genre':dataList[index]["nama_genre"],
+    'status':false
+  });
+}
+
+
 
   static void pinjamBuku(String? idMember, int? idBuku) async {
     Database db = await SqliteHandler().myOpenDatabase();
@@ -506,4 +519,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
       "nama_genre":namaGenre
     });
   }
+  
+  static void setState(Null Function() param0) {}
 }

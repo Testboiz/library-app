@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 import '../constants/costum_color.dart';
 
@@ -12,13 +13,21 @@ class AddBookPage extends StatefulWidget {
 
 class _AddBookPageState extends State<AddBookPage> {
 
-  List<Map> genre = [
-    {'genre': 'All', 'status': false},
-    {'genre': 'Educational', 'status': false},
-    {'genre': 'Humor', 'status': false},
-    {'genre': 'Adventure', 'status': false},
-    {'genre': 'Misc', 'status': false},
-  ];
+  List<Map> genre = [];
+
+  @override
+  void initState() {
+    setGenre();
+    super.initState();
+  }
+  void setGenre() {
+    Future.delayed(Duration.zero, () async {
+      genre = await DatabaseWidgetGenerator.toGenreMap();
+      setState(() {
+      });
+    });
+  }
+  
   TextEditingController namaBukuController = TextEditingController();
   TextEditingController synopsisController = TextEditingController();
   @override
@@ -165,7 +174,7 @@ class _AddBookPageState extends State<AddBookPage> {
                     childAspectRatio: 3,
                   ),
                   shrinkWrap: true,
-                  children: genre.map((e) {
+                  children:  genre.map((e) {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
@@ -262,6 +271,7 @@ class _AddBookPageState extends State<AddBookPage> {
                             return;
                           }
                           //TODO add SQL function call here
+                          // remember to do a callback
                         },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(
