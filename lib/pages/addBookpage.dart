@@ -1,7 +1,10 @@
 // ignore_for_file: file_names
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../constants/costum_color.dart';
 
@@ -31,6 +34,7 @@ class _AddBookPageState extends State<AddBookPage> {
   
   TextEditingController namaBukuController = TextEditingController();
   TextEditingController synopsisController = TextEditingController();
+  String bookCoverPath = "assests/Icons/logo.png";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,11 +87,10 @@ class _AddBookPageState extends State<AddBookPage> {
                             alignment: const AlignmentDirectional(-1, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assests/Icons/logo.png',
-                                width: 100,
-                                height: 132,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: bookCoverPath.startsWith('assests/')
+                                    ? AssetImage(bookCoverPath) 
+                                    : FileImage(File(bookCoverPath)) as ImageProvider,
                               ),
                             ),
                           ),
@@ -100,6 +103,36 @@ class _AddBookPageState extends State<AddBookPage> {
                               ),
                               onPressed: () async {
                                 // TODO Upload Foto bang bang
+                                var imagePicker = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+                                if (imagePicker != null) {
+                                  print("IMAGE NAME");
+                                  print(imagePicker.name);
+                                  print("IMAGE PATH");
+                                  print(imagePicker.path);
+                                  // this 
+                                  final appDirectory = await getApplicationDocumentsDirectory();
+
+                                  // Create a new file path within the app's documents directory
+                                  final filePath = '${appDirectory.path}/${imagePicker.name}';
+
+                                  final fileFromXFile = imagePicker.path;
+
+                                  print(filePath);
+                                  print(fileFromXFile);
+
+                                  // Save the picked image to the specified path
+                                  final file = await File(filePath).writeAsBytes(File(fileFromXFile).readAsBytesSync());
+
+                                  // Display a success message or use the saved image path as needed
+                                  print('Image saved to: $filePath');
+
+                                  setState(() {
+                                    bookCoverPath = filePath;
+                                  });
+
+                                }
+
                               },
                               style: ButtonStyle(
                                   backgroundColor:
