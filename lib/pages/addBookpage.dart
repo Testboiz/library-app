@@ -106,27 +106,13 @@ class _AddBookPageState extends State<AddBookPage> {
                                 var imagePicker = await ImagePicker().pickImage(source: ImageSource.gallery);
 
                                 if (imagePicker != null) {
-                                  print("IMAGE NAME");
-                                  print(imagePicker.name);
-                                  print("IMAGE PATH");
-                                  print(imagePicker.path);
                                   // this 
                                   final appDirectory = await getApplicationDocumentsDirectory();
-
                                   // Create a new file path within the app's documents directory
                                   final filePath = '${appDirectory.path}/${imagePicker.name}';
-
                                   final fileFromXFile = imagePicker.path;
-
-                                  print(filePath);
-                                  print(fileFromXFile);
-
                                   // Save the picked image to the specified path
-                                  final file = await File(filePath).writeAsBytes(File(fileFromXFile).readAsBytesSync());
-
-                                  // Display a success message or use the saved image path as needed
-                                  print('Image saved to: $filePath');
-
+                                  await File(filePath).writeAsBytes(File(fileFromXFile).readAsBytesSync());
                                   setState(() {
                                     bookCoverPath = filePath;
                                   });
@@ -304,6 +290,8 @@ class _AddBookPageState extends State<AddBookPage> {
                           if(namaBukuController.text.isEmpty){
                             return;
                           }
+
+                          
                           //TODO add SQL function call here
                           // remember to do a callback
                         },

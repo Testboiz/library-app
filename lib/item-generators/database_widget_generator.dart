@@ -393,17 +393,58 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
   );
 }
 
-static Future<List<Map>> toGenreMap() async
+static Future<List<Map>> toGenreMap({int? idBuku}) async
 {
   Database db = await SqliteHandler().myOpenDatabase();
-  final dataList = await db.query("genre");
-  return List.generate(dataList.length, 
-  (index) => {
-    'genre':dataList[index]["nama_genre"],
-    'status':false
-  });
+  if (idBuku != null){
+    final dataList = await db.query("genre");
+    final bookGenres = await db.query(
+      "genre_buku", 
+      where: "id_buku = ?", 
+      whereArgs: [idBuku], 
+      orderBy: "id_genre");
+    List<int> genreIds = 
+      List.generate(bookGenres.length, 
+        (index) => bookGenres[index]["id_buku"] as int);
+      
+    // status true => merupakan genre dari buku itu
+    return List.generate(dataList.length,
+    (index) =>{
+      'genre':dataList[index]["nama_genre"],
+      'status':(genreIds.contains(dataList[index]["id_genre"] as int)),
+      'id_genre':dataList[index]["id_genre"]
+    });
+  }
+  else{
+    final dataList = await db.query("genre");
+    return List.generate(dataList.length, 
+    (index) => {
+      'genre':dataList[index]["nama_genre"],
+      'status':false,
+      'id_genre':dataList[index]["id_genre"]
+    });
+  }
+  
 }
-
+/// Membandingkan daftar genre pertama dan kedua. Fungsi ini digunakan
+/// untuk menentukan genre yang akan dihapus dari db dan juga genre
+/// yang akan diupdate
+static List<Map> _compareGenreMap(List<Map> first, List<Map> second, {bool removeMode = false}){
+  List<Map> result = [];
+  for (int i = 0; i < first.length; i++){
+    if (removeMode == true){
+      if (first[i]['status'] == true && second[i]['status'] == false){
+        result.add(first[i]);
+      }
+    }
+    else{
+      if (first[i]['status'] == false && second[i]['status'] == true){
+        result.add(first[i]);
+      }
+    }
+  }
+  return result;
+}
 
 
   static void pinjamBuku(String? idMember, int? idBuku) async {
@@ -501,12 +542,64 @@ static Future<List<Map>> toGenreMap() async
     await db.delete("member", where: "id_member = ?", whereArgs: [idMember]);
   }
 
-  static void addBuku() async {
+  static void addBuku
+  (String judul, 
+  String? sinopsis, 
+  String? fotoSampul, 
+  List<Map<String,dynamic>> genreMap)
+  async {
     Database db = await SqliteHandler().myOpenDatabase();
+    // fase insert buku
+    await db.insert("buku", {
+      "judul":judul,
+      "sinopsis":sinopsis,
+      "foto_sampul":fotoSampul
+    });
+    // mendapatkan pk buku
+    final maxIdBukuTable = await db.rawQuery("SELECT MAX(id_buku) AS id FROM buku");
+    int idBuku = maxIdBukuTable[0]["id"] as int;
+    // fase insert genre buku
+    for (Map m in genreMap){
+      if (m["status"]== true){
+        db.insert("genre_buku", {
+        "id_buku":idBuku,
+        "id_genre":m["id_genre"]
+      });
+      }
+    }
   }
 
-  static void editBuku() async {
+  static void editBuku(
+    int idBuku,
+    String judul,
+    String? sinopsis, 
+    String? fotoSampul, 
+    List<Map<String,dynamic>> genreMap) 
+    async {
     Database db = await SqliteHandler().myOpenDatabase();
+    // fase update buku
+    await db.update("buku", {
+      "judul":judul,
+      "sinopsis":sinopsis,
+      "foto_sampul":fotoSampul
+    }, where: "id_buku = ?",
+    whereArgs: [idBuku]);
+    // fase update genre buku (lain dikit)
+    List<Map> toDelete = _compareGenreMap(genreMap, await toGenreMap(idBuku: idBuku), removeMode: true);
+    List<Map> toAdd = _compareGenreMap(genreMap, await toGenreMap(idBuku: idBuku));
+
+    for (Map m in toDelete){
+      await db.delete("genre_buku", 
+        where: "id_buku = ? AND id_genre = ?",
+        whereArgs: [idBuku,m["id_genre"]]
+      );
+    }
+    for (Map m in toAdd){
+      await db.insert("genre_buku", {
+        "id_buku":idBuku,
+        "id_genre":m["id_genre"]
+      });
+    }    
   }
 
   static Future<void> deleteBuku(int idBuku) async {
@@ -519,6 +612,4 @@ static Future<List<Map>> toGenreMap() async
       "nama_genre":namaGenre
     });
   }
-  
-  static void setState(Null Function() param0) {}
 }
