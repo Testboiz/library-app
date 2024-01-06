@@ -10,7 +10,8 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/costum_color.dart';
 
 class AddBookPage extends StatefulWidget {
-  const AddBookPage({super.key});
+  const AddBookPage({super.key, required this.callback});
+  final VoidCallback callback;
 
   @override
   State<AddBookPage> createState() => _AddBookPageState();
@@ -103,19 +104,17 @@ class _AddBookPageState extends State<AddBookPage> {
                                 color: Colors.white,
                               ),
                               onPressed: () async {
-                                // TODO Upload Foto bang bang
                                 var imagePicker = await ImagePicker().pickImage(source: ImageSource.gallery);
-
                                 if (imagePicker != null) {
-                                  // this 
                                   final appDirectory = await getApplicationDocumentsDirectory();
-                                  // Create a new file path within the app's documents directory
+                                  // menentukan path persisten
                                   final filePath = '${appDirectory.path}/${imagePicker.name}';
                                   final fileFromXFile = imagePicker.path;
-                                  // Save the picked image to the specified path
+                                  // menyimpan file ke path tersebut
                                   await File(filePath).writeAsBytes(File(fileFromXFile).readAsBytesSync());
                                   setState(() {
                                     bookCoverPath = filePath;
+                                    widget.callback();
                                   });
 
                                 }
@@ -296,10 +295,10 @@ class _AddBookPageState extends State<AddBookPage> {
                             synopsisController.text,
                             bookCoverPath, 
                             genre);
-                          
+                          setState(() {
+                            widget.callback();
+                          });
                           Navigator.of(context).pop();
-                          //TODO add SQL function call here
-                          // remember to do a callback
                         },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(

@@ -38,7 +38,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
   void dispose() {
     super.dispose();
   }
-  // add comment 2
 
   @override
   Widget build(BuildContext context) {
@@ -452,7 +451,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const AddBookPage()));
+                              builder: (context) => AddBookPage(callback:rebuild,)));
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
