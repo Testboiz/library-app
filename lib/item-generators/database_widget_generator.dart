@@ -546,7 +546,7 @@ static List<Map> _compareGenreMap(List<Map> first, List<Map> second, {bool remov
   (String judul, 
   String? sinopsis, 
   String? fotoSampul, 
-  List<Map<String,dynamic>> genreMap)
+  List<Map> genreMap)
   async {
     Database db = await SqliteHandler().myOpenDatabase();
     // fase insert buku

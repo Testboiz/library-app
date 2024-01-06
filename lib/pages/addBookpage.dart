@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../constants/costum_color.dart';
 
@@ -290,7 +291,11 @@ class _AddBookPageState extends State<AddBookPage> {
                           if(namaBukuController.text.isEmpty){
                             return;
                           }
-
+                          DatabaseWidgetGenerator.addBuku(
+                            namaBukuController.text, 
+                            synopsisController.text,
+                            bookCoverPath, 
+                            genre);
                           
                           //TODO add SQL function call here
                           // remember to do a callback
