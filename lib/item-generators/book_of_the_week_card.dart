@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -68,12 +70,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            // thumbnail pic
-                            child: Image.asset(
-                              widget.imagePath ?? "assests/Icons/logo.png",
-                              width: 107,
-                              height: 152,
-                              fit: BoxFit.cover,
+                            child: Image(
+                              image: widget.imagePath!.startsWith('assests/')
+                                  ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                  : (widget.imagePath != null)
+                                  ? FileImage(File(widget.imagePath as String))
+                                  : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                            width: 107,
+                            height: 152,
                             ),
                           ),
                           Expanded(
@@ -227,12 +231,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          // thumbnail pic
-                          child: Image.asset(
-                            widget.imagePath ?? "assests/Icons/logo.png",
-                            width: 107,
-                            height: 152,
-                            fit: BoxFit.cover,
+                          child: Image(
+                            image: widget.imagePath!.startsWith('assests/')
+                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                : (widget.imagePath != null)
+                                ? FileImage(File(widget.imagePath as String))
+                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                          width: 107,
+                          height: 152,
                           ),
                         ),
                       ),
@@ -300,12 +306,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              // image
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                              width: 107,
+                              height: 152,
                               ),
                             ),
                             Expanded(
@@ -456,11 +464,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            widget.imagePath ?? "assests/Icons/logo.png",
-                            width: 107,
-                            height: 152,
-                            fit: BoxFit.cover,
+                          child: Image(
+                            image: widget.imagePath!.startsWith('assests/')
+                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                : (widget.imagePath != null)
+                                ? FileImage(File(widget.imagePath as String))
+                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                          width: 107,
+                          height: 152,
                           ),
                         ),
                       ),

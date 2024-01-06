@@ -297,6 +297,7 @@ class _AddBookPageState extends State<AddBookPage> {
                             bookCoverPath, 
                             genre);
                           
+                          Navigator.of(context).pop();
                           //TODO add SQL function call here
                           // remember to do a callback
                         },

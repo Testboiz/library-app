@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/login.dart';
@@ -72,11 +74,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                                    width: 107,
+                                    height: 152,
                               ),
                             ),
                             Expanded(
@@ -208,11 +213,14 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                widget.imagePath ?? "assests/Icons/logo.png",
+              child: Image(
+                image: widget.imagePath!.startsWith('assests/')
+                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                    : (widget.imagePath != null)
+                    ? FileImage(File(widget.imagePath as String))
+                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                 width: 107,
                 height: 152,
-                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -254,11 +262,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                                 width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                                height: 152,                                
                               ),
                             ),
                             Expanded(
@@ -464,12 +475,15 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                widget.imagePath ?? "assests/Icons/logo.png",
+              child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                      : (widget.imagePath != null)
+                      ? FileImage(File(widget.imagePath as String))
+                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                 width: 107,
-                height: 152,
-                fit: BoxFit.cover,
-              ),
+                height: 152,                
+                ),
             ),
           ),
         ),
@@ -511,11 +525,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                                 width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                                height: 152,                              
                               ),
                             ),
                             Expanded(
@@ -650,11 +667,14 @@ class _BookCardState extends State<BookCard> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  widget.imagePath ?? "assests/Icons/logo.png",
-                  width: 107,
-                  height: 152,
-                  fit: BoxFit.cover,
+                child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                      : (widget.imagePath != null)
+                      ? FileImage(File(widget.imagePath as String))
+                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                width: 107,
+                height: 152,
                 ),
               ),
             ),

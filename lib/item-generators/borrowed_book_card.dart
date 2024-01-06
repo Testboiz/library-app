@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -53,11 +55,12 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  widget.imagePath,
-                  width: 75,
-                  height: 200,
-                  fit: BoxFit.cover,
+                child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath) as ImageProvider
+                      : FileImage(File(widget.imagePath)),
+                  width: 107,
+                  height: 152,
                 ),
               ),
               Expanded(
