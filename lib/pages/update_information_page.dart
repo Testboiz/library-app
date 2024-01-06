@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -6,8 +8,10 @@ import 'package:library_app/item-generators/member_card.dart';
 import '../constants/costum_color.dart';
 
 class MemberInformationPage extends StatefulWidget {
-  const MemberInformationPage({super.key, required this.id});
+  const MemberInformationPage({super.key, required this.id, this.callback = _doNothing});
   final String id;
+  final VoidCallback callback;
+  static void _doNothing(){}
 
   @override
   State<MemberInformationPage> createState() => _MemberInformationPageState();
@@ -74,9 +78,6 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                         decoration: const BoxDecoration(
                           color: Color(0x00381D6C),
                         ),
-                        // child: const MemberCard(
-                        //   father: "profile",
-                        // ),
                       ),
                     ),
                   ],
@@ -119,7 +120,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: Column(
                           children: [
-                            const BorrowedBookCard(),
+                            Container(child: DatabaseWidgetGenerator.makeBorrowedBookCards(widget.id, widget.callback)),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: ElevatedButton(
@@ -143,10 +144,13 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                                 style: labelMedium,
                                               )),
                                           TextButton(
-                                              onPressed: () {
-                                                DatabaseWidgetGenerator.kembalikanSemuaBuku(widget.id);
+                                              onPressed: ()  async {
+                                                await DatabaseWidgetGenerator
+                                                    .kembalikanSemuaBuku(
+                                                        widget.id);
                                                 Navigator.of(context).pop();
-                                                // delete query here mas semua nya mas
+                                                Navigator.of(context).pop();
+                                                widget.callback();
                                               },
                                               child: const Text(
                                                 "Sudah",
@@ -412,12 +416,20 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             40, 16, 40, 20),
                         child: ElevatedButton(
                           onPressed: () {
-                            if (namaController.text.isEmpty && passwordController.text.isEmpty && confirmPasswordController.text.isEmpty){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data Tidak Bolek Kosong")));
+                            if (namaController.text.isEmpty &&
+                                passwordController.text.isEmpty &&
+                                confirmPasswordController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text("Data Tidak Bolek Kosong")));
                               return;
                             }
-                            if (passwordController.text != confirmPasswordController.text){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Tidak Cocok")));
+                            if (passwordController.text !=
+                                confirmPasswordController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Password Tidak Cocok")));
                               return;
                             }
                             showDialog(
@@ -440,9 +452,14 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          DatabaseWidgetGenerator.changeMemberInfo(widget.id, namaController.text, passwordController.text);
+                                          DatabaseWidgetGenerator
+                                              .changeMemberInfo(
+                                                  widget.id,
+                                                  namaController.text,
+                                                  passwordController.text);
                                           // keluar sampai home page yang belum login
-                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
                                         },
                                         child: const Text(
                                           "Yakin",
@@ -456,7 +473,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                   ],
                                 );
                               },
-                            );  
+                            );
                           },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(

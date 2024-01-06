@@ -9,7 +9,8 @@ import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.selectedGenre}) : super(key: key);
+  final String? selectedGenre;
 
   @override
   HomePageState createState() => HomePageState();
@@ -17,6 +18,11 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void rebuild(){
+    setState(() {
+    });
+  }
 
   @override
   void initState() {
@@ -27,7 +33,6 @@ class HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,7 @@ class HomePageState extends State<HomePage> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                    MaterialPageRoute(builder: (context) => LoginPage(callback: rebuild,)));
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
@@ -144,7 +149,7 @@ class HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Cate',
+                        'Gen',
                         style: TextStyle(
                           color: Color.fromARGB(255, 243, 177, 106),
                           fontSize: 14,
@@ -153,13 +158,13 @@ class HomePageState extends State<HomePage> {
                         ),
                       ),
                       Text(
-                        'gories',
+                        're',
                         style: bodyMedium,
                       ),
                     ],
                   ),
                 ),
-                const Category(),
+                DatabaseWidgetGenerator.makeCategoryButtons("home"),
                 const SizedBox(
                   height: 15,
                 ),
@@ -167,9 +172,7 @@ class HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child:
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        DatabaseWidgetGenerator.makeBookCards("home"),
+                        DatabaseWidgetGenerator.makeBookCards("home",genre: widget.selectedGenre),
                   ),
                 ),
               ],

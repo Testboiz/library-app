@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
@@ -13,7 +15,8 @@ class BookOfTheWeekCard extends StatefulWidget {
       this.idBuku,
       this.idMember,
       this.imagePath,
-      required this.genre });
+      required this.genre,
+      this.callback = _doNothing});
   final String parent;
   final String judul;
   final String sinopsis;
@@ -21,7 +24,9 @@ class BookOfTheWeekCard extends StatefulWidget {
   final String? idMember;
   final String? imagePath;
   final List<String> genre;
+  final VoidCallback callback;
 
+  static void _doNothing(){}
   @override
   State<BookOfTheWeekCard> createState() => _BookOfTheWeekCardState();
 }
@@ -65,12 +70,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            // thumbnail pic
-                            child: Image.asset(
-                              widget.imagePath ?? "assests/Icons/logo.png",
-                              width: 107,
-                              height: 152,
-                              fit: BoxFit.cover,
+                            child: Image(
+                              image: widget.imagePath!.startsWith('assests/')
+                                  ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                  : (widget.imagePath != null)
+                                  ? FileImage(File(widget.imagePath as String))
+                                  : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                            width: 107,
+                            height: 152,
                             ),
                           ),
                           Expanded(
@@ -87,17 +94,23 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                     overflow: TextOverflow.ellipsis,
                                     style: bodyMedium,
                                   ),
-                                  const Padding(
-                                    padding:  EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 10),
-                                    child: KategoriText(),
-                                    // unbounded height error dong WKWKKWKW
-                                    // child : ListView.builder(scrollDirection: Axis.horizontal,
-                                    //         shrinkWrap: false,
-                                    //         itemCount: widget.genre.length,
-                                    //         itemBuilder: (context, index) {
-                                    //           return KategoriText(namaGenre: widget.genre[index],);
-                                    //         },)
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 10),
+                                    child: SizedBox(
+                                      height: 20,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: false,
+                                        itemCount: widget.genre.length,
+                                        itemBuilder: (context, index) {
+                                          return KategoriText(
+                                            namaGenre: widget.genre[index],
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ),
                                   // sinopsis
                                   Text(
@@ -120,7 +133,11 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   0, 16, 0, 0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
+                                  DatabaseWidgetGenerator.pinjamBuku(
+                                      widget.idMember, widget.idBuku);
+                                  widget.callback();
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                  Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -214,12 +231,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          // thumbnail pic
-                          child: Image.asset(
-                            widget.imagePath ?? "assests/Icons/logo.png",
-                            width: 107,
-                            height: 152,
-                            fit: BoxFit.cover,
+                          child: Image(
+                            image: widget.imagePath!.startsWith('assests/')
+                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                : (widget.imagePath != null)
+                                ? FileImage(File(widget.imagePath as String))
+                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                          width: 107,
+                          height: 152,
                           ),
                         ),
                       ),
@@ -287,12 +306,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              // image
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                              width: 107,
+                              height: 152,
                               ),
                             ),
                             Expanded(
@@ -308,17 +329,23 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       maxLines: 1,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding:   EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(),
-                                      // unbounded height error dong WKWKKWKW
-                                      // child : ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },)
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: SizedBox(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
                                     // sinopsis
                                     Text(
@@ -437,11 +464,14 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            widget.imagePath ?? "assests/Icons/logo.png",
-                            width: 107,
-                            height: 152,
-                            fit: BoxFit.cover,
+                          child: Image(
+                            image: widget.imagePath!.startsWith('assests/')
+                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                : (widget.imagePath != null)
+                                ? FileImage(File(widget.imagePath as String))
+                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                          width: 107,
+                          height: 152,
                           ),
                         ),
                       ),

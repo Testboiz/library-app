@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/database_widget_generator.dart';
 import 'package:library_app/pages/login.dart';
@@ -13,19 +17,22 @@ class BookCard extends StatefulWidget {
   final int idBuku;
   final String? idMember;
   final List<String> genre;
-  const BookCard({
-    super.key,
-    required this.parent,
-    required this.judul,
-    required this.sinopsis,
-    required this.idBuku,
-    this.imagePath,
-    this.idMember,
-    required this.genre
-  });
+  final VoidCallback callback;
+  const BookCard(
+      {super.key,
+      required this.parent,
+      required this.judul,
+      required this.sinopsis,
+      required this.idBuku,
+      this.imagePath,
+      this.idMember,
+      required this.genre,
+      this.callback = doNothing,
+      });
 
   @override
   State<BookCard> createState() => _BookCardState();
+  static void doNothing(){}
 }
 
 class _BookCardState extends State<BookCard> {
@@ -67,11 +74,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
-                                width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                                    width: 107,
+                                    height: 152,
                               ),
                             ),
                             Expanded(
@@ -87,19 +97,23 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child:
-                                          KategoriText(namaGenre: "Kategori1"),
-                                          // unbounded height error dong WKWKKWKW
-                                      //     ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },
-                                      // )
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: SizedBox(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
                                     Text(
                                       widget.sinopsis,
@@ -199,11 +213,14 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                widget.imagePath ?? "assests/Icons/logo.png",
+              child: Image(
+                image: widget.imagePath!.startsWith('assests/')
+                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                    : (widget.imagePath != null)
+                    ? FileImage(File(widget.imagePath as String))
+                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                 width: 107,
                 height: 152,
-                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -245,11 +262,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                                 width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                                height: 152,                                
                               ),
                             ),
                             Expanded(
@@ -265,18 +285,24 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding:  EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori2",
-                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                      //       },
-                                          ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 0, 10),
+                                      child: SizedBox(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
+                                        ),
                                       ),
+                                    ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,
@@ -331,7 +357,49 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          backgroundColor: primary,
+                                          title: const Text(
+                                            "Apakah Kamu Yakin??",
+                                            style: bodyLarge,
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Belum",
+                                                style: labelMedium,
+                                              ),
+                                            ),
+                                            TextButton(
+                                                onPressed: () async {
+                                                   await DatabaseWidgetGenerator
+                                                    .deleteBuku(
+                                                      widget.idBuku);
+                                                  widget.callback();
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text(
+                                                  "Yakin",
+                                                  style: TextStyle(
+                                                    color: error,
+                                                    fontSize: 14,
+                                                    fontFamily: "Readex",
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                )),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
                                       const Size(double.infinity, 60),
@@ -407,12 +475,15 @@ class _BookCardState extends State<BookCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                widget.imagePath ?? "assests/Icons/logo.png",
+              child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                      : (widget.imagePath != null)
+                      ? FileImage(File(widget.imagePath as String))
+                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                 width: 107,
-                height: 152,
-                fit: BoxFit.cover,
-              ),
+                height: 152,                
+                ),
             ),
           ),
         ),
@@ -454,11 +525,14 @@ class _BookCardState extends State<BookCard> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                widget.imagePath ?? "assests/Icons/logo.png",
+                              child: Image(
+                                image: widget.imagePath!.startsWith('assests/')
+                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    : (widget.imagePath != null)
+                                    ? FileImage(File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
                                 width: 107,
-                                height: 152,
-                                fit: BoxFit.cover,
+                                height: 152,                              
                               ),
                             ),
                             Expanded(
@@ -474,19 +548,24 @@ class _BookCardState extends State<BookCard> {
                                       maxLines: 2,
                                       style: bodyMedium,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 6, 0, 10),
-                                      child: KategoriText(namaGenre: "kategori3",
-                                      // unbounded height error dong WKWKKWKW
-                                      // child: ListView.builder(scrollDirection: Axis.horizontal,
-                                      //       shrinkWrap: false,
-                                      //       itemCount: widget.genre.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return KategoriText(namaGenre: widget.genre[index],);
-                                            // },
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 6, 4, 10),
+                                      child: SizedBox(
+                                        height: 20,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: false,
+                                          itemCount: widget.genre.length,
+                                          itemBuilder: (context, index) {
+                                            return KategoriText(
+                                              namaGenre: widget.genre[index],
+                                            );
+                                          },
                                         ),
-                                       ),
+                                      ),
+                                    ),
                                     Text(
                                       widget.sinopsis,
                                       maxLines: 4,
@@ -507,8 +586,14 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () { 
-                                    DatabaseWidgetGenerator.pinjamBuku(widget.idMember, widget.idBuku);
+                                  onPressed: () {
+                                    setState(() {
+                                      DatabaseWidgetGenerator.pinjamBuku(
+                                        widget.idMember, widget.idBuku);
+                                        widget.callback();
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                    Navigator.of(context).pop();
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
@@ -582,11 +667,14 @@ class _BookCardState extends State<BookCard> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  widget.imagePath ?? "assests/Icons/logo.png",
-                  width: 107,
-                  height: 152,
-                  fit: BoxFit.cover,
+                child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                      : (widget.imagePath != null)
+                      ? FileImage(File(widget.imagePath as String))
+                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                width: 107,
+                height: 152,
                 ),
               ),
             ),

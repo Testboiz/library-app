@@ -1,19 +1,42 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
 
 import '../constants/costum_color.dart';
 
 class BorrowedBookCard extends StatefulWidget {
-  // final String imagePath;
-  // final String judul;
-  // final String tglDeadline;
-  final int counter = 3;
-  const BorrowedBookCard({super.key});
+  final String imagePath;
+  final String judul;
+  final String tglDeadline;
+  final int idPeminjaman;
+  final String idMember;
+  final int idBuku;
+  final VoidCallback callback;
+  const BorrowedBookCard({super.key,
+  required this.imagePath,
+  required this.judul,
+  required this.tglDeadline,
+  required this.idPeminjaman,
+  required this.idMember,
+  required this.idBuku,
+  this.callback = _callback
+  });
 
+  static void _callback(){}
   @override
   State<BorrowedBookCard> createState() => _BorrowedBookCardState();
 }
 
 class _BorrowedBookCardState extends State<BorrowedBookCard> {
+  int getDateDiff(){
+    DateFormat dateFormatSQL = DateFormat("yyyy-MM-dd");
+    DateTime deadlineDateFormat = dateFormatSQL.parse(widget.tglDeadline);
+    return deadlineDateFormat.difference(DateTime.now()).inDays;
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,11 +55,12 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://picsum.photos/seed/240/600',
-                  width: 75,
-                  height: 200,
-                  fit: BoxFit.cover,
+                child: Image(
+                  image: widget.imagePath!.startsWith('assests/')
+                      ? AssetImage(widget.imagePath) as ImageProvider
+                      : FileImage(File(widget.imagePath)),
+                  width: 107,
+                  height: 152,
                 ),
               ),
               Expanded(
@@ -47,30 +71,30 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
                               child: Text(
-                                'judul Bang..',
+                                widget.judul,
                                 style: bodyLarge,
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const Text(
-                        'Deadline 30 Desember 2023',
+                      Text(
+                        'Deadline ${widget.tglDeadline}',
                         style: bodyMedium,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            '3 hari lagi',
+                          Text(
+                            '${getDateDiff()} hari lagi',
                             style: bodyMedium,
                           ),
                           ElevatedButton(
@@ -95,9 +119,11 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                                         ),
                                       ),
                                       TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          await DatabaseWidgetGenerator.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
                                           Navigator.of(context).pop();
-                                          // Delete sesuai buku mas
+                                          Navigator.of(context).pop();
+                                          widget.callback();
                                         },
                                         child: const Text(
                                           "Sudah",

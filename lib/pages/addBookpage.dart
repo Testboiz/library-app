@@ -1,5 +1,11 @@
 // ignore_for_file: file_names
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../constants/costum_color.dart';
 
@@ -11,17 +17,25 @@ class AddBookPage extends StatefulWidget {
 }
 
 class _AddBookPageState extends State<AddBookPage> {
-  // Masukkin sini rio pake db buat category checkbox buat add book
-  // status jadiin false semua karena itu buat check box nya
-  // ty wkwk
 
-  List<Map> genre = [
-    {'genre': 'All', 'status': false},
-    {'genre': 'Educational', 'status': false},
-    {'genre': 'Humor', 'status': false},
-    {'genre': 'Adventure', 'status': false},
-    {'genre': 'Misc', 'status': false},
-  ];
+  List<Map> genre = [];
+
+  @override
+  void initState() {
+    setGenre();
+    super.initState();
+  }
+  void setGenre() {
+    Future.delayed(Duration.zero, () async {
+      genre = await DatabaseWidgetGenerator.toGenreMap();
+      setState(() {
+      });
+    });
+  }
+  
+  TextEditingController namaBukuController = TextEditingController();
+  TextEditingController synopsisController = TextEditingController();
+  String bookCoverPath = "assests/Icons/logo.png";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,11 +88,10 @@ class _AddBookPageState extends State<AddBookPage> {
                             alignment: const AlignmentDirectional(-1, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/seed/433/600',
-                                width: 100,
-                                height: 132,
-                                fit: BoxFit.cover,
+                              child: Image(
+                                image: bookCoverPath.startsWith('assests/')
+                                    ? AssetImage(bookCoverPath) 
+                                    : FileImage(File(bookCoverPath)) as ImageProvider,
                               ),
                             ),
                           ),
@@ -89,8 +102,24 @@ class _AddBookPageState extends State<AddBookPage> {
                                 Icons.add,
                                 color: Colors.white,
                               ),
-                              onPressed: () {
-                                // Upload Foto bang bang
+                              onPressed: () async {
+                                // TODO Upload Foto bang bang
+                                var imagePicker = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+                                if (imagePicker != null) {
+                                  // this 
+                                  final appDirectory = await getApplicationDocumentsDirectory();
+                                  // Create a new file path within the app's documents directory
+                                  final filePath = '${appDirectory.path}/${imagePicker.name}';
+                                  final fileFromXFile = imagePicker.path;
+                                  // Save the picked image to the specified path
+                                  await File(filePath).writeAsBytes(File(fileFromXFile).readAsBytesSync());
+                                  setState(() {
+                                    bookCoverPath = filePath;
+                                  });
+
+                                }
+
                               },
                               style: ButtonStyle(
                                   backgroundColor:
@@ -107,6 +136,7 @@ class _AddBookPageState extends State<AddBookPage> {
                         child: SizedBox(
                           width: double.infinity,
                           child: TextFormField(
+                            controller: namaBukuController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Book Name',
@@ -146,7 +176,7 @@ class _AddBookPageState extends State<AddBookPage> {
                             style: bodyMedium,
                             maxLines: 2,
                             minLines: 1,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                           ),
                         ),
                       ),
@@ -154,6 +184,7 @@ class _AddBookPageState extends State<AddBookPage> {
                   ],
                 ),
               ),
+              
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 0, 40),
                 child: GridView(
@@ -164,7 +195,7 @@ class _AddBookPageState extends State<AddBookPage> {
                     childAspectRatio: 3,
                   ),
                   shrinkWrap: true,
-                  children: genre.map((e) {
+                  children:  genre.map((e) {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
@@ -200,9 +231,10 @@ class _AddBookPageState extends State<AddBookPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: TextFormField(
+                      controller: synopsisController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Book Name',
+                        labelText: 'Book Synopsis',
                         labelStyle: labelMedium,
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -255,7 +287,20 @@ class _AddBookPageState extends State<AddBookPage> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(40, 16, 40, 20),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if(namaBukuController.text.isEmpty){
+                            return;
+                          }
+                          DatabaseWidgetGenerator.addBuku(
+                            namaBukuController.text, 
+                            synopsisController.text,
+                            bookCoverPath, 
+                            genre);
+                          
+                          Navigator.of(context).pop();
+                          //TODO add SQL function call here
+                          // remember to do a callback
+                        },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(
                             const Size(double.infinity, 60),
