@@ -2,12 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/pages/addBookpage.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/item-generators/member_card.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key, this.callback = _doNothing, this.selectedGenre}) : super(key: key);
@@ -328,7 +324,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                 if (genreController.text.isEmpty){
                                                   return;
                                                 }
-                                                await DatabaseWidgetGenerator.addGenre(genreController.text);
+                                                await MySQLDBFunctions.addGenre(genreController.text);
+                                                rebuild();
                                                 widget.callback();
                                                 Navigator.of(context).pop();
                                               },
@@ -438,7 +435,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                      child: DatabaseWidgetGenerator.makeCategoryButtons("admin")
+                      child: MySQLDBFunctions.makeCategoryButtons("admin")
                       ),
                     ),
                   ),
@@ -490,7 +487,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                    child: DatabaseWidgetGenerator.makeBookCards("admin", callback: rebuild, genre: widget.selectedGenre),
+                    child: MySQLDBFunctions.makeBookCards("admin", callback: rebuild, genre: widget.selectedGenre),
                   ),
                 ),
                 const Padding(
@@ -519,7 +516,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: SizedBox(
-                    child: DatabaseWidgetGenerator.makeAdminMemberCards(rebuild))
+                    child: MySQLDBFunctions.makeAdminMemberCards(rebuild))
                 ),
               ],
             ),

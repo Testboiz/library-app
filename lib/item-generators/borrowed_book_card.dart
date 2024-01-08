@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 import '../constants/costum_color.dart';
 
@@ -56,7 +56,7 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
-                  image: widget.imagePath!.startsWith('assests/')
+                  image: widget.imagePath.startsWith('assests/')
                       ? AssetImage(widget.imagePath) as ImageProvider
                       : FileImage(File(widget.imagePath)),
                   width: 107,
@@ -120,7 +120,7 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          await DatabaseWidgetGenerator.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
+                                          await MySQLDBFunctions.kembalikanBuku(widget.idPeminjaman, widget.idBuku, widget.idMember);
                                           Navigator.of(context).pop();
                                           Navigator.of(context).pop();
                                           widget.callback();

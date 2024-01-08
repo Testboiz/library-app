@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/item-generators/book_of_the_week_card.dart';
-import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/db-handler/sqlite_handler.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, this.selectedGenre}) : super(key: key);
@@ -142,7 +137,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
+                MySQLDBFunctions.makeBookOfTheWeekCards("home"),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
                   child: Row(
@@ -164,7 +159,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                DatabaseWidgetGenerator.makeCategoryButtons("home"),
+                MySQLDBFunctions.makeCategoryButtons("home"),
                 const SizedBox(
                   height: 15,
                 ),
@@ -172,7 +167,7 @@ class HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child:
-                        DatabaseWidgetGenerator.makeBookCards("home",genre: widget.selectedGenre),
+                        MySQLDBFunctions.makeBookCards("home",genre: widget.selectedGenre),
                   ),
                 ),
               ],

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
@@ -133,7 +133,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   0, 16, 0, 0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  DatabaseWidgetGenerator.pinjamBuku(
+                                  MySQLDBFunctions.pinjamBuku(
                                       widget.idMember, widget.idBuku);
                                   widget.callback();
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));

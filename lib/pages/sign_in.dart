@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
-import 'package:library_app/pages/admin_home.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -493,8 +491,8 @@ class SigninPageState extends State<SigninPage> {
                               final String username = firstNameController.text + lastNameController.text;
                               final String email = emailController.text;
                               final String password = passwordController.text;
-                              if(await DatabaseWidgetGenerator.isMemberUnique(username)){
-                              DatabaseWidgetGenerator.register(
+                              if(await MySQLDBFunctions.isMemberUnique(username)){
+                              MySQLDBFunctions.register(
                                 name: username,
                                 email: email,
                                 password: password

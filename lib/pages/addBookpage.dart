@@ -1,11 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../constants/costum_color.dart';
 
@@ -28,7 +27,7 @@ class _AddBookPageState extends State<AddBookPage> {
   }
   void setGenre() {
     Future.delayed(Duration.zero, () async {
-      genre = await DatabaseWidgetGenerator.toGenreMap();
+      genre = await MySQLDBFunctions.toGenreMap();
       setState(() {
       });
     });
@@ -286,11 +285,11 @@ class _AddBookPageState extends State<AddBookPage> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(40, 16, 40, 20),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async{
                           if(namaBukuController.text.isEmpty){
                             return;
                           }
-                          DatabaseWidgetGenerator.addBuku(
+                          await MySQLDBFunctions.addBuku(
                             namaBukuController.text, 
                             synopsisController.text,
                             bookCoverPath, 

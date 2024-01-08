@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 import '../constants/costum_color.dart';
 
@@ -161,7 +161,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                 0, 16, 0, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                DatabaseWidgetGenerator.deleteMember(widget.memberId);
+                                MySQLDBFunctions.deleteMember(widget.memberId);
                                 widget.callback();
                                 Navigator.of(context).pop();
                               },

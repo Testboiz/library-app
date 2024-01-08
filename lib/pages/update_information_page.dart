@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:library_app/item-generators/borrowed_book_card.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
-import 'package:library_app/item-generators/member_card.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 import '../constants/costum_color.dart';
 
@@ -120,7 +118,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: Column(
                           children: [
-                            Container(child: DatabaseWidgetGenerator.makeBorrowedBookCards(widget.id, widget.callback)),
+                            Container(child: MySQLDBFunctions.makeBorrowedBookCards(widget.id, widget.callback)),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: ElevatedButton(
@@ -145,7 +143,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                               )),
                                           TextButton(
                                               onPressed: ()  async {
-                                                await DatabaseWidgetGenerator
+                                                await MySQLDBFunctions
                                                     .kembalikanSemuaBuku(
                                                         widget.id);
                                                 Navigator.of(context).pop();
@@ -452,7 +450,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          DatabaseWidgetGenerator
+                                          MySQLDBFunctions
                                               .changeMemberInfo(
                                                   widget.id,
                                                   namaController.text,
