@@ -382,6 +382,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
         } else {
           List<BookCard> bookCard = snapshot.data ?? [];
           return GridView.builder(
+            shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
             physics: const NeverScrollableScrollPhysics(),
