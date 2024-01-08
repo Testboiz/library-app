@@ -35,15 +35,15 @@ class MemberPageState extends State<MemberPage> {
     setState(() {}); // Update the UI after receiving the value
   }
 
-
   @override
   void initState() {
     _initializeData();
     super.initState();
   }
+
   void reload() async {
-    int temp =  await MySQLDBFunctions.getSisaPinjamByMember(widget.id);
-    setState(()  {
+    int temp = await MySQLDBFunctions.getSisaPinjamByMember(widget.id);
+    setState(() {
       updateableSisaPinjam = temp;
     });
   }
@@ -166,17 +166,20 @@ class MemberPageState extends State<MemberPage> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                     child: MySQLDBFunctions.makeCategoryButtons("member",
-                    memberInfo: Member(id: widget.id, 
-                    name: widget.name, 
-                    tingkatMember: widget.tingkat, 
-                    sisaPinjam: widget.sisaPinjam, 
-                    books: [])),
+                        memberInfo: Member(
+                            id: widget.id,
+                            name: widget.name,
+                            tingkatMember: widget.tingkat,
+                            sisaPinjam: widget.sisaPinjam,
+                            books: [])),
                   ),
                 ),
               ),
               Expanded(
                   child: MySQLDBFunctions.makeBookCards("member",
-                      idMember: widget.id, callback: reload, genre: widget.genre)),
+                      idMember: widget.id,
+                      callback: reload,
+                      genre: widget.genre)),
             ],
           ),
         ),
