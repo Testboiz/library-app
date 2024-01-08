@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/pages/home.dart';
+import 'package:library_app/db-handler/mysql_handler.dart';
+import 'package:mysql1/mysql1.dart';
 
-void main() {
+
+void main() async {
+  MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+  var memberResult = await conn.query("SELECT * FROM member");
+  print(memberResult.toList()[0]["id_member"]);
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

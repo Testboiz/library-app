@@ -56,7 +56,7 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
-                  image: widget.imagePath!.startsWith('assests/')
+                  image: widget.imagePath.startsWith('assests/')
                       ? AssetImage(widget.imagePath) as ImageProvider
                       : FileImage(File(widget.imagePath)),
                   width: 107,
