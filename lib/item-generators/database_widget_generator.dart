@@ -340,7 +340,6 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
           } else {
             List<Widget> borrowedBookCard = snapshot.data ?? [];
             if (borrowedBookCard.isEmpty) {
-              // TODO perbagus sepuh kepin WKWKWK
               return const Text("Anda Belum Meminjam");
             } else {
               return 

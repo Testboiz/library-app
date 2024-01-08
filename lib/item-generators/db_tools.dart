@@ -9,7 +9,6 @@ import 'package:mysql1/mysql1.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
 import 'package:library_app/constants/membertype.dart';
-//TODO edit INSERT INTO agar tidak perlu menggunakan kolom AUTO_INCREMENT
 class MySQLDBFunctions {
   static void _doNothing(){}
 
@@ -554,11 +553,14 @@ static void pinjamBuku(String? idMember, int? idBuku) async {
   static void addMember(String nama, int tingkat, String? imagePath) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try{
+      final tingkatInfo = await conn.query("SELECT banyak_pinjam FROM tingkat WHERE id_tingkat = ?",
+      [tingkat]);
+      int totalPinjam = tingkatInfo.first["banyak_pinjam"].toInt();
       await conn.query("INSERT INTO member VALUES (?,?,?,?,?,?)",[
         MySQLDBFunctions._generateReadMeId(),
         nama,
         tingkat,
-        -1, //TODO send helper function
+        totalPinjam, 
         0,
         imagePath
       ]);
