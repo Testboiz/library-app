@@ -3,7 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 import 'package:library_app/pages/login.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
@@ -379,7 +379,7 @@ class _BookCardState extends State<BookCard> {
                                             ),
                                             TextButton(
                                                 onPressed: () async {
-                                                   await DatabaseWidgetGenerator
+                                                   await MySQLDBFunctions
                                                     .deleteBuku(
                                                       widget.idBuku);
                                                   widget.callback();
@@ -588,7 +588,7 @@ class _BookCardState extends State<BookCard> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      DatabaseWidgetGenerator.pinjamBuku(
+                                      MySQLDBFunctions.pinjamBuku(
                                         widget.idMember, widget.idBuku);
                                         widget.callback();
                                     });

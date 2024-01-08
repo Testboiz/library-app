@@ -17,7 +17,7 @@ class MySQLDBFunctions {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     final memberKeyTable =
         await conn.query("SELECT RIGHT(MAX(id_member),4) + 1 AS new_id FROM member;");
-    String memberKey = "Readme-${memberKeyTable.first["new_id"]}";
+    String memberKey = "Readme-${memberKeyTable.first["new_id"].toInt()}";
     return memberKey;
   }
   static Future<Map> login(String username, String password) async {
@@ -74,15 +74,15 @@ class MySQLDBFunctions {
       MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
         try {
           String readmeId = await MySQLDBFunctions._generateReadMeId();
-          await conn.query("INSERT INTO member VALUES (?,?,?,?,?)",
+          await conn.query("INSERT INTO member (id_member,nama_member,id_tingkat,sisa_kuota,buku_yang_sudah_dipinjam) VALUES (?,?,?,?,?)",
           [
             readmeId,
             name,
-            0,
+            1,
             3,
             0
           ]);
-          await conn.query("INSERT INTO user_account (username,password,id_member) VALUES (?,?)",
+          await conn.query("INSERT INTO user_account (username,password,id_member) VALUES (?,?,?)",
             [name,password,readmeId]);
         }
         finally{
@@ -168,13 +168,13 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
     for (int i = 0; i < dataList.length; i++) {
       genreLists.add(await findGenresById(dataList[i]["id_buku"] as int));
     }
-
+    // TEXT di MySQL dianggap BLOB di flutter
     return List.generate(
       dataList.length,
       (index) => BookOfTheWeekCard(
         parent: parent,
-        judul: dataList[index]["judul"] as String,
-        sinopsis: dataList[index]["sinopsis"] as String,
+        judul: dataList[index]["judul"],
+        sinopsis: dataList[index]["sinopsis"].toString(),
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
@@ -190,7 +190,7 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
   static Future<int> getSisaPinjamByMember(String memberId) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try{
-      final dataList = await conn.query("SELECT * FROM member WHERE = id_member = ?", [memberId]);
+      final dataList = await conn.query("SELECT * FROM member WHERE id_member = ?", [memberId]);
       return dataList.first["sisa_kuota"] as int;
     }
     finally{
@@ -217,12 +217,13 @@ WHERE genre.nama_genre = ?;""";
     for (int i = 0; i < dataList.length; i++) {
       genreLists.add(await findGenresById(dataList[i]["id_buku"]));
     }
+    // TEXT di MySQL dianggap BLOB di flutter
     return List.generate(
       dataList.length,
       (index) => BookCard(
         parent: parent,
         judul: dataList[index]["judul"] as String,
-        sinopsis: dataList[index]["sinopsis"] as String,
+        sinopsis: dataList[index]["sinopsis"].toString(),
         imagePath: dataList[index]["foto_sampul"] as String?,
         idBuku: dataList[index]["id_buku"] as int,
         idMember: idMember,
@@ -238,6 +239,7 @@ WHERE genre.nama_genre = ?;""";
   static Future<List<BorrowedBookCard>> _generateBorrowedBookCard(String idMember, VoidCallback? callback) async{
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try{
+      DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
       final rawDataList = await conn.query("""SELECT * FROM peminjaman
 LEFT JOIN detail_pinjaman ON peminjaman.id_peminjam = detail_pinjaman.id_peminjaman
 LEFT JOIN buku ON detail_pinjaman.id_buku = buku.id_buku
@@ -246,7 +248,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     return List.generate(dataList.length,
     (index) => BorrowedBookCard(imagePath: dataList[index]["foto_sampul"] as String,
     judul: dataList[index]["judul"] as String, 
-    tglDeadline: dataList[index]["tgl_kadarluasa"] as String, 
+    tglDeadline: sqlDateFormat.format(dataList[index]["tgl_kadarluasa"]), 
     idPeminjaman: dataList[index]["id_peminjaman"] as int, 
     idMember: idMember, 
     idBuku: dataList[index]["id_buku"] as int,
@@ -607,7 +609,7 @@ static void pinjamBuku(String? idMember, int? idBuku) async {
       conn.close();
     }
   }
-  static void addBuku
+  static Future<void> addBuku
   (String judul, 
   String? sinopsis, 
   String? fotoSampul, 

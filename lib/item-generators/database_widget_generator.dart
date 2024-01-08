@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/db-handler/sqlite_handler.dart';
 import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/item-generators/borrowed_book_card.dart';
-import 'package:library_app/model/admin.dart';
 import 'package:library_app/model/member.dart';
 import 'package:library_app/widgets/kategori.dart';
 import 'package:sqflite/sqflite.dart';
 import 'book_card.dart';
 import 'book_of_the_week_card.dart';
 import 'package:library_app/constants/membertype.dart';
-import 'package:library_app/item-generators/member_card.dart';
 
 class DatabaseWidgetGenerator {
   static void _doNothing(){}

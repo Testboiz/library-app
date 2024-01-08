@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/model/member.dart';
-import 'package:library_app/widgets/kategori.dart';
 import 'package:library_app/item-generators/member_card.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class MemberPage extends StatefulWidget {
   const MemberPage(
@@ -43,7 +42,7 @@ class MemberPageState extends State<MemberPage> {
     super.initState();
   }
   void reload() async {
-    int temp =  await DatabaseWidgetGenerator.getSisaPinjamByMember(widget.id);
+    int temp =  await MySQLDBFunctions.getSisaPinjamByMember(widget.id);
     setState(()  {
       updateableSisaPinjam = temp;
     });
@@ -133,7 +132,7 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",
+              MySQLDBFunctions.makeBookOfTheWeekCards("member",
                   idMember: widget.id, callback: reload),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
@@ -166,7 +165,7 @@ class MemberPageState extends State<MemberPage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: DatabaseWidgetGenerator.makeCategoryButtons("member",
+                    child: MySQLDBFunctions.makeCategoryButtons("member",
                     memberInfo: Member(id: widget.id, 
                     name: widget.name, 
                     tingkatMember: widget.tingkat, 
@@ -176,7 +175,7 @@ class MemberPageState extends State<MemberPage> {
                 ),
               ),
               Expanded(
-                  child: DatabaseWidgetGenerator.makeBookCards("member",
+                  child: MySQLDBFunctions.makeBookCards("member",
                       idMember: widget.id, callback: reload, genre: widget.genre)),
             ],
           ),
