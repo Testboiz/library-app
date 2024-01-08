@@ -1,21 +1,29 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/item-generators/admin_member_card.dart';
 import 'package:library_app/pages/addBookpage.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/item-generators/member_card.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class AdminHomePage extends StatefulWidget {
-  const AdminHomePage({Key? key}) : super(key: key);
+  const AdminHomePage({Key? key, this.callback = _doNothing, this.selectedGenre}) : super(key: key);
 
+  final VoidCallback callback;
+  final String? selectedGenre;
+  static void _doNothing(){}
   @override
   AdminHomePageWidgetState createState() => AdminHomePageWidgetState();
 }
 
 class AdminHomePageWidgetState extends State<AdminHomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController genreController = TextEditingController();
+
+  void rebuild(){
+    setState(() {
+      widget.callback();
+    });
+  }
 
   @override
   void initState() {
@@ -26,7 +34,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
   void dispose() {
     super.dispose();
   }
-  // add comment 2
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +251,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                       const BoxDecoration(),
                                                   width: double.infinity,
                                                   child: TextFormField(
+                                                    controller: genreController,
                                                     autofocus: true,
                                                     autofillHints: const [
                                                       AutofillHints.name
@@ -312,8 +320,14 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                               ),
                                             ),
                                             IconButton(
-                                              onPressed: () {
-                                                // Bang rio isi bang/....
+                                              onPressed: () async {
+                                                if (genreController.text.isEmpty){
+                                                  return;
+                                                }
+                                                await MySQLDBFunctions.addGenre(genreController.text);
+                                                rebuild();
+                                                widget.callback();
+                                                Navigator.of(context).pop();
                                               },
                                               icon: const Icon(
                                                   Icons.check_rounded),
@@ -421,15 +435,10 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: const [
-                          Category(),
-                        ],
+                      child: MySQLDBFunctions.makeCategoryButtons("admin")
                       ),
                     ),
                   ),
-                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -439,8 +448,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const AddBookPage()));
-                          print(DatabaseWidgetGenerator.makeBookCards("admin"));
+                              builder: (context) => AddBookPage(callback:rebuild,)));
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -479,7 +487,7 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                    child: DatabaseWidgetGenerator.makeBookCards("admin"),
+                    child: MySQLDBFunctions.makeBookCards("admin", callback: rebuild, genre: widget.selectedGenre),
                   ),
                 ),
                 const Padding(
@@ -507,15 +515,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                      AdminMemberCard(nama: "nama", pass: "pass"),
-                    ],
-                  ),
+                  child: SizedBox(
+                    child: MySQLDBFunctions.makeAdminMemberCards(rebuild))
                 ),
               ],
             ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 import '../constants/costum_color.dart';
 
 class AdminMemberCard extends StatefulWidget {
   const AdminMemberCard(
-      {super.key, required this.nama, required this.pass, this.imagePath});
+      {super.key, required this.nama, required this.pass, required this.memberId, this.imagePath, this.tingkat, required this.callback});
   final String nama;
   final String pass;
+  final String memberId;
   final String? imagePath;
+  final String? tingkat;
+  final VoidCallback callback;
 
   @override
   State<AdminMemberCard> createState() => _AdminMemberCardState();
@@ -45,15 +49,14 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    // Generated code for this Row Widget...
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1515871204537-49a5fe66a31f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyM3x8ZmlyZXdvcmtzfGVufDB8fHx8MTcwMzI5NjkwOXww&ixlib=rb-4.0.3&q=80&w=1080',
+                          child: Image.asset(
+                            'assests/Icons/logo.png',
                             width: 107,
                             height: 109,
                             fit: BoxFit.cover,
@@ -73,20 +76,20 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Column(
+                                    Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 10),
-                                          child: Text('Username ',
+                                          child: Text(widget.nama,
                                               maxLines: 2, style: bodyMedium),
                                         ),
                                         Text(
-                                          'P******rd',
+                                          widget.pass,
                                           maxLines: 4,
                                           style: bodyMedium,
                                         ),
@@ -96,10 +99,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       width: 79,
                                       height: 79,
                                       decoration: const BoxDecoration(),
-                                      child: const Align(
-                                        alignment: AlignmentDirectional(0, 0),
+                                      child: Align(
+                                        alignment: const AlignmentDirectional(0, 0),
                                         child: Text(
-                                          'Tingkatnya',
+                                          widget.tingkat?? "Tak Tersedia",
                                           style: bodyMedium,
                                         ),
                                       ),
@@ -120,7 +123,9 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 16, 0, 0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // Navigator.of(context).push();
+                              },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
                                   const Size(double.infinity, 60),
@@ -155,7 +160,11 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 16, 0, 0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                MySQLDBFunctions.deleteMember(widget.memberId);
+                                widget.callback();
+                                Navigator.of(context).pop();
+                              },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
                                   const Size(double.infinity, 60),
@@ -267,17 +276,17 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                               ),
                             ),
                           ),
-                          const Text(
-                            'UserName',
+                          Text(
+                            widget.nama,
                             style: bodyLarge,
                           ),
                         ],
                       ),
-                      const Column(
+                      Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             'Tingkat',
                             style: labelMedium,
                           ),
@@ -286,9 +295,9 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             children: [
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                                 child: Text(
-                                  'tingkatnya',
+                                  widget.tingkat ?? "Tidak Tersedia",
                                   style: headlineXSmall,
                                 ),
                               ),

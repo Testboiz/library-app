@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
-import 'package:library_app/widgets/kategori.dart';
+import 'package:library_app/model/member.dart';
 import 'package:library_app/item-generators/member_card.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class MemberPage extends StatefulWidget {
   const MemberPage(
@@ -11,13 +11,15 @@ class MemberPage extends StatefulWidget {
       required this.name,
       required this.tingkat,
       required this.sisaPinjam,
-      required this.tglBalik})
+      required this.tglBalik,
+      this.genre})
       : super(key: key);
   final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
   final String? tglBalik;
+  final String? genre;
 
   @override
   MemberPageState createState() => MemberPageState();
@@ -25,10 +27,25 @@ class MemberPage extends StatefulWidget {
 
 class MemberPageState extends State<MemberPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  int? updateableSisaPinjam;
+
+  Future<void> _initializeData() async {
+    // ignore: await_only_futures
+    updateableSisaPinjam = await widget.sisaPinjam;
+    setState(() {}); // Update the UI after receiving the value
+  }
+
 
   @override
   void initState() {
+    _initializeData();
     super.initState();
+  }
+  void reload() async {
+    int temp =  await MySQLDBFunctions.getSisaPinjamByMember(widget.id);
+    setState(()  {
+      updateableSisaPinjam = temp;
+    });
   }
 
   @override
@@ -85,14 +102,14 @@ class MemberPageState extends State<MemberPage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              // do this later
               MemberCard(
                 id: widget.id,
                 name: widget.name,
                 tingkat: widget.tingkat,
-                sisaPinjam: widget.sisaPinjam,
+                sisaPinjam: updateableSisaPinjam ?? widget.sisaPinjam,
                 tglBalik: widget.tglBalik,
                 father: 'member',
+                callback: reload,
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 0),
@@ -115,8 +132,8 @@ class MemberPageState extends State<MemberPage> {
                   ],
                 ),
               ),
-              DatabaseWidgetGenerator.makeBookOfTheWeekCards("member",
-                  idMember: widget.id),
+              MySQLDBFunctions.makeBookOfTheWeekCards("member",
+                  idMember: widget.id, callback: reload),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                 child: Row(
@@ -148,18 +165,18 @@ class MemberPageState extends State<MemberPage> {
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: const [
-                        Category(),
-                      ],
-                    ),
+                    child: MySQLDBFunctions.makeCategoryButtons("member",
+                    memberInfo: Member(id: widget.id, 
+                    name: widget.name, 
+                    tingkatMember: widget.tingkat, 
+                    sisaPinjam: widget.sisaPinjam, 
+                    books: [])),
                   ),
                 ),
               ),
               Expanded(
-                  child: DatabaseWidgetGenerator.makeBookCards("member",
-                      idMember: widget.id)),
+                  child: MySQLDBFunctions.makeBookCards("member",
+                      idMember: widget.id, callback: reload, genre: widget.genre)),
             ],
           ),
         ),

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants/costum_color.dart';
 import 'package:library_app/pages/login.dart';
-import 'package:library_app/item-generators/book_card.dart';
-import 'package:library_app/item-generators/book_of_the_week_card.dart';
-import 'package:library_app/widgets/kategori.dart';
-import 'package:library_app/db-handler/sqlite_handler.dart';
-import 'package:library_app/item-generators/database_widget_generator.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.selectedGenre}) : super(key: key);
+  final String? selectedGenre;
 
   @override
   HomePageState createState() => HomePageState();
@@ -17,6 +13,11 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void rebuild(){
+    setState(() {
+    });
+  }
 
   @override
   void initState() {
@@ -63,7 +64,7 @@ class HomePageState extends State<HomePage> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                    MaterialPageRoute(builder: (context) => LoginPage(callback: rebuild,)));
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
@@ -136,7 +137,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                DatabaseWidgetGenerator.makeBookOfTheWeekCards("home"),
+                MySQLDBFunctions.makeBookOfTheWeekCards("home"),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 15, 0, 10),
                   child: Row(
@@ -158,7 +159,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const Category(),
+                MySQLDBFunctions.makeCategoryButtons("home"),
                 const SizedBox(
                   height: 15,
                 ),
@@ -166,9 +167,7 @@ class HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child:
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        // const BookCard(parent: "home", judul: "hi",sinopsis: "hihi",),
-                        DatabaseWidgetGenerator.makeBookCards("home"),
+                        MySQLDBFunctions.makeBookCards("home",genre: widget.selectedGenre),
                   ),
                 ),
               ],

@@ -11,13 +11,17 @@ class MemberCard extends StatefulWidget {
       required this.name,
       required this.tingkat,
       required this.sisaPinjam,
-      required this.tglBalik});
+      required this.tglBalik,
+      this.callback = _doNothing
+      });
   final String father;
   final String id;
   final String name;
   final String tingkat;
   final int sisaPinjam;
   final String? tglBalik;
+  final VoidCallback callback;
+  static void _doNothing(){}
   @override
   State<MemberCard> createState() => _MemberCardState();
 }
@@ -30,7 +34,7 @@ class _MemberCardState extends State<MemberCard> {
         if (widget.father != "profile") {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => MemberInformationPage(
-                    id: widget.id,
+                    id: widget.id, callback: widget.callback,
                   )));
         }
       },
