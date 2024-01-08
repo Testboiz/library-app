@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/db_tools.dart';
+import 'package:library_app/pages/update_member_via_admin.dart';
 
 import '../constants/costum_color.dart';
 
 class AdminMemberCard extends StatefulWidget {
   const AdminMemberCard(
-      {super.key, required this.nama, required this.pass, required this.memberId, this.imagePath, this.tingkat, required this.callback});
+      {super.key,
+      required this.nama,
+      required this.pass,
+      required this.memberId,
+      this.imagePath,
+      this.tingkat,
+      required this.callback});
   final String nama;
   final String pass;
   final String memberId;
@@ -64,8 +71,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,9 +89,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 10),
                                           child: Text(widget.nama,
                                               maxLines: 2, style: bodyMedium),
                                         ),
@@ -100,9 +106,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                       height: 79,
                                       decoration: const BoxDecoration(),
                                       child: Align(
-                                        alignment: const AlignmentDirectional(0, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0, 0),
                                         child: Text(
-                                          widget.tingkat?? "Tak Tersedia",
+                                          widget.tingkat ?? "Tak Tersedia",
                                           style: bodyMedium,
                                         ),
                                       ),
@@ -115,7 +122,6 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         ),
                       ],
                     ),
-
                     Row(
                       children: [
                         Expanded(
@@ -124,7 +130,9 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                                 0, 16, 0, 0),
                             child: ElevatedButton(
                               onPressed: () {
-                                // Navigator.of(context).push();
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateMemberViaAdmin()));
                               },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
@@ -237,7 +245,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
           decoration: BoxDecoration(
             color: const Color(0xFF342743),
             boxShadow: const [
-               BoxShadow(
+              BoxShadow(
                 blurRadius: 3,
                 color: Color(0x33000000),
                 offset: Offset(0, 1),
@@ -261,7 +269,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 8, 0),
                             child: Container(
                               width: 40,
                               height: 40,
@@ -294,8 +303,8 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 4, 0),
                                 child: Text(
                                   widget.tingkat ?? "Tidak Tersedia",
                                   style: headlineXSmall,

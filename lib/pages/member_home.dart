@@ -84,22 +84,23 @@ class MemberPageState extends State<MemberPage> {
         ),
         actions: const [],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          top: true,
-          child: Container(
-            width: MediaQuery.sizeOf(context).width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF241243),
-                  primaryBackground,
-                ],
-                stops: [0, 0.6],
-                begin: AlignmentDirectional(-0.87, -1),
-                end: AlignmentDirectional(0.87, 1),
-              ),
+      body: SafeArea(
+        top: true,
+        child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF241243),
+                primaryBackground,
+              ],
+              stops: [0, 0.6],
+              begin: AlignmentDirectional(-0.87, -1),
+              end: AlignmentDirectional(0.87, 1),
             ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [

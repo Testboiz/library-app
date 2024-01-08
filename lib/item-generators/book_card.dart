@@ -4,7 +4,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/db_tools.dart';
+import 'package:library_app/pages/home.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:library_app/pages/update_book_page.dart';
+import 'package:library_app/pages/update_member_via_admin.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
 import '../constants/costum_color.dart';
@@ -337,7 +340,13 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    // TODO MAS INI PERLU CALLBACK AKU GK NGERTI BANGGG TOLONG PUHH....
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomePage()));
+                                  },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
                                       const Size(double.infinity, 60),

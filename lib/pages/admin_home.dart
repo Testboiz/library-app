@@ -96,7 +96,10 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 16, 0, 0),
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .popUntil((route) => route.isFirst);
+                                      },
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
                                           const Size(double.infinity, 60),
@@ -258,7 +261,6 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                     child: TextFormField(
                                                       controller:
                                                           genreController,
-                                                      autofocus: true,
                                                       autofillHints: const [
                                                         AutofillHints.name
                                                       ],
@@ -343,22 +345,19 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                                                     Icons.check_rounded),
                                                 color: tertiary,
                                                 style: ButtonStyle(
-                                                    padding:
-                                                        MaterialStateProperty
-                                                            .all(
-                                                                const EdgeInsets
-                                                                    .fromLTRB(
-                                                                    17,
-                                                                    0,
-                                                                    24,
-                                                                    0)),
-                                                    shape: MaterialStateProperty
-                                                        .all(
-                                                            const CircleBorder()),
-                                                    fixedSize:
-                                                        MaterialStateProperty
-                                                            .all(const Size(
-                                                                57, 57))),
+                                                  padding:
+                                                      MaterialStateProperty.all(
+                                                          const EdgeInsets
+                                                              .fromLTRB(
+                                                              17, 0, 24, 0)),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                          const CircleBorder()),
+                                                  fixedSize:
+                                                      MaterialStateProperty.all(
+                                                    const Size(57, 57),
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -501,15 +500,8 @@ class AdminHomePageWidgetState extends State<AdminHomePage> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 200,
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                    child: MySQLDBFunctions.makeBookCards("admin",
-                        callback: rebuild, genre: widget.selectedGenre),
-                  ),
-                ),
+                MySQLDBFunctions.makeBookCards("admin",
+                    callback: rebuild, genre: widget.selectedGenre),
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(14, 12, 0, 10),
                   child: Row(

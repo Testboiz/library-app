@@ -18,15 +18,13 @@ class SigninPageState extends State<SigninPage> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController= TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  void createSnackBar(BuildContext context, String text){
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-        content: Text(text),
-      )
-    );
+  void createSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+    ));
   }
 
   @override
@@ -130,7 +128,6 @@ class SigninPageState extends State<SigninPage> {
                                           width: 196.3,
                                           child: TextFormField(
                                             controller: firstNameController,
-                                            autofocus: true,
                                             autofillHints: const [
                                               AutofillHints.email
                                             ],
@@ -197,7 +194,6 @@ class SigninPageState extends State<SigninPage> {
                                             width: double.infinity,
                                             child: TextFormField(
                                               controller: lastNameController,
-                                              autofocus: true,
                                               autofillHints: const [
                                                 AutofillHints.email
                                               ],
@@ -264,7 +260,6 @@ class SigninPageState extends State<SigninPage> {
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: emailController,
-                                  autofocus: true,
                                   autofillHints: const [AutofillHints.email],
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -478,27 +473,31 @@ class SigninPageState extends State<SigninPage> {
                               0, 10, 0, 16),
                           child: ElevatedButton(
                             onPressed: () async {
-                              if(firstNameController.text.isEmpty && lastNameController.text.isEmpty ){
-                                createSnackBar(context, "Nama tidak boleh kosong");
+                              if (firstNameController.text.isEmpty &&
+                                  lastNameController.text.isEmpty) {
+                                createSnackBar(
+                                    context, "Nama tidak boleh kosong");
                                 return;
                               }
-                              if (passwordController.text != confirmPasswordController.text){
-                                createSnackBar(context, "Password Anda tidak cocok");
+                              if (passwordController.text !=
+                                  confirmPasswordController.text) {
+                                createSnackBar(
+                                    context, "Password Anda tidak cocok");
                                 return;
                               }
-                              
+
                               // make some variables call db services here
-                              final String username = firstNameController.text + lastNameController.text;
+                              final String username = firstNameController.text +
+                                  lastNameController.text;
                               final String email = emailController.text;
                               final String password = passwordController.text;
-                              if(await MySQLDBFunctions.isMemberUnique(username)){
-                              MySQLDBFunctions.register(
-                                name: username,
-                                email: email,
-                                password: password
-                              );
-                              }
-                              else{
+                              if (await MySQLDBFunctions.isMemberUnique(
+                                  username)) {
+                                MySQLDBFunctions.register(
+                                    name: username,
+                                    email: email,
+                                    password: password);
+                              } else {
                                 // ignore: use_build_context_synchronously
                                 createSnackBar(context, "Coba username lain");
                                 return;
