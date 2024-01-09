@@ -371,7 +371,7 @@ class SigninPageState extends State<SigninPage> {
                                 child: TextFormField(
                                   controller: confirmPasswordController,
                                   autofillHints: const [AutofillHints.password],
-                                  obscureText: isHide,
+                                  obscureText: isHideConfirm,
                                   decoration: InputDecoration(
                                     labelText: 'Confirm Password',
                                     labelStyle: labelMedium,

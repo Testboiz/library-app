@@ -246,8 +246,16 @@ class LoginPageState extends State<LoginPage> {
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
+                                  backgroundColor: error,
                                   content: Text(
-                                      'Ups.. Username atau Password salah '),
+                                    'Ups.. Username atau Password salah ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontSize: 14,
+                                      fontFamily: "Readex",
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
                               );
                             }
