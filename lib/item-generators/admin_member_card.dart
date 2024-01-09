@@ -132,7 +132,7 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        UpdateMemberViaAdmin()));
+                                        UpdateMemberViaAdmin(idMember: widget.memberId, callback: widget.callback,)));
                               },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(

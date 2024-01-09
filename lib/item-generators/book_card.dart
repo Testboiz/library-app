@@ -341,11 +341,10 @@ class _BookCardState extends State<BookCard> {
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // TODO MAS INI PERLU CALLBACK AKU GK NGERTI BANGGG TOLONG PUHH....
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) => UpdateBookPage(callback: widget.callback)));
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(

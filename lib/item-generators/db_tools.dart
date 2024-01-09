@@ -117,6 +117,42 @@ class MySQLDBFunctions {
       conn.close();
     }
   }
+  static void changeMemberInfoAdmin(
+    {required String idMember, 
+    required String username, 
+    required String email, 
+    required String password, 
+    required int idTingkatBaru}) async {
+      MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+      try{
+        if (username.isNotEmpty){
+          await conn.query(
+              "UPDATE member SET nama_member = ? WHERE id_member = ?",
+              [username, idMember]);
+        }
+        if(password.isNotEmpty){
+          await conn.query(
+            "UPDATE user_account SET password = ? WHERE id_member = ?",
+            [password, idMember]);
+        }
+        if (email.isNotEmpty){
+          await conn.query(
+            "UPDATE user_account SET username = ? WHERE id_member = ?",
+            [email, idMember]);
+        }
+        // this query sucks but it works
+        // ada mekanisme yang gatel karena dia memengaruhi batas pinjam 
+        await conn.query(
+              """UPDATE member SET id_tingkat = ?,
+              sisa_kuota = (SELECT banyak_pinjam FROM tingkat WHERE id_tingkat = ?)
+              WHERE id_member = ?""",
+              [idTingkatBaru, idTingkatBaru, idMember]);
+      }
+      finally{
+        conn.close();
+      }
+    }
+    
 
   static Future<List<String>> findGenresById(int idBuku) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
@@ -505,6 +541,20 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
                 });
       }
     } finally {
+      conn.close();
+    }
+  }
+  static Future<List<Map<String,dynamic>>> toTingkatList() async {
+    MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+    try{ 
+      final rawDataList = await conn.query("SELECT * FROM tingkat");
+      final dataList = rawDataList.toList();
+      return List.generate(dataList.length, (index) => {
+        "nama_tingkat":dataList[index]["nama_tingkat"] as String,
+        "id_tingkat":dataList[index]["id_tingkat"] as int
+      });
+    }
+    finally{
       conn.close();
     }
   }
