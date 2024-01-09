@@ -508,17 +508,17 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     );
   }
 
-  static Future<List<Map>> toGenreMap({int? idBuku}) async {
+  static Future<List<Map<String,dynamic>>> toGenreMap({int? idBuku}) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
       if (idBuku != null) {
         final rawDataList = await conn.query("SELECT * FROM genre");
         final rawBookGenres = await conn.query(
-            "SELECT * FROM genre_buku WHERE id_buku = ? ORDER BY id_genre ASC");
+            "SELECT * FROM genre_buku WHERE id_buku = ? ORDER BY id_genre ASC", [idBuku]);
         final dataList = rawDataList.toList();
         final bookGenres = rawBookGenres.toList();
         List<int> genreIds = List.generate(
-            bookGenres.length, (index) => bookGenres[index]["id_buku"] as int);
+            bookGenres.length, (index) => bookGenres[index]["id_genre"] as int);
 
         // status true => merupakan genre dari buku itu
         return List.generate(
@@ -567,11 +567,11 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     List<Map> result = [];
     for (int i = 0; i < first.length; i++) {
       if (removeMode == true) {
-        if (first[i]['status'] == true && second[i]['status'] == false) {
+        if (first[i]['status'] == false && second[i]['status'] == true) {
           result.add(first[i]);
         }
       } else {
-        if (first[i]['status'] == false && second[i]['status'] == true) {
+        if (first[i]['status'] == true && second[i]['status'] == false) {
           result.add(first[i]);
         }
       }
@@ -729,7 +729,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     }
   }
 
-  static void editBuku(int idBuku, String judul, String? sinopsis,
+  static Future<void> editBuku(int idBuku, String judul, String? sinopsis,
       String? fotoSampul, List<Map<String, dynamic>> genreMap) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
@@ -743,13 +743,16 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
       List<Map> toAdd =
           _compareGenreMap(genreMap, await toGenreMap(idBuku: idBuku));
       for (Map m in toDelete) {
+        print("deleted genre ${m["id_genre"]}");
         await conn.query(
             "DELETE FROM genre_buku WHERE id_buku = ? AND id_genre = ?",
             [idBuku, m["id_genre"]]);
       }
       for (Map m in toAdd) {
+        print("added genre ${m["id_genre"]}");
+        // membatalkan secara otomatis jika insersi genre duplikat
         await conn.query(
-            "INSERT INTO genre_buku VALUES (?,?)", [idBuku, m["id_genre"]]);
+            "INSERT IGNORE INTO genre_buku VALUES (?,?)", [idBuku, m["id_genre"]]);
       }
     } finally {
       conn.close();

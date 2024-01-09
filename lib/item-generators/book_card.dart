@@ -344,7 +344,7 @@ class _BookCardState extends State<BookCard> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => UpdateBookPage(callback: widget.callback)));
+                                            builder: (context) => UpdateBookPage(callback: widget.callback, idBuku: widget.idBuku,)));
                                   },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
