@@ -78,7 +78,7 @@ class _MemberCardState extends State<MemberCard> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 140,
                           child: Text(
                             widget.name,
