@@ -743,13 +743,11 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
       List<Map> toAdd =
           _compareGenreMap(genreMap, await toGenreMap(idBuku: idBuku));
       for (Map m in toDelete) {
-        print("deleted genre ${m["id_genre"]}");
         await conn.query(
             "DELETE FROM genre_buku WHERE id_buku = ? AND id_genre = ?",
             [idBuku, m["id_genre"]]);
       }
       for (Map m in toAdd) {
-        print("added genre ${m["id_genre"]}");
         // membatalkan secara otomatis jika insersi genre duplikat
         await conn.query(
             "INSERT IGNORE INTO genre_buku VALUES (?,?)", [idBuku, m["id_genre"]]);
