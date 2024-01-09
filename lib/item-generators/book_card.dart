@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:library_app/item-generators/db_tools.dart';
 import 'package:library_app/pages/login.dart';
+import 'package:library_app/pages/update_book_page.dart';
 import 'package:library_app/widgets/kategori_text.dart';
 
 import '../constants/costum_color.dart';
@@ -18,21 +19,21 @@ class BookCard extends StatefulWidget {
   final String? idMember;
   final List<String> genre;
   final VoidCallback callback;
-  const BookCard(
-      {super.key,
-      required this.parent,
-      required this.judul,
-      required this.sinopsis,
-      required this.idBuku,
-      this.imagePath,
-      this.idMember,
-      required this.genre,
-      this.callback = doNothing,
-      });
+  const BookCard({
+    super.key,
+    required this.parent,
+    required this.judul,
+    required this.sinopsis,
+    required this.idBuku,
+    this.imagePath,
+    this.idMember,
+    required this.genre,
+    this.callback = doNothing,
+  });
 
   @override
   State<BookCard> createState() => _BookCardState();
-  static void doNothing(){}
+  static void doNothing() {}
 }
 
 class _BookCardState extends State<BookCard> {
@@ -76,12 +77,17 @@ class _BookCardState extends State<BookCard> {
                               borderRadius: BorderRadius.circular(8),
                               child: Image(
                                 image: widget.imagePath!.startsWith('assests/')
-                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    ? AssetImage(widget.imagePath ??
+                                        "assests/Icons/logo.png")
                                     : (widget.imagePath != null)
-                                    ? FileImage(File(widget.imagePath as String))
-                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                                    width: 107,
-                                    height: 152,
+                                        ? FileImage(
+                                            File(widget.imagePath as String))
+                                        : const AssetImage(
+                                                "assests/Icons/logo.png")
+                                            as ImageProvider,
+                                width: 107,
+                                height: 152,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             Expanded(
@@ -215,12 +221,14 @@ class _BookCardState extends State<BookCard> {
               borderRadius: BorderRadius.circular(8),
               child: Image(
                 image: widget.imagePath!.startsWith('assests/')
-                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png")
                     : (widget.imagePath != null)
-                    ? FileImage(File(widget.imagePath as String))
-                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                        ? FileImage(File(widget.imagePath as String))
+                        : const AssetImage("assests/Icons/logo.png")
+                            as ImageProvider,
                 width: 107,
                 height: 152,
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -256,64 +264,72 @@ class _BookCardState extends State<BookCard> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image(
-                                image: widget.imagePath!.startsWith('assests/')
-                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
-                                    : (widget.imagePath != null)
-                                    ? FileImage(File(widget.imagePath as String))
-                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                                width: 107,
-                                height: 152,                                
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 0, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.judul,
-                                      maxLines: 2,
-                                      style: bodyMedium,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 6, 0, 10),
-                                      child: SizedBox(
-                                        height: 20,
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          shrinkWrap: false,
-                                          itemCount: widget.genre.length,
-                                          itemBuilder: (context, index) {
-                                            return KategoriText(
-                                              namaGenre: widget.genre[index],
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.sinopsis,
-                                      maxLines: 4,
-                                      style: bodyMedium,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                        Expanded(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image(
+                                  image: widget.imagePath!
+                                          .startsWith('assests/')
+                                      ? AssetImage(widget.imagePath ??
+                                          "assests/Icons/logo.png")
+                                      : (widget.imagePath != null)
+                                          ? FileImage(
+                                              File(widget.imagePath as String))
+                                          : const AssetImage(
+                                                  "assests/Icons/logo.png")
+                                              as ImageProvider,
+                                  width: 107,
+                                  height: 152,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.judul,
+                                        maxLines: 2,
+                                        style: bodyMedium,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 6, 0, 10),
+                                        child: SizedBox(
+                                          height: 20,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: false,
+                                            itemCount: widget.genre.length,
+                                            itemBuilder: (context, index) {
+                                              return KategoriText(
+                                                namaGenre: widget.genre[index],
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.sinopsis,
+                                        maxLines: 4,
+                                        style: bodyMedium,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Row(
                           children: [
@@ -322,7 +338,12 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => UpdateBookPage(callback: widget.callback, idBuku: widget.idBuku,)));
+                                  },
                                   style: ButtonStyle(
                                     fixedSize: MaterialStateProperty.all(
                                       const Size(double.infinity, 60),
@@ -379,9 +400,9 @@ class _BookCardState extends State<BookCard> {
                                             ),
                                             TextButton(
                                                 onPressed: () async {
-                                                   await MySQLDBFunctions
-                                                    .deleteBuku(
-                                                      widget.idBuku);
+                                                  await MySQLDBFunctions
+                                                      .deleteBuku(
+                                                          widget.idBuku);
                                                   widget.callback();
                                                   Navigator.of(context).pop();
                                                   Navigator.of(context).pop();
@@ -476,14 +497,16 @@ class _BookCardState extends State<BookCard> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image(
-                  image: widget.imagePath!.startsWith('assests/')
-                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
-                      : (widget.imagePath != null)
-                      ? FileImage(File(widget.imagePath as String))
-                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                image: widget.imagePath!.startsWith('assests/')
+                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png")
+                    : (widget.imagePath != null)
+                        ? FileImage(File(widget.imagePath as String))
+                        : const AssetImage("assests/Icons/logo.png")
+                            as ImageProvider,
                 width: 107,
-                height: 152,                
-                ),
+                height: 152,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -527,12 +550,17 @@ class _BookCardState extends State<BookCard> {
                               borderRadius: BorderRadius.circular(8),
                               child: Image(
                                 image: widget.imagePath!.startsWith('assests/')
-                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    ? AssetImage(widget.imagePath ??
+                                        "assests/Icons/logo.png")
                                     : (widget.imagePath != null)
-                                    ? FileImage(File(widget.imagePath as String))
-                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                                        ? FileImage(
+                                            File(widget.imagePath as String))
+                                        : const AssetImage(
+                                                "assests/Icons/logo.png")
+                                            as ImageProvider,
                                 width: 107,
-                                height: 152,                              
+                                height: 152,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             Expanded(
@@ -589,10 +617,13 @@ class _BookCardState extends State<BookCard> {
                                   onPressed: () {
                                     setState(() {
                                       MySQLDBFunctions.pinjamBuku(
-                                        widget.idMember, widget.idBuku);
-                                        widget.callback();
+                                          widget.idMember, widget.idBuku);
+                                      widget.callback();
                                     });
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text("Buku Sudah Dipinjam!")));
                                     Navigator.of(context).pop();
                                   },
                                   style: ButtonStyle(
@@ -669,12 +700,14 @@ class _BookCardState extends State<BookCard> {
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
                   image: widget.imagePath!.startsWith('assests/')
-                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                      ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png")
                       : (widget.imagePath != null)
-                      ? FileImage(File(widget.imagePath as String))
-                      : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                width: 107,
-                height: 152,
+                          ? FileImage(File(widget.imagePath as String))
+                          : const AssetImage("assests/Icons/logo.png")
+                              as ImageProvider,
+                  width: 107,
+                  height: 152,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

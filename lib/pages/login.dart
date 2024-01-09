@@ -7,9 +7,12 @@ import 'package:library_app/pages/sign_in.dart';
 import 'package:library_app/item-generators/db_tools.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, this.callback = _doNothing,}) : super(key: key);
+  const LoginPage({
+    Key? key,
+    this.callback = _doNothing,
+  }) : super(key: key);
   final VoidCallback callback;
-  static void _doNothing(){}
+  static void _doNothing() {}
   @override
   LoginPageState createState() => LoginPageState();
 }
@@ -110,7 +113,6 @@ class LoginPageState extends State<LoginPage> {
                         width: double.infinity,
                         child: TextFormField(
                           controller: emailController,
-                          autofocus: true,
                           autofillHints: const [AutofillHints.email],
                           obscureText: false,
                           decoration: inputAuthStyle,
@@ -237,7 +239,9 @@ class LoginPageState extends State<LoginPage> {
                             } else if (data["memberType"] == MemberType.admin) {
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => AdminHomePage(callback: widget.callback,)));
+                                  builder: (context) => AdminHomePage(
+                                        callback: widget.callback,
+                                      )));
                             } else {
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(

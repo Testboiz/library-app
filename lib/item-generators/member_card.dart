@@ -12,8 +12,7 @@ class MemberCard extends StatefulWidget {
       required this.tingkat,
       required this.sisaPinjam,
       required this.tglBalik,
-      this.callback = _doNothing
-      });
+      this.callback = _doNothing});
   final String father;
   final String id;
   final String name;
@@ -21,7 +20,7 @@ class MemberCard extends StatefulWidget {
   final int sisaPinjam;
   final String? tglBalik;
   final VoidCallback callback;
-  static void _doNothing(){}
+  static void _doNothing() {}
   @override
   State<MemberCard> createState() => _MemberCardState();
 }
@@ -34,7 +33,8 @@ class _MemberCardState extends State<MemberCard> {
         if (widget.father != "profile") {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => MemberInformationPage(
-                    id: widget.id, callback: widget.callback,
+                    id: widget.id,
+                    callback: widget.callback,
                   )));
         }
       },
@@ -42,7 +42,7 @@ class _MemberCardState extends State<MemberCard> {
         padding: const EdgeInsets.all(4),
         child: Container(
           width: 370,
-          height: 148,
+          height: 160,
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
@@ -66,22 +66,9 @@ class _MemberCardState extends State<MemberCard> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'assests/Icons/logo.png',
-                      width: 44,
-                      height: 44,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      widget.id.toString(),
-                      style: bodyMedium,
-                    ),
-                  ],
+                Text(
+                  widget.id.toString(),
+                  style: headlineSmall,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -91,13 +78,17 @@ class _MemberCardState extends State<MemberCard> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: "Readex",
-                            fontWeight: FontWeight.w500,
+                        SizedBox(
+                          width: 140,
+                          child: Text(
+                            widget.name,
+                            overflow: TextOverflow.clip,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: "Readex",
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                         Text(

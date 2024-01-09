@@ -8,16 +8,17 @@ import 'package:path_provider/path_provider.dart';
 
 import '../constants/costum_color.dart';
 
-class AddBookPage extends StatefulWidget {
-  const AddBookPage({super.key, required this.callback});
+class UpdateBookPage extends StatefulWidget {
+  const UpdateBookPage({super.key, required this.callback, required this.idBuku});
+  final int idBuku;
   final VoidCallback callback;
 
   @override
-  State<AddBookPage> createState() => _AddBookPageState();
+  State<UpdateBookPage> createState() => _UpdateBookPageState();
 }
 
-class _AddBookPageState extends State<AddBookPage> {
-  List<Map> genre = [];
+class _UpdateBookPageState extends State<UpdateBookPage> {
+  List<Map<String,dynamic>> genre = [];
 
   @override
   void initState() {
@@ -40,7 +41,7 @@ class _AddBookPageState extends State<AddBookPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Tambah Buku",
+          "Edit Buku",
           style: headlineSmall,
         ),
         backgroundColor: primary,
@@ -294,14 +295,17 @@ class _AddBookPageState extends State<AddBookPage> {
                             if (namaBukuController.text.isEmpty) {
                               return;
                             }
-                            await MySQLDBFunctions.addBuku(
+                            await MySQLDBFunctions.editBuku(
+                                widget.idBuku,
                                 namaBukuController.text,
                                 synopsisController.text,
                                 bookCoverPath,
-                                genre);
+                                genre
+                                );
                             setState(() {
                               widget.callback();
                             });
+                            Navigator.of(context).pop();
                             Navigator.of(context).pop();
                           },
                           style: ButtonStyle(

@@ -26,7 +26,7 @@ class BookOfTheWeekCard extends StatefulWidget {
   final List<String> genre;
   final VoidCallback callback;
 
-  static void _doNothing(){}
+  static void _doNothing() {}
   @override
   State<BookOfTheWeekCard> createState() => _BookOfTheWeekCardState();
 }
@@ -72,12 +72,17 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                             borderRadius: BorderRadius.circular(8),
                             child: Image(
                               image: widget.imagePath!.startsWith('assests/')
-                                  ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                  ? AssetImage(widget.imagePath ??
+                                      "assests/Icons/logo.png")
                                   : (widget.imagePath != null)
-                                  ? FileImage(File(widget.imagePath as String))
-                                  : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                            width: 107,
-                            height: 152,
+                                      ? FileImage(
+                                          File(widget.imagePath as String))
+                                      : const AssetImage(
+                                              "assests/Icons/logo.png")
+                                          as ImageProvider,
+                              width: 107,
+                              height: 152,
+                              fit: BoxFit.cover,
                             ),
                           ),
                           Expanded(
@@ -136,7 +141,10 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   MySQLDBFunctions.pinjamBuku(
                                       widget.idMember, widget.idBuku);
                                   widget.callback();
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Buku Sudah Dipinjam!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Buku Sudah Dipinjam!")));
                                   Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(
@@ -228,18 +236,19 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image(
-                            image: widget.imagePath!.startsWith('assests/')
-                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
-                                : (widget.imagePath != null)
-                                ? FileImage(File(widget.imagePath as String))
-                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image(
+                          image: widget.imagePath!.startsWith('assests/')
+                              ? AssetImage(
+                                  widget.imagePath ?? "assests/Icons/logo.png")
+                              : (widget.imagePath != null)
+                                  ? FileImage(File(widget.imagePath as String))
+                                  : const AssetImage("assests/Icons/logo.png")
+                                      as ImageProvider,
                           width: 107,
                           height: 152,
-                          ),
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Padding(
@@ -308,12 +317,17 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                               borderRadius: BorderRadius.circular(8),
                               child: Image(
                                 image: widget.imagePath!.startsWith('assests/')
-                                    ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                    ? AssetImage(widget.imagePath ??
+                                        "assests/Icons/logo.png")
                                     : (widget.imagePath != null)
-                                    ? FileImage(File(widget.imagePath as String))
-                                    : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                              width: 107,
-                              height: 152,
+                                        ? FileImage(
+                                            File(widget.imagePath as String))
+                                        : const AssetImage(
+                                                "assests/Icons/logo.png")
+                                            as ImageProvider,
+                                width: 107,
+                                height: 152,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             Expanded(
@@ -466,12 +480,16 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                           borderRadius: BorderRadius.circular(8),
                           child: Image(
                             image: widget.imagePath!.startsWith('assests/')
-                                ? AssetImage(widget.imagePath ?? "assests/Icons/logo.png") 
+                                ? AssetImage(widget.imagePath ??
+                                    "assests/Icons/logo.png")
                                 : (widget.imagePath != null)
-                                ? FileImage(File(widget.imagePath as String))
-                                : const AssetImage("assests/Icons/logo.png") as ImageProvider,
-                          width: 107,
-                          height: 152,
+                                    ? FileImage(
+                                        File(widget.imagePath as String))
+                                    : const AssetImage("assests/Icons/logo.png")
+                                        as ImageProvider,
+                            width: 107,
+                            height: 152,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
