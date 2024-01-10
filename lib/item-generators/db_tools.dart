@@ -80,7 +80,7 @@ class MySQLDBFunctions {
           [readmeId, name, 1, 3, 0]);
       await conn.query(
           "INSERT INTO user_account (username,password,id_member) VALUES (?,?,?)",
-          [email, password, readmeId]);
+          [name, password, readmeId]);
     } finally {
       conn.close();
     }
@@ -117,39 +117,42 @@ class MySQLDBFunctions {
       conn.close();
     }
   }
-
   static void changeMemberInfoAdmin(
-      {required String idMember,
-      required String username,
-      required String email,
-      required String password,
-      required int idTingkatBaru}) async {
-    MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
-    try {
-      if (username.isNotEmpty) {
-        await conn.query(
-            "UPDATE member SET nama_member = ? WHERE id_member = ?",
-            [username, idMember]);
-      }
-      if (password.isNotEmpty) {
-        await conn.query(
+    {required String idMember, 
+    required String username, 
+    required String email, 
+    required String password, 
+    required int idTingkatBaru}) async {
+      MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+      try{
+        if (username.isNotEmpty){
+          await conn.query(
+              "UPDATE member SET nama_member = ? WHERE id_member = ?",
+              [username, idMember]);
+        }
+        if(password.isNotEmpty){
+          await conn.query(
             "UPDATE user_account SET password = ? WHERE id_member = ?",
             [password, idMember]);
-      }
-      if (email.isNotEmpty) {
-        await conn.query(
+        }
+        if (email.isNotEmpty){
+          await conn.query(
             "UPDATE user_account SET username = ? WHERE id_member = ?",
             [email, idMember]);
-      }
-      // this query sucks but it works
-      // ada mekanisme yang gatel karena dia memengaruhi batas pinjam
-      await conn.query("""UPDATE member SET id_tingkat = ?,
+        }
+        // this query sucks but it works
+        // ada mekanisme yang gatel karena dia memengaruhi batas pinjam 
+        await conn.query(
+              """UPDATE member SET id_tingkat = ?,
               sisa_kuota = (SELECT banyak_pinjam FROM tingkat WHERE id_tingkat = ?)
-              WHERE id_member = ?""", [idTingkatBaru, idTingkatBaru, idMember]);
-    } finally {
-      conn.close();
+              WHERE id_member = ?""",
+              [idTingkatBaru, idTingkatBaru, idMember]);
+      }
+      finally{
+        conn.close();
+      }
     }
-  }
+    
 
   static Future<List<String>> findGenresById(int idBuku) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
@@ -505,14 +508,13 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     );
   }
 
-  static Future<List<Map<String, dynamic>>> toGenreMap({int? idBuku}) async {
+  static Future<List<Map<String,dynamic>>> toGenreMap({int? idBuku}) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
       if (idBuku != null) {
         final rawDataList = await conn.query("SELECT * FROM genre");
         final rawBookGenres = await conn.query(
-            "SELECT * FROM genre_buku WHERE id_buku = ? ORDER BY id_genre ASC",
-            [idBuku]);
+            "SELECT * FROM genre_buku WHERE id_buku = ? ORDER BY id_genre ASC", [idBuku]);
         final dataList = rawDataList.toList();
         final bookGenres = rawBookGenres.toList();
         List<int> genreIds = List.generate(
@@ -542,19 +544,17 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
       conn.close();
     }
   }
-
-  static Future<List<Map<String, dynamic>>> toTingkatList() async {
+  static Future<List<Map<String,dynamic>>> toTingkatList() async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
-    try {
+    try{ 
       final rawDataList = await conn.query("SELECT * FROM tingkat");
       final dataList = rawDataList.toList();
-      return List.generate(
-          dataList.length,
-          (index) => {
-                "nama_tingkat": dataList[index]["nama_tingkat"] as String,
-                "id_tingkat": dataList[index]["id_tingkat"] as int
-              });
-    } finally {
+      return List.generate(dataList.length, (index) => {
+        "nama_tingkat":dataList[index]["nama_tingkat"] as String,
+        "id_tingkat":dataList[index]["id_tingkat"] as int
+      });
+    }
+    finally{
       conn.close();
     }
   }
@@ -749,8 +749,8 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
       }
       for (Map m in toAdd) {
         // membatalkan secara otomatis jika insersi genre duplikat
-        await conn.query("INSERT IGNORE INTO genre_buku VALUES (?,?)",
-            [idBuku, m["id_genre"]]);
+        await conn.query(
+            "INSERT IGNORE INTO genre_buku VALUES (?,?)", [idBuku, m["id_genre"]]);
       }
     } finally {
       conn.close();
