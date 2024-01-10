@@ -4,7 +4,9 @@ class MySQLHandler {
 
 static Future<MySqlConnection> mySQLOpenDB() async {
   final settings =  ConnectionSettings(
-  host: '10.0.2.2', 
+  // host: '10.0.2.2', 
+  // host:"localhost",
+  host: "192.168.1.65",
   port: 3306,
   user: 'root',
   db: 'lib_app_db');
