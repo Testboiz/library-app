@@ -21,6 +21,20 @@ class MySQLDBFunctions {
     String memberKey = "Readme-${memberKeyTable.first["new_id"].toInt()}";
     return memberKey;
   }
+  static Future<int> getMaxWaktuPinjam(String idMember) async {
+    MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+    try{
+      final memberTable = await conn.query("""
+SELECT * FROM member 
+LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat
+WHERE member.id_member = ?
+""",[idMember]);
+      return memberTable.first["lama_pinjam"] as int;
+    }
+    finally{
+      conn.close();
+    }
+  }
 
   static Future<Map> login(String username, String password) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
@@ -201,7 +215,7 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
       VoidCallback? callback}) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
-      final rawDataList = await conn.query('SELECT * FROM buku');
+      final rawDataList = await conn.query('SELECT * FROM buku ORDER BY RAND() LIMIT 3');
       final dataList = rawDataList.toList();
       List<List<String>> genreLists = [];
       for (int i = 0; i < dataList.length; i++) {
@@ -579,7 +593,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     return result;
   }
 
-  static void pinjamBuku(String? idMember, int? idBuku) async {
+  static Future<void> pinjamBuku(String? idMember, int? idBuku) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
       DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");

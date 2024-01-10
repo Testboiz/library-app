@@ -614,8 +614,16 @@ class _BookCardState extends State<BookCard> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 16, 0, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
+                                  onPressed: () async {
+                                    if (await MySQLDBFunctions.getSisaPinjamByMember(
+                                      widget.idMember?? "") == 0){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text("Anda Kehabisan Kuota Meminjam!")));
+                                        return;
+                                    }
+                                    setState(()  {
                                       MySQLDBFunctions.pinjamBuku(
                                           widget.idMember, widget.idBuku);
                                       widget.callback();
