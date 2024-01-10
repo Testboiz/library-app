@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/item-generators/db_tools.dart';
 import 'package:library_app/pages/update_information_page.dart';
 
 import '../constants/costum_color.dart';
@@ -25,7 +26,22 @@ class MemberCard extends StatefulWidget {
   State<MemberCard> createState() => _MemberCardState();
 }
 
+
 class _MemberCardState extends State<MemberCard> {
+  int lamaSisaPinjam = -1;
+
+  void _setMaxLamaPinjam(){
+    Future.delayed(Duration.zero, () async {
+      lamaSisaPinjam = await MySQLDBFunctions.getMaxWaktuPinjam(widget.id);
+      setState(() {});
+    });
+  }
+  @override
+  void initState(){
+    _setMaxLamaPinjam();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -124,7 +140,7 @@ class _MemberCardState extends State<MemberCard> {
                                     ),
                                   ),
                                   Text(
-                                    'Tgl Balik       : ',
+                                    'Lama Pinjam : ',
                                     style: bodyMedium,
                                   ),
                                 ],
@@ -147,7 +163,7 @@ class _MemberCardState extends State<MemberCard> {
                                     ),
                                   ),
                                   Text(
-                                    widget.tglBalik ?? "1970-1-1",
+                                    lamaSisaPinjam.toString(),
                                     style: bodyMedium,
                                   ),
                                 ],

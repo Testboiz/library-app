@@ -21,6 +21,20 @@ class MySQLDBFunctions {
     String memberKey = "Readme-${memberKeyTable.first["new_id"].toInt()}";
     return memberKey;
   }
+  static Future<int> getMaxWaktuPinjam(String idMember) async {
+    MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
+    try{
+      final memberTable = await conn.query("""
+SELECT * FROM member 
+LEFT JOIN tingkat ON member.id_tingkat = tingkat.id_tingkat
+WHERE member.id_member = ?
+""",[idMember]);
+      return memberTable.first["lama_pinjam"] as int;
+    }
+    finally{
+      conn.close();
+    }
+  }
 
   static Future<Map> login(String username, String password) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
