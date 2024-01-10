@@ -593,7 +593,7 @@ WHERE peminjaman.id_member = ?;""", [idMember]);
     return result;
   }
 
-  static void pinjamBuku(String? idMember, int? idBuku) async {
+  static Future<void> pinjamBuku(String? idMember, int? idBuku) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
       DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
