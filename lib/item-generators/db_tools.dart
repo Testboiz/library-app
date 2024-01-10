@@ -215,7 +215,7 @@ LEFT JOIN user_account ON member.id_member = user_account.id_member;""");
       VoidCallback? callback}) async {
     MySqlConnection conn = await MySQLHandler.mySQLOpenDB();
     try {
-      final rawDataList = await conn.query('SELECT * FROM buku');
+      final rawDataList = await conn.query('SELECT * FROM buku ORDER BY RAND() LIMIT 3');
       final dataList = rawDataList.toList();
       List<List<String>> genreLists = [];
       for (int i = 0; i < dataList.length; i++) {
