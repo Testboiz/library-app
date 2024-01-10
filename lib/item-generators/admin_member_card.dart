@@ -61,14 +61,12 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            'assests/Icons/logo.png',
-                            width: 107,
-                            height: 109,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(8),
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 100,
+                            )),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -131,8 +129,10 @@ class _AdminMemberCardState extends State<AdminMemberCard> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        UpdateMemberViaAdmin(idMember: widget.memberId, callback: widget.callback,)));
+                                    builder: (context) => UpdateMemberViaAdmin(
+                                          idMember: widget.memberId,
+                                          callback: widget.callback,
+                                        )));
                               },
                               style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(

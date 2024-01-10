@@ -143,8 +143,18 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   widget.callback();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          content:
-                                              Text("Buku Sudah Dipinjam!")));
+                                          backgroundColor:
+                                              Color.fromARGB(255, 67, 196, 97),
+                                          content: Text(
+                                            "Buku Sudah Dipinjam!",
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                              fontSize: 14,
+                                              fontFamily: "Readex",
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )));
                                   Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(

@@ -4,7 +4,8 @@ import 'package:library_app/item-generators/db_tools.dart';
 import '../constants/costum_color.dart';
 
 class UpdateMemberViaAdmin extends StatefulWidget {
-  const UpdateMemberViaAdmin({super.key, required this.idMember, required this.callback});
+  const UpdateMemberViaAdmin(
+      {super.key, required this.idMember, required this.callback});
   final String idMember;
   final VoidCallback callback;
   @override
@@ -15,12 +16,12 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
   bool isHide = true;
   bool isHideConfirm = true;
   int? selectedIdTingkat = 1;
-  List<Map<String,dynamic>> tingkat = [];
+  List<Map<String, dynamic>> tingkat = [];
   TextEditingController namaController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void _setTingkat(){
+  void _setTingkat() {
     Future.delayed(Duration.zero, () async {
       tingkat = await MySQLDBFunctions.toTingkatList();
       setState(() {});
@@ -28,10 +29,11 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
   }
 
   @override
-  void initState(){
+  void initState() {
     _setTingkat();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +99,7 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller:namaController,
+                          controller: namaController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'New Username',
@@ -259,24 +261,27 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: DropdownButtonFormField(
+                          dropdownColor: primaryBackground,
                           items: tingkat.map<DropdownMenuItem<String>>(
                             (Map value) {
                               return DropdownMenuItem<String>(
                                 value: value["id_tingkat"].toString(),
-                                child: Text(value["nama_tingkat"], 
-                                style: const TextStyle(
-                                  color: Colors.amber,
-                                  fontSize: 16,
-                                  fontFamily: "Readex",
-                                  fontWeight: FontWeight.w100,
-                                ),),
+                                child: Text(
+                                  value["nama_tingkat"],
+                                  style: const TextStyle(
+                                    color: Colors.amber,
+                                    fontSize: 16,
+                                    fontFamily: "Readex",
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
                               );
                             },
                           ).toList(),
-                          onChanged: (e)  {
-                            setState(() => selectedIdTingkat = int.tryParse(e ?? "1"));
+                          onChanged: (e) {
+                            setState(() =>
+                                selectedIdTingkat = int.tryParse(e ?? "1"));
                           },
-                          
                           decoration: InputDecoration(
                             labelText: 'Tingkat',
                             labelStyle: labelMedium,
@@ -324,8 +329,7 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
             children: [
               Expanded(
                 child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(40, 16, 40, 20),
+                  padding: const EdgeInsetsDirectional.fromSTEB(40, 16, 40, 20),
                   child: ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -350,11 +354,11 @@ class _UpdateMemberViaAdminState extends State<UpdateMemberViaAdmin> {
                                 onPressed: () async {
                                   // defaults to Newbie
                                   MySQLDBFunctions.changeMemberInfoAdmin(
-                                       idMember: widget.idMember,
-                                       username: namaController.text,
-                                       password: passwordController.text,
-                                       email: emailController.text,
-                                       idTingkatBaru: selectedIdTingkat ?? 1);
+                                      idMember: widget.idMember,
+                                      username: namaController.text,
+                                      password: passwordController.text,
+                                      email: emailController.text,
+                                      idTingkatBaru: selectedIdTingkat ?? 1);
                                   // keluar sampai home page yang belum login
                                   Navigator.of(context)
                                       .popUntil((route) => route.isFirst);
