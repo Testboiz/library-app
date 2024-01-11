@@ -80,6 +80,10 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                       : const AssetImage(
                                               "assests/Icons/logo.png")
                                           as ImageProvider,
+                              errorBuilder: (context, error, stackTrace) => 
+                                Image.asset("assests/Icons/logo.png",
+                                width: 107,
+                                height: 152,),
                               width: 107,
                               height: 152,
                               fit: BoxFit.cover,
@@ -256,6 +260,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                   ? FileImage(File(widget.imagePath as String))
                                   : const AssetImage("assests/Icons/logo.png")
                                       as ImageProvider,
+                          errorBuilder: (context, error, stackTrace) => Image.asset("assests/Icons/logo.png"),
                           width: 107,
                           height: 152,
                           fit: BoxFit.cover,
@@ -335,6 +340,10 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                         : const AssetImage(
                                                 "assests/Icons/logo.png")
                                             as ImageProvider,
+                                errorBuilder: (context, error, stackTrace) => 
+                                  Image.asset("assests/Icons/logo.png",
+                                    width: 107,
+                                    height: 152,),
                                 width: 107,
                                 height: 152,
                                 fit: BoxFit.cover,
@@ -497,6 +506,7 @@ class _BookOfTheWeekCardState extends State<BookOfTheWeekCard> {
                                         File(widget.imagePath as String))
                                     : const AssetImage("assests/Icons/logo.png")
                                         as ImageProvider,
+                            errorBuilder: (context, error, stackTrace) => Image.asset("assests/Icons/logo.png"),
                             width: 107,
                             height: 152,
                             fit: BoxFit.cover,

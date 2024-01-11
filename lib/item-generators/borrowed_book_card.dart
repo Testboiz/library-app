@@ -59,6 +59,7 @@ class _BorrowedBookCardState extends State<BorrowedBookCard> {
                   image: widget.imagePath.startsWith('assests/')
                       ? AssetImage(widget.imagePath) as ImageProvider
                       : FileImage(File(widget.imagePath)),
+                  errorBuilder: (context, error, stackTrace) => Image.asset("assests/Icons/logo.png"),
                   width: 107,
                   height: 152,
                 ),

@@ -94,6 +94,7 @@ class _AddBookPageState extends State<AddBookPage> {
                                       ? AssetImage(bookCoverPath)
                                       : FileImage(File(bookCoverPath))
                                           as ImageProvider,
+                                  errorBuilder: (context, error, stackTrace) => Image.asset("assests/Icons/logo.png"),
                                 ),
                               ),
                             ),
